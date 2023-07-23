@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import AppRoutes from "./componentes/Routing/AppRoutes";
 import store from "./store";
 import { loadUser } from "./actions/auth";
@@ -17,8 +16,8 @@ const queryClient = new QueryClient();
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-        key: "crisis-os-color-scheme",
-        defaultValue: "light",
+        key: "splid-color-scheme",
+        defaultValue: "dark",
     });
 
     const toggleColorScheme = (value?: ColorScheme) =>
@@ -36,21 +35,6 @@ function App() {
             <MantineProvider
                 theme={{
                     colorScheme,
-                    colors: {
-                        brand: [
-                            "#FFD652",
-                            "#FFD447",
-                            "#FFD23D",
-                            "#FFCF33",
-                            "#FFCD29",
-                            "#FFCB1F",
-                            "#FFC914",
-                            "#FFC60A",
-                            "#FFC400",
-                            "#F5BC00",
-                        ],
-                    },
-                    primaryColor: "brand",
                 }}
                 withNormalizeCSS
                 withGlobalStyles

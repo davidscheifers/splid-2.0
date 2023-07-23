@@ -8,6 +8,7 @@ import CreateGroup from "../../pages/create-group";
 import Register from "../../pages/register";
 import GroupPage from "../../pages/group-page";
 import UserSettings from "../../pages/user-settings";
+import AppShell from "./AppShell";
 
 const AppRoutes = () => {
     return (
@@ -20,7 +21,9 @@ const AppRoutes = () => {
                     path="/groups"
                     element={
                         <PrivateRoute>
-                            <Groups />
+                            <AppShell>
+                                <Groups />
+                            </AppShell>
                         </PrivateRoute>
                     }
                 />
@@ -28,7 +31,9 @@ const AppRoutes = () => {
                     path="/groups/:id/*"
                     element={
                         <PrivateRoute>
-                            <GroupPage />
+                            <AppShell>
+                                <GroupPage />
+                            </AppShell>
                         </PrivateRoute>
                     }
                 />
@@ -36,7 +41,9 @@ const AppRoutes = () => {
                     path="/groups/create"
                     element={
                         <PrivateRoute>
-                            <CreateGroup />
+                            <AppShell>
+                                <CreateGroup />
+                            </AppShell>
                         </PrivateRoute>
                     }
                 />
@@ -44,7 +51,9 @@ const AppRoutes = () => {
                     path="/settings"
                     element={
                         <PrivateRoute>
-                            <UserSettings />
+                            <AppShell>
+                                <UserSettings />
+                            </AppShell>
                         </PrivateRoute>
                     }
                 />
