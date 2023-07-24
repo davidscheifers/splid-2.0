@@ -105,7 +105,7 @@ export class BackendStack extends Stack {
       maxAllocatedStorage: 10,
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
-      credentials: rds.Credentials.fromUsername('dbadmin'),
+      credentials: rds.Credentials.fromUsername('libraryadmin'),
       publiclyAccessible: false
     })
 
@@ -113,7 +113,7 @@ export class BackendStack extends Stack {
     rdsInstance.secret?.grantRead(role)
 
     // Secrets for database credentials.
-    const credentials = secrets.Secret.fromSecretCompleteArn(this, 'CredentialsSecret', 'arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-hh02rD')
+    const credentials = secrets.Secret.fromSecretCompleteArn(this, 'CredentialsSecret', 'arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43')
     credentials.grantRead(role)
   
     // Returns function to connect with RDS instance.
