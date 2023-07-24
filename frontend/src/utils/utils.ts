@@ -65,3 +65,7 @@ export function filterDatasetByStringName<T, K extends keyof T>(
         return i.toLowerCase().includes(value.toLowerCase());
     });
 }
+
+export function classNames(...classes: (string | undefined | null | false)[]) {
+    return classes.filter(Boolean).join(" ");
+}
