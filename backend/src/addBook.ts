@@ -44,7 +44,7 @@ export const handler: Handler = async (event:IAddEvent) => {
       }', '${
         event.name
       }', '{${
-        event.authors  
+        event.authors
       }}', '{${
         event.languages
       }}', '{${

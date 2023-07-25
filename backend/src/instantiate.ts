@@ -7,8 +7,6 @@ const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
 
 const secrets = new SecretsManager();
 
-//this is just an example to test database connection with sample data.
-
 export const handler: Handler = async () => {
     try {
       // Retrieve RDS Admin credentials
@@ -41,7 +39,7 @@ export const handler: Handler = async () => {
       console.log('setup completed!');
       await client.end();
   
-      // Instantiate RDS Client with new user 
+      // Instantiate RDS Client with new user
       console.log('instantiating client with new user...');
       const userClient = new Client({
         host: admin.host,
