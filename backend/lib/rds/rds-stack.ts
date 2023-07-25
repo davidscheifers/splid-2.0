@@ -8,9 +8,9 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as cr from 'aws-cdk-lib/custom-resources';
 
-export class RdsDatabase extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+export class RdsDatabase extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
 
     // VPC for RDS and Lambda resolvers
     const vpc = new ec2.Vpc(this, 'VPC', {
