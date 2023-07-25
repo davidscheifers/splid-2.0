@@ -8,10 +8,10 @@ import {
 } from "@mantine/core";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { logout } from "../../actions/auth";
 
 import { IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import { logout } from "../../features/actions/auth";
 
 const TopNavigation = () => {
     const dispatch = useDispatch();

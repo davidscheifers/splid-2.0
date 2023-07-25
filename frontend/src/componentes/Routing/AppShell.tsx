@@ -1,5 +1,5 @@
 import { Container } from "@mantine/core";
-import TopNavigation from "./TopNavigation";
+import TopNavigation from "../Navigation/TopNavigation";
 
 type AppShellProps = {
     children: React.ReactNode;

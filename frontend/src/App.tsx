@@ -1,7 +1,4 @@
 import React from "react";
-import AppRoutes from "./componentes/Routing/AppRoutes";
-import store from "./store";
-import { loadUser } from "./actions/auth";
 import {
     ColorScheme,
     ColorSchemeProvider,
@@ -11,6 +8,9 @@ import { useLocalStorage } from "@mantine/hooks";
 import { Notifications } from "@mantine/notifications";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
+import AppRoutes from "./router";
+import store from "./app/store";
+import { loadUser } from "./features/actions/auth";
 
 const queryClient = new QueryClient();
 

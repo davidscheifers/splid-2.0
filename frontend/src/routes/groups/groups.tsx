@@ -1,15 +1,16 @@
-import { Button, Group, TextInput, Title } from "@mantine/core";
-import { dummyExpenses, filterDatasetByStringName } from "../utils/utils";
 import { Link } from "react-router-dom";
+import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import ExpenseTeaser from "../componentes/Group/Expense/ExpenseTeaser";
 import { useState } from "react";
+import GroupTeaser from "../../features/Group/GroupTeaser";
+import { filterDatasetByStringName } from "../../utils/functions/functions";
+import { dummyGroups } from "../../utils/data/data";
 
-const Expenses = () => {
+const Groups = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredGroups = filterDatasetByStringName(
-        dummyExpenses,
+        dummyGroups,
         "name",
         searchQuery
     );
@@ -17,22 +18,22 @@ const Expenses = () => {
     return (
         <>
             <Group position="apart" mb="lg">
-                <Title>Expenses</Title>
-                <Link to="create">
-                    <Button variant="default">Create Expense</Button>
+                <Title>Groups</Title>
+                <Link to="/groups/create">
+                    <Button variant="default">Create Group</Button>
                 </Link>
             </Group>
             <TextInput
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}
                 mb="md"
-                placeholder="Search Expenses"
+                placeholder="Search Groups"
                 icon={<IconSearch size={20} />}
             />
-            {filteredGroups.map((expense) => {
-                return <ExpenseTeaser key={expense.id} expense={expense} />;
+            {filteredGroups.map((group) => {
+                return <GroupTeaser key={group.id} group={group} />;
             })}
         </>
     );
 };
-export default Expenses;
+export default Groups;

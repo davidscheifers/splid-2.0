@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "../../pages/home";
-import Login from "../../pages/login";
-import NotFound from "../../pages/not-found";
-import PrivateRoute from "./PrivateRoute";
-import Groups from "../../pages/groups";
-import CreateGroup from "../../pages/create-group";
-import Register from "../../pages/register";
-import GroupPage from "../../pages/group-page";
-import UserSettings from "../../pages/user-settings";
-import AppShell from "./AppShell";
+import HomePage from "./routes/home";
+import Login from "./routes/login";
+import Register from "./routes/register";
+import PrivateRoute from "./componentes/Routing/PrivateRoute";
+import AppShell from "./componentes/Routing/AppShell";
+import Groups from "./routes/groups/groups";
+import GroupPage from "./routes/groups/group-page";
+import CreateGroup from "./routes/groups/create-group";
+import UserSettings from "./routes/users/user-settings";
+import NotFound from "./routes/not-found";
 
 const AppRoutes = () => {
     return (

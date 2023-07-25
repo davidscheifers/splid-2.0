@@ -1,10 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 
-import { API_URL } from "../utils/constants";
-import setAuthToken from "../utils/set-authtoken";
-import { API_ENDPOINTS } from "../utils/constants";
 import { NotificationsEvents } from "@mantine/notifications/lib/events";
+import setAuthToken from "../../utils/functions/set-authtoken";
+import { API_URL, apiEndPoints } from "../../utils/constants/constants";
 
 export const loadUser = () => async (dispatch: Dispatch<AuthAction>) => {
     const token = localStorage.getItem("token");
@@ -44,7 +43,7 @@ export const login =
         try {
             setLoading(true);
             const res: AxiosResponse<{ token: string }> = await axios.post(
-                `${API_URL}${API_ENDPOINTS.LOGIN}`,
+                `${API_URL}${apiEndPoints.auth.login}`,
                 { username: loginData.email, password: loginData.password },
                 {
                     headers: {

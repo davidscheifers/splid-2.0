@@ -1,7 +1,8 @@
 import { Avatar, Group, Title, Text } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import { displayCurrency, dummyExpenses } from "../utils/utils";
 import dayjs from "dayjs";
+import { dummyExpenses } from "../../utils/data/data";
+import { displayCurrency } from "../../utils/functions/functions";
 
 const ExpensePage = () => {
     const { id } = useParams<{ id: string }>();

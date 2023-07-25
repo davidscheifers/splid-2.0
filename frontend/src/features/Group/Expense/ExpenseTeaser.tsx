@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { TDummyExpense } from "../../../types/group";
 import { Avatar, Group, Title, Text } from "@mantine/core";
-import { displayCurrency } from "../../../utils/utils";
+import { displayCurrency } from "../../../utils/functions/functions";
 
 type ExpenseTeaserProps = {
     expense: TDummyExpense;

@@ -1,9 +1,9 @@
 import { Title } from "@mantine/core";
 import { Route, Routes, useParams } from "react-router-dom";
-import Balance from "./balance";
-import Expenses from "./expenses";
-import GroupNavigation from "../componentes/Group/GroupNavigation";
-import ExpensePage from "./expense-page";
+import GroupNavigation from "../../features/Group/GroupNavigation";
+import Balance from "../balance/balance";
+import Expenses from "../expenses/expenses";
+import ExpensePage from "../expenses/expense-page";
 
 const GroupPage = () => {
     const { id } = useParams<{ id: string }>();
