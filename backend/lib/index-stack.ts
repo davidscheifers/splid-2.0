@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { RdsDatabase } from './rds/rds-stack';
+import { RdsDatabase } from './rds/rds';
 
 
 export class MyAppStack extends cdk.Stack {
