@@ -2,7 +2,7 @@ import { ICdkTsApiGatewayStackProps } from './stack-config-types';
 
 const environmentConfig: ICdkTsApiGatewayStackProps = {
   tags: {
-    Developer: 'Team: Splid',
+    Developer: 'Team Splid',
     Application: 'Splid-2.0',
   },
   lambda: {
