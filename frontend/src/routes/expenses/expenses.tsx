@@ -1,7 +1,7 @@
 import { Button, Group, TextInput, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { IconSearch } from "@tabler/icons-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
 import { filterDatasetByStringName } from "../../utils/functions/functions";
 import { dummyExpenses } from "../../utils/data/data";
@@ -9,10 +9,9 @@ import { dummyExpenses } from "../../utils/data/data";
 const Expenses = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredGroups = filterDatasetByStringName(
-        dummyExpenses,
-        "name",
-        searchQuery
+    const filteredGroups = useMemo(
+        () => filterDatasetByStringName(dummyExpenses, "name", searchQuery),
+        [searchQuery, dummyExpenses]
     );
 
     return (

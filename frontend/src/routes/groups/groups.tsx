@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import GroupTeaser from "../../features/Group/GroupTeaser";
 import { filterDatasetByStringName } from "../../utils/functions/functions";
 import { dummyGroups } from "../../utils/data/data";
@@ -9,10 +9,9 @@ import { dummyGroups } from "../../utils/data/data";
 const Groups = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredGroups = filterDatasetByStringName(
-        dummyGroups,
-        "name",
-        searchQuery
+    const filteredGroups = useMemo(
+        () => filterDatasetByStringName(dummyGroups, "name", searchQuery),
+        [searchQuery, dummyGroups]
     );
 
     return (
