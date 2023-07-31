@@ -105,7 +105,7 @@ export class RdsDatabase extends cdk.Stack {
       maxAllocatedStorage: 10,
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
-      credentials: rds.Credentials.fromUsername('admin'),
+      credentials: rds.Credentials.fromUsername('splidUser'),
       publiclyAccessible: false
     })
     rdsInstance.secret?.grantRead(role)
@@ -134,7 +134,7 @@ export class RdsDatabase extends cdk.Stack {
       }
     })
 
-    // Instantiate new db with user and permissions also add table.
+    // Instantiate new db with user and permissions
     const instantiate = createResolver('instantiate', 'src/instantiate.ts');
     instantiate.node.addDependency(rdsInstance);
 

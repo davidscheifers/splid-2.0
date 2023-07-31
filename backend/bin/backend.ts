@@ -14,7 +14,7 @@ const app = new cdk.App();
 const rdsStack = new RdsDatabase(app, 'RdsDatabase', environmentConfig);
 
 // API-GATEWAY
-const apiStack = new ApiGateway(app, 'ApiGateway', environmentConfig);
+//const apiStack = new ApiGateway(app, 'ApiGateway', environmentConfig);
 
 
 
