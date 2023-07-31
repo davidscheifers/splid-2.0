@@ -7,10 +7,11 @@ import * as secrets from 'aws-cdk-lib/aws-secretsmanager';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as cr from 'aws-cdk-lib/custom-resources';
+import { ICdkTsApiGatewayStackProps } from '../../bin/stack-config-types';
 
-export class RdsDatabase extends Construct {
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
+export class RdsDatabase extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: ICdkTsApiGatewayStackProps) {
+    super(scope, id, props);
 
     // VPC for RDS and Lambda resolvers
     const vpc = new ec2.Vpc(this, 'VPC', {
