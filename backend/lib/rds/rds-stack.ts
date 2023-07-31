@@ -138,12 +138,8 @@ export class RdsDatabase extends cdk.Stack {
     const instantiate = createResolver('instantiate', 'src/instantiate.ts');
     instantiate.node.addDependency(rdsInstance);
 
-    // Lambda function for adding a book in the RDS table.
-    const addBook = createResolver('add-book', 'src/addBook.ts');
-    addBook.node.addDependency(rdsInstance);
-
-    // Lambda function for gettings books in the RDS table.
-    const getBooks = createResolver('get-books', 'src/getBooks.ts');
+    // Lambda function for gettings groups in the RDS table.
+    const getBooks = createResolver('get-groups', 'src/groups/getGroups.ts');
     getBooks.node.addDependency(rdsInstance);
 
     // Custom Resource to execute instantiate function.
