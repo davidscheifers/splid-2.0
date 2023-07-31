@@ -1,6 +1,6 @@
-import { ICdkTsApiGatewayStackProps } from './stack-config-types';
+import { IApiGatewayStackProps } from './stack-config-types';
 
-const environmentConfig: ICdkTsApiGatewayStackProps = {
+const environmentConfig: IApiGatewayStackProps = {
   tags: {
     Developer: 'Team Splid',
     Application: 'Splid-2.0',

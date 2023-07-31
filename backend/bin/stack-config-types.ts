@@ -1,6 +1,6 @@
 import { StackProps } from 'aws-cdk-lib';
 
-export interface ICdkTsApiGatewayStackProps extends StackProps {
+export interface IApiGatewayStackProps extends StackProps {
   lambda: {
     name: string,
     desc: string,
