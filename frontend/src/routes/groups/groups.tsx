@@ -20,9 +20,14 @@ const Groups = () => {
         <>
             <Group position="apart" mb="lg">
                 <Title>{t("groups.title")}</Title>
-                <Link to="/groups/create">
-                    <Button variant="default">Create Group</Button>
-                </Link>
+                <Group>
+                    <Link to="/groups/join">
+                        <Button variant="default">Join Group</Button>
+                    </Link>
+                    <Link to="/groups/create">
+                        <Button variant="default">Create Group</Button>
+                    </Link>
+                </Group>
             </Group>
             <TextInput
                 value={searchQuery}
