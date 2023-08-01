@@ -9,7 +9,7 @@ const secrets = new SecretsManager();
 export const instantiateRdsClient = async () => {
 
     // Retrieve RDS User credentials
-    console.log('retrieving library credentials...');
+    console.log('retrieving spliddb credentials...');
     const credentialsSecret = await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise();
     const credentials = JSON.parse(credentialsSecret.SecretString as string);
 
@@ -19,7 +19,7 @@ export const instantiateRdsClient = async () => {
         host: HOST,
         user: credentials.user,
         password: credentials.password,
-        database: 'librarydb',
+        database: 'spliddb',
         port: 5432,
     });
 

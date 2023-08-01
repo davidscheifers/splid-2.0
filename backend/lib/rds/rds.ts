@@ -9,9 +9,9 @@ import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { IApiGatewayStackProps } from '../../bin/stack-config-types';
 
-export class RdsDatabase extends cdk.Stack {
+export class RdsDatabase extends Construct {
   constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
-    super(scope, id, props);
+    super(scope, id);
 
     // VPC for RDS and Lambda resolvers
     const vpc = new ec2.Vpc(this, 'VPC', {

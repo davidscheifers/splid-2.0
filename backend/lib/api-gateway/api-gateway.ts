@@ -4,9 +4,9 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { IApiGatewayStackProps, IValidators } from '../../bin/stack-config-types'
 
-export class ApiGateway extends cdk.Stack {
+export class ApiGateway extends Construct {
     constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
-        super(scope, id, props);
+        super(scope, id);
 
          // Lambda for resolving API requests
     const resolver = new lambda.Function(this, 'LambdaResolver', {
