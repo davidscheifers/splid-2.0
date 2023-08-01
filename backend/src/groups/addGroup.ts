@@ -1,48 +1,46 @@
-// import { Handler } from 'aws-lambda';
-// import { SecretsManager } from 'aws-sdk';
-// import { Client } from 'pg';
-// import { instantiateRdsClient } from './utils/db-connection';
+import { Handler } from 'aws-lambda';
+import { SecretsManager } from 'aws-sdk';
+import { Client } from 'pg';
+import { instantiateRdsClient } from '../utils/db-connection';
+import { uuid } from 'aws-sdk/clients/customerprofiles';
 
-// const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
-// const HOST = process.env.HOST!;
+const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
+const HOST = process.env.HOST!;
 
-// const secrets = new SecretsManager();
+const secrets = new SecretsManager();
 
-// interface IAddEvent {
-//     isbn: string,
-//     name: string,
-//     authors: string[],
-//     languages: string[],
-//     countries: string[],
-//     numberOfPages: number,
-//     releaseDate: string,
-// }
+interface IAddEvent {
+    id: uuid,
+    name: string,
+    picture_path: string,
+    description: string,
+    created_by: string,
+    created_at: Date,
+    updated_at: Date,
+}
 
-// export const handler: Handler = async (event: IAddEvent) => {
+export const handler: Handler = async (event: IAddEvent) => {
 
-//     let client: Client;
+    let client: Client;
 
-//     try {
-//         //instantiate the database client
-//         client = await instantiateRdsClient();
+    try {
+        //instantiate the database client
+        client = await instantiateRdsClient();
 
-//         console.log('adding book...');
-//         await client.query(`INSERT INTO library (isbn, name, authors, languages, countries, numberOfPages, releaseDate) 
-//         VALUES('${event.isbn
-//             }', '${event.name
-//             }', '{${event.authors
-//             }}', '{${event.languages
-//             }}', '{${event.countries
-//             }}', '${event.numberOfPages
-//             }', '${event.releaseDate
-//             }')`);
+        console.log('adding group...');
+        const queryText = `INSERT INTO "Group" (id, name, picture_path, description, created_by, created_at, updated_at) 
+        VALUES($1, $2, $3, $4, $5, $6, $7)`;
 
-//         // Break connection
-//         console.log('tasks completed!');
-//         await client.end();
+        const queryValues = [event.id, event.name, event.picture_path, event.description, event.created_by, event.created_at, event.updated_at];
+
+        await client.query(queryText, queryValues);
+
+        // Break connection
+        console.log('tasks completed!');
+        await client.end();
         
-//     } catch (error) {
-//         console.error('Error creating database:', error);
-//         throw error;
-//     }
-// };
+    } catch (error) {
+        console.error('Error creating database:', error);
+        throw error;
+    }
+};

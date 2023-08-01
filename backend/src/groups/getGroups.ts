@@ -2,6 +2,7 @@ import { Handler } from 'aws-lambda';
 import { SecretsManager } from 'aws-sdk';
 import { Client } from 'pg';
 import { instantiateRdsClient } from '../utils/db-connection';
+import { uuid } from 'aws-sdk/clients/customerprofiles';
 
 const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
 const HOST = process.env.HOST!;
@@ -9,13 +10,13 @@ const HOST = process.env.HOST!;
 const secrets = new SecretsManager();
 
 interface IAddEvent {
-    isbn: string,
+    id: uuid,
     name: string,
-    authors: string[],
-    languages: string[],
-    countries: string[],
-    numberOfPages: number,
-    releaseDate: string,
+    picture_path: string,
+    description: string,
+    created_by: string,
+    created_at: Date,
+    updated_at: Date,
 }
 
 export const handler: Handler = async (event: IAddEvent) => {
@@ -27,7 +28,7 @@ export const handler: Handler = async (event: IAddEvent) => {
         client = await instantiateRdsClient();
 
         console.log('getting groups');
-        const query = await client.query('SELECT * FROM Group LIMIT 10');
+        const query = await client.query('SELECT * FROM "Group" LIMIT 10');
         console.log(query.rows);
         
         // Break connection
