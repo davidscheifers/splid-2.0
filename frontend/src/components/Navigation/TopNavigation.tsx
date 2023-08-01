@@ -12,6 +12,7 @@ import { bindActionCreators } from "redux";
 import { IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { logout } from "../../features/actions/auth";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const TopNavigation = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const TopNavigation = () => {
                     <Title order={3}>Splid 2.0</Title>
                 </Link>
                 <Group>
+                    <LanguageSwitcher />
                     <ActionIcon
                         variant="outline"
                         color="yellow"

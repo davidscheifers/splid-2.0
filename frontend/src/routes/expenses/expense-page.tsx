@@ -1,14 +1,14 @@
 import { Avatar, Group, Title, Text } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { dummyExpenses } from "../../utils/data/data";
 import { displayCurrency } from "../../utils/functions/functions";
 
 const ExpensePage = () => {
-    const { id } = useParams<{ id: string }>();
+    const { expenseId, id } = useParams<{ expenseId: string; id: string }>();
 
     const expense = dummyExpenses.find(
-        (expense) => expense.id === parseInt(id || "")
+        (expense) => expense.id === parseInt(expenseId || "")
     );
 
     return (
@@ -41,10 +41,12 @@ const ExpensePage = () => {
                     <Group mb="md">
                         {expense.for.map((user) => {
                             return (
-                                <Group key={user.id}>
-                                    <Avatar radius="xl" />
-                                    <Title order={4}>{user.name}</Title>
-                                </Group>
+                                <Link to={`/groups/${id}/users/${user.id}`}>
+                                    <Group key={user.id}>
+                                        <Avatar radius="xl" />
+                                        <Title order={4}>{user.name}</Title>
+                                    </Group>
+                                </Link>
                             );
                         })}
                     </Group>

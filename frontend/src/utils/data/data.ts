@@ -1,9 +1,15 @@
-import { TDummyExpense, TDummyGroup } from "../../types/group";
+import { TDummyExpense, TDummyGroup, TDummyUser } from "../../types/group";
 
 export const dummyGroups: TDummyGroup[] = [
     { id: 1, name: "Group 1", currency: "EUR", code: "4ZM NSP Z5V" },
     { id: 2, name: "Group 2", currency: "EUR", code: "5ZQ NRP P5V" },
     { id: 3, name: "Group 3", currency: "EUR", code: "N2M NUB Z7V" },
+];
+
+export const dummyUsers: TDummyUser[] = [
+    { id: 1, name: "User 1" },
+    { id: 2, name: "User 2" },
+    { id: 3, name: "User 3" },
 ];
 
 export const dummyExpenses: TDummyExpense[] = [

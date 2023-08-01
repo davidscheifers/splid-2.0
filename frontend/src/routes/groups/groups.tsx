@@ -5,8 +5,10 @@ import { useMemo, useState } from "react";
 import GroupTeaser from "../../features/Group/GroupTeaser";
 import { filterDatasetByStringName } from "../../utils/functions/functions";
 import { dummyGroups } from "../../utils/data/data";
+import { useTranslation } from "react-i18next";
 
 const Groups = () => {
+    const { t } = useTranslation();
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredGroups = useMemo(
@@ -17,7 +19,7 @@ const Groups = () => {
     return (
         <>
             <Group position="apart" mb="lg">
-                <Title>Groups</Title>
+                <Title>{t("groups.title")}</Title>
                 <Link to="/groups/create">
                     <Button variant="default">Create Group</Button>
                 </Link>

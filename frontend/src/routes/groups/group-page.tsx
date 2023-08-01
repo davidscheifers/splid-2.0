@@ -4,6 +4,7 @@ import GroupNavigation from "../../features/Group/GroupNavigation";
 import Balance from "../balance/balance";
 import Expenses from "../expenses/expenses";
 import ExpensePage from "../expenses/expense-page";
+import GroupUserPage from "./group-user-page";
 
 const GroupPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -38,7 +39,7 @@ const GroupPage = () => {
                 }
             />
             <Route
-                path={`expenses/:id`}
+                path={`expenses/:expenseId`}
                 element={
                     <div>
                         <GroupNavigation />
@@ -50,7 +51,7 @@ const GroupPage = () => {
                 path={`expenses/create`}
                 element={<div>create expense</div>}
             />
-            <Route path={`users/:id`} element={<div>single group user</div>} />
+            <Route path={`users/:userId`} element={<GroupUserPage />} />
             <Route path={`settings`} element={<div>Group Settings</div>} />
         </Routes>
     );
