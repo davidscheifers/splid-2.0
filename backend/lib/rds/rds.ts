@@ -139,8 +139,12 @@ export class RdsDatabase extends Construct {
     instantiate.node.addDependency(rdsInstance);
 
     // Lambda function for gettings groups in the RDS table.
-    const getBooks = createResolver('get-groups', 'src/groups/getGroups.ts');
-    getBooks.node.addDependency(rdsInstance);
+    const getGroups = createResolver('get-groups', 'src/groups/getGroups.ts');
+    getGroups.node.addDependency(rdsInstance);
+
+    // Lambda function for adding groups in the RDS table.
+    const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
+    addGroup.node.addDependency(rdsInstance);
 
     // Custom Resource to execute instantiate function.
     const customResource = new cr.AwsCustomResource(this, 'TriggerInstantiate', {
