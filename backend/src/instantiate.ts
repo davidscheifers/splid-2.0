@@ -55,10 +55,8 @@ export const handler: Handler = async () => {
         console.log('connecting to rds with new user...');
         await userClient.connect();
 
-        // Init db tables
-        console.log('creating new table...');
-        const initSql = fs.readFileSync(path.join(__dirname, 'init.sql'), 'utf8');
-        await userClient.query(initSql);
+        //add init.sql script here -> ToDo: stack for s3 bucket
+
         console.log('tasks completed!');
         await userClient.end();
 
