@@ -11,10 +11,10 @@ const app = new cdk.App();
 // To-Do: atm still in the rds-stack need to outsource
 
 // RDS
-// const rdsStack = new RdsDatabase(app, 'RdsDatabase', environmentConfig);
+const rdsStack = new RdsDatabase(app, 'RdsDatabase', environmentConfig);
 
 // API-GATEWAY
-const apiStack = new ApiGateway(app, 'ApiGateway', environmentConfig);
+//const apiStack = new ApiGateway(app, 'ApiGateway', environmentConfig);
 
 
 

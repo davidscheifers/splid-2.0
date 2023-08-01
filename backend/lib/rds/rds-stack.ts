@@ -100,12 +100,12 @@ export class RdsDatabase extends cdk.Stack {
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.SMALL),
       engine: rds.DatabaseInstanceEngine.postgres({version: rds.PostgresEngineVersion.VER_14_6}),
       port: 5432,
-      instanceIdentifier: 'librarydb-instance',
+      instanceIdentifier: 'spliddb-instance',
       allocatedStorage: 10,
       maxAllocatedStorage: 10,
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
-      credentials: rds.Credentials.fromUsername('libraryadmin'),
+      credentials: rds.Credentials.fromUsername('splidUser'),
       publiclyAccessible: false
     })
     rdsInstance.secret?.grantRead(role)
@@ -134,16 +134,12 @@ export class RdsDatabase extends cdk.Stack {
       }
     })
 
-    // Instantiate new db with user and permissions also add table.
+    // Instantiate new db with user and permissions
     const instantiate = createResolver('instantiate', 'src/instantiate.ts');
     instantiate.node.addDependency(rdsInstance);
 
-    // Lambda function for adding a book in the RDS table.
-    const addBook = createResolver('add-book', 'src/addBook.ts');
-    addBook.node.addDependency(rdsInstance);
-
-    // Lambda function for gettings books in the RDS table.
-    const getBooks = createResolver('get-books', 'src/getBooks.ts');
+    // Lambda function for gettings groups in the RDS table.
+    const getBooks = createResolver('get-groups', 'src/groups/getGroups.ts');
     getBooks.node.addDependency(rdsInstance);
 
     // Custom Resource to execute instantiate function.
