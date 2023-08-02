@@ -1,6 +1,6 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
-import Group from '../models/group'; // Import your entity
+import { Group } from '../models/group'; // Import your entity
 
 export const handler: Handler = async () => {
   let dataSource;
