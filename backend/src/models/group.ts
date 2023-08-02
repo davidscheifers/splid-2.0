@@ -17,29 +17,29 @@ import {
     updated_at: Date;
   }
   
-  @Entity('events')
-  class Event implements IAddEvent {
+  @Entity('Group') // Note the matching name to your SQL table
+  class Group implements IAddEvent {
     @PrimaryGeneratedColumn('uuid')
     id: string = uuid();
   
-    @Column()
+    @Column('character varying', { length: 255, nullable: false })
     name: string;
   
-    @Column()
+    @Column('character varying', { length: 255, nullable: true })
     picture_path: string;
   
-    @Column()
+    @Column('character varying', { length: 255, nullable: true })
     description: string;
   
-    @Column()
+    @Column('character varying', { nullable: false })
     created_by: string;
   
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
   
-    @UpdateDateColumn()
+    @UpdateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
     updated_at: Date;
   }
   
-  export default Event;
+  export default Group;
   

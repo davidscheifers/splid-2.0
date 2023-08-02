@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -142,9 +143,9 @@ export class RdsDatabase extends Construct {
     const getGroups = createResolver('get-groups', 'src/groups/getGroups.ts');
     getGroups.node.addDependency(rdsInstance);
 
-    // Lambda function for adding groups in the RDS table.
-    const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
-    addGroup.node.addDependency(rdsInstance);
+    // // Lambda function for adding groups in the RDS table.
+    // const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
+    // addGroup.node.addDependency(rdsInstance);
 
     // Custom Resource to execute instantiate function.
     const customResource = new cr.AwsCustomResource(this, 'TriggerInstantiate', {
