@@ -21,6 +21,13 @@ export type TDummyExpense = {
     createdAt: Date;
 };
 
+export type TDummyBalance = {
+    id: number;
+    amount: number;
+    currency: CurrencyType;
+    user: TDummyUser;
+};
+
 export type TDummyUser = {
     id: number;
     name: string;

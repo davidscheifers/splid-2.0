@@ -1,4 +1,9 @@
-import { TDummyExpense, TDummyGroup, TDummyUser } from "../../types/group";
+import {
+    TDummyBalance,
+    TDummyExpense,
+    TDummyGroup,
+    TDummyUser,
+} from "../../types/group";
 
 export const dummyGroups: TDummyGroup[] = [
     { id: 1, name: "Group 1", currency: "EUR", code: "4ZM NSP Z5V" },
@@ -40,5 +45,20 @@ export const dummyExpenses: TDummyExpense[] = [
         ],
         buyDate: new Date(),
         createdAt: new Date(),
+    },
+];
+
+export const dummyBalance: TDummyBalance[] = [
+    {
+        id: 1,
+        amount: 20,
+        currency: "EUR",
+        user: { id: 1, name: "User 1" },
+    },
+    {
+        id: 2,
+        amount: 200,
+        currency: "EUR",
+        user: { id: 2, name: "User 2" },
     },
 ];

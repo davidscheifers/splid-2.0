@@ -32,3 +32,21 @@ export function filterDatasetByStringName<T, K extends keyof T>(
 export function classNames(...classes: (string | undefined | null | false)[]) {
     return classes.filter(Boolean).join(" ");
 }
+
+export function generateMailtoLink(
+    recipient: string,
+    subject?: string,
+    body?: string
+): string {
+    let href = `mailto:${encodeURIComponent(recipient)}`;
+
+    if (subject) {
+        href += `?subject=${encodeURIComponent(subject)}`;
+    }
+
+    if (body) {
+        href += `&body=${encodeURIComponent(body)}`;
+    }
+
+    return href;
+}

@@ -1,55 +1,51 @@
-import { Title } from "@mantine/core";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import GroupNavigation from "../../features/Group/GroupNavigation";
-import Balance from "../balance/balance";
 import Expenses from "../expenses/expenses";
 import ExpensePage from "../expenses/expense-page";
 import GroupUserPage from "./group-user-page";
+import GroupOverview from "./group-overview";
 
 const GroupPage = () => {
-    const { id } = useParams<{ id: string }>();
-
     return (
         <Routes>
             <Route
                 path=""
                 element={
-                    <div>
+                    <>
                         <GroupNavigation />
-                        <Title order={1}>Group Overview {id}</Title>
-                    </div>
-                }
-            />
-            <Route
-                path={`balance`}
-                element={
-                    <div>
-                        <GroupNavigation />
-                        <Balance />
-                    </div>
+                        <GroupOverview />
+                    </>
                 }
             />
             <Route
                 path={`expenses`}
                 element={
-                    <div>
+                    <>
                         <GroupNavigation />
                         <Expenses />
-                    </div>
+                    </>
                 }
             />
             <Route
                 path={`expenses/:expenseId`}
                 element={
-                    <div>
+                    <>
                         <GroupNavigation />
                         <ExpensePage />
-                    </div>
+                    </>
                 }
             />
             <Route
                 path={`expenses/create`}
                 element={<div>create expense</div>}
+            />
+            <Route
+                path={`expenses/total`}
+                element={<div>total expense overview</div>}
+            />
+            <Route
+                path={`users/create`}
+                element={<div>create user in group</div>}
             />
             <Route path={`users/:userId`} element={<GroupUserPage />} />
             <Route path={`settings`} element={<div>Group Settings</div>} />

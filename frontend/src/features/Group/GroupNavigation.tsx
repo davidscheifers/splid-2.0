@@ -6,17 +6,11 @@ const GroupNavigation = () => {
     const { pathname } = useLocation();
 
     const expensePath = `/groups/${id}/expenses`;
-    const balancePath = `/groups/${id}/balance`;
-    const overviewPath = `/groups/${id}/`;
+    const settingsPath = `/groups/${id}/settings`;
+    const overviewPath = `/groups/${id}`;
 
     return (
         <Group>
-            <NavLink
-                className={pathname === expensePath ? "active" : ""}
-                to={expensePath}
-            >
-                Ausgaben
-            </NavLink>
             <NavLink
                 className={pathname === overviewPath ? "active" : ""}
                 to={overviewPath}
@@ -24,10 +18,16 @@ const GroupNavigation = () => {
                 Übersicht
             </NavLink>
             <NavLink
-                className={pathname === balancePath ? "active" : ""}
-                to={balancePath}
+                className={pathname === expensePath ? "active" : ""}
+                to={expensePath}
             >
-                Balance
+                Ausgaben
+            </NavLink>
+            <NavLink
+                className={pathname === settingsPath ? "active" : ""}
+                to={settingsPath}
+            >
+                Einstellungen
             </NavLink>
         </Group>
     );
