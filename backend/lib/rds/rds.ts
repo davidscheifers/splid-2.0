@@ -157,7 +157,7 @@ export class RdsDatabase extends Construct {
         parameters: {
           FunctionName: instantiate.functionName,
         },
-        physicalResourceId: cr.PhysicalResourceId.of('TriggerInstantiate'),
+        physicalResourceId: cr.PhysicalResourceId.of(Date.now().toString()),
       },
       policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [instantiate.functionArn],

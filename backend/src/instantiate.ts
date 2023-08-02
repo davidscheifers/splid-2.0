@@ -31,15 +31,19 @@ export const handler: Handler = async () => {
             port: 5432,
         });
 
-        // Connect to RDS instance with Admin
-        console.log('connecting to rds with admin...');
-        await client.connect();
-        console.log('setting up new database...');
-        await client.query('CREATE DATABASE spliddb;');
-        await client.query(`CREATE USER ${credentials.user} WITH PASSWORD '${credentials.password}';`);
-        await client.query(`GRANT ALL PRIVILEGES ON DATABASE spliddb TO ${credentials.user};`);
-        console.log('setup completed!');
-        await client.end();
+        try {
+            // Connect to RDS instance with Admin
+            console.log('connecting to rds with admin...');
+            await client.connect();
+            console.log('setting up new database...');
+            await client.query('CREATE DATABASE spliddb;');
+            await client.query(`CREATE USER ${credentials.user} WITH PASSWORD '${credentials.password}';`);
+            await client.query(`GRANT ALL PRIVILEGES ON DATABASE spliddb TO ${credentials.user};`);
+            console.log('setup completed!');
+          }catch {
+            console.log('db already exist');
+        }
+          
 
         // Instantiate RDS Client with new user
         console.log('instantiating client with new user...');
