@@ -1,26 +1,26 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import Group from '../models/group'; // Import your entity
-import { getRepository } from 'typeorm';
 
 export const handler: Handler = async () => {
-  let connection;
+  let dataSource;
 
   try {
-    connection = await instantiateRdsClient();
+    dataSource = await instantiateRdsClient();
     console.log('getting groups');
-    const groupRepository = getRepository(Group);
+    const groupRepository = dataSource.getRepository(Group);
     const groups = await groupRepository.find({ take: 10 });
     console.log(groups);
 
     // Close the connection when you're done
-    await connection.close();
+    await dataSource.destroy();
 
   } catch (error) {
     console.error('Error creating database:', error);
     throw error;
   }
 };
+
 
 
 // import { Handler } from 'aws-lambda';
