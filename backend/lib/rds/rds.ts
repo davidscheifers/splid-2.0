@@ -98,7 +98,7 @@ export class RdsDatabase extends Construct {
       securityGroups: [securityGroupRds],
       vpcSubnets: { subnets: vpc.isolatedSubnets },
       availabilityZone: vpc.isolatedSubnets[0].availabilityZone,
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.SMALL),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
       engine: rds.DatabaseInstanceEngine.postgres({version: rds.PostgresEngineVersion.VER_14_6}),
       port: 5432,
       instanceIdentifier: 'spliddb-instance',
