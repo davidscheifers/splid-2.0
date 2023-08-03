@@ -3,29 +3,42 @@ import { User } from './user';
 import { Group } from './group';
 import { Bill } from './bill';
 
-@Entity('Transaction', { schema: 'evide' })
+@Entity('Transaction')
 export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255, collation: 'pg_catalog."default"' })
-  description: string;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  description: string | null;
 
-  @ManyToOne(() => User, (user) => user.username) 
-  sender_username: string;
+  @Column()
+  senderUsername: string;
+
+  @Column()
+  receiverUsername: string;
 
   @Column({ type: 'double precision', nullable: false })
   amount: number;
 
-  @ManyToOne(() => Bill, (bill) => bill.id)
-  bill_id: string;
+  @Column({ nullable: true })
+  billId: string | null;
 
-  @ManyToOne(() => Group, (group) => group.id)
-  group_id: string;
+  @Column()
+  groupId: string;
 
-  @CreateDateColumn({ type: 'timestamp with time zone', nullable: false, default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.username) 
-  receiver_username: string;
+  @ManyToOne(() => Bill, (bill) => bill.transactions)
+  bill: Bill;
+
+  @ManyToOne(() => Group, (group) => group.transactions)
+  group: Group;
+
+  @ManyToOne(() => User, (user) => user.transactionReceiverUsernameNavigations)
+  receiverUsernameNavigation: User;
+
+  @ManyToOne(() => User, (user) => user.transactionSenderUsernameNavigations)
+  senderUsernameNavigation: User;
+  
 }

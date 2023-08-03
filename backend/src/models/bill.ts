@@ -1,10 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Transaction } from './transaction';
 
-@Entity('Bill', { schema: 'evide' })
+@Entity()
 export class Bill {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255, collation: 'pg_catalog."default"', nullable: false })
-  path: string;
+  @Column({ type: 'varchar', length: 255, collation: 'pg_catalog."default"', nullable: true })
+  path: string | null;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.bill)
+  transactions: Transaction[];
 }
