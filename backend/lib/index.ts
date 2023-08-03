@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { RdsDatabase } from './rds/rds';
