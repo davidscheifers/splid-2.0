@@ -14,18 +14,18 @@ export const handler: Handler = async (event: any) => {
 
     const inputGroup: Group = event.group; // Assuming group is passed as part of the event payload
 
-    if (inputGroup.name === null || inputGroup.created_by === null) {
+    if (inputGroup.name === null || inputGroup.createdBy === null) {
       return null;
     }
 
     const group = new Group();
     group.id = "" // new UUID? oder macht das das TypeORM Automatisch?
     group.name = inputGroup.name;
-    group.picture_path = inputGroup.picture_path;
+    group.picturePath = inputGroup.picturePath;
     group.description = inputGroup.description;
-    group.created_by = inputGroup.created_by;
-    group.created_at = new Date(Date.now());
-    group.updated_at = new Date(Date.now());
+    group.createdBy = inputGroup.createdBy;
+    group.createdAt = new Date(Date.now());
+    group.updatedAt = new Date(Date.now());
 
     const usernames = new Array<string>();
 
