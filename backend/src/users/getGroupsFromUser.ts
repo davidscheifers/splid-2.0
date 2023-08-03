@@ -10,7 +10,7 @@ export const handler: Handler = async (event: any) => {
     const userRepository = dataSource.getRepository(User);
 
     const username: string = event.username; // Assuming username is passed as part of the event payload
-    
+
     if (username === null) {
       return null;
     }
@@ -25,7 +25,7 @@ export const handler: Handler = async (event: any) => {
     }
 
     // same Problem with entity 
-    //const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().includes(searchTerm.toLowerCase().trim()));
+    //const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().trim());
     const searchResult = null;
 
     // Close the connection when you're done
