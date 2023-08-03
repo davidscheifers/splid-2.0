@@ -1,46 +1,58 @@
-// import { Handler } from 'aws-lambda';
-// import { SecretsManager } from 'aws-sdk';
-// import { Client } from 'pg';
-// import { instantiateRdsClient } from '../utils/db-connection';
-// import { uuid } from 'aws-sdk/clients/customerprofiles';
+import { Handler } from 'aws-lambda';
+import { In } from 'typeorm';
+import { instantiateRdsClient } from '../utils/db-connection';
+import { Group } from '../models/group';
+import { User } from '../models/user'; 
 
-// const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
-// const HOST = process.env.HOST!;
+export const handler: Handler = async (event: any) => {
+  let dataSource;
 
-// const secrets = new SecretsManager();
+  try {
+    dataSource = await instantiateRdsClient();
+    const groupRepository = dataSource.getRepository(Group);
+    const userRepository = dataSource.getRepository(User);
 
-// interface IAddEvent {
-//     id: uuid,
-//     name: string,
-//     picture_path: string,
-//     description: string,
-//     created_by: string,
-//     created_at: Date,
-//     updated_at: Date,
-// }
+    const inputGroup: Group = event.group; // Assuming group is passed as part of the event payload
 
-// export const handler: Handler = async (event: IAddEvent) => {
+    if (inputGroup.name === null || inputGroup.created_by === null) {
+      return null;
+    }
 
-//     let client: Client;
+    const group = new Group();
+    group.id = "" // new UUID? oder macht das das TypeORM Automatisch?
+    group.name = inputGroup.name;
+    group.picture_path = inputGroup.picture_path;
+    group.description = inputGroup.description;
+    group.created_by = inputGroup.created_by;
+    group.created_at = new Date(Date.now());
+    group.updated_at = new Date(Date.now());
 
-//     try {
-//         //instantiate the database client
-//         client = await instantiateRdsClient();
+    const usernames = new Array<string>();
 
-//         console.log('adding group...');
-//         const queryText = `INSERT INTO "Group" (id, name, picture_path, description, created_by, created_at, updated_at) 
-//         VALUES($1, $2, $3, $4, $5, $6, $7)`;
+    // There is no property users in the Group entity!
 
-//         const queryValues = [event.id, event.name, event.picture_path, event.description, event.created_by, event.created_at, event.updated_at];
+    // if (inputGroup.users == null) {
+    //   usernames.push(inputGroup.created_by);
+    // } else {
+    //   usernames.push(...inputGroup.users.map(u => u.username));
+    //   if (!usernames.includes(inputGroup.created_by)) {
+    //     usernames.push(inputGroup.created_by);
+    //   }
+    // }
 
-//         await client.query(queryText, queryValues);
+    // group.users = await userRepository.find({
+    //   where: { username: In(usernames) }
+    // });
 
-//         // Break connection
-//         console.log('tasks completed!');
-//         await client.end();
-        
-//     } catch (error) {
-//         console.error('Error creating database:', error);
-//         throw error;
-//     }
-// };
+    await groupRepository.save(group);
+
+    // Close the connection when you're done
+    await dataSource.destroy();
+
+    return group;
+
+  } catch (error) {
+    console.error('Error creating group:', error);
+    throw error;
+  }
+};
