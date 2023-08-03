@@ -18,7 +18,7 @@ export const handler: Handler = async (event: any) => {
     const transactions = await transactionRepository.find({
       where: {
         //groupId: groupId,
-        receiver_username: username,
+        receiverUsername: username,
         amount: LessThan(0)
       }
     });

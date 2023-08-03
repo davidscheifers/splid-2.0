@@ -24,7 +24,7 @@ export const handler: Handler = async (event: any) => {
       where: { username: username }
     });
 
-    if (group === null || user === null || group.created_by !== user.username) {
+    if (group === null || user === null || group.createdBy !== user.username) {
       return false;
     }
 

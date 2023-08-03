@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { SecretsManager } from 'aws-sdk';
-import Group from '../models/group'; // Import your entity
+import { Group } from '../models/group'; // Import your entity
 
 const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
 const HOST = process.env.HOST!;
