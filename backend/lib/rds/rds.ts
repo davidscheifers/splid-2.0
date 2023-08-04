@@ -21,9 +21,14 @@ export class RdsDatabase extends Construct {
       natGateways: 0,
       subnetConfiguration: [
         {
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes normal: Private
           cidrMask: 24,
           name: 'rds'
+        },
+        {
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          cidrMask: 24,
+          name: 'resolvers'
         }
       ]
     })
@@ -39,6 +44,16 @@ export class RdsDatabase extends Construct {
       securityGroupName: 'rds-sg',
       description: 'Security Group with RDS',
     })
+
+    // IP Address for local testing
+    const myIpAddress = '46.223.163.10/32';
+
+    // Ingress and Egress Rules
+    securityGroupRds.addIngressRule(
+      ec2.Peer.ipv4(myIpAddress),
+      ec2.Port.tcp(5432),
+      'Allow inbound traffic to RDS from local'
+    )
 
     // Ingress and Egress Rules
     securityGroupRds.addIngressRule(
@@ -96,7 +111,7 @@ export class RdsDatabase extends Construct {
     const rdsInstance = new rds.DatabaseInstance(this, 'PostgresRds', {
       vpc,
       securityGroups: [securityGroupRds],
-      vpcSubnets: { subnets: vpc.isolatedSubnets },
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
       availabilityZone: vpc.isolatedSubnets[0].availabilityZone,
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
       engine: rds.DatabaseInstanceEngine.postgres({version: rds.PostgresEngineVersion.VER_14_6}),
