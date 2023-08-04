@@ -107,7 +107,7 @@ export class RdsDatabase extends Construct {
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
       credentials: rds.Credentials.fromUsername('splidUser'),
-      publiclyAccessible: false
+      publiclyAccessible: true
     })
     rdsInstance.secret?.grantRead(role)
 
