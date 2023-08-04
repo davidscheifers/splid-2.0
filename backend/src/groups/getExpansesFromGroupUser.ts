@@ -1,6 +1,6 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
-import { Transaction } from '../models/transaction'; // Import your entity
+import { Transaction } from '../models/transaction'; 
 import { LessThan } from 'typeorm/find-options/operator/LessThan';
 
 export const handler: Handler = async (event: any) => {
@@ -10,14 +10,12 @@ export const handler: Handler = async (event: any) => {
     dataSource = await instantiateRdsClient();
     const transactionRepository = dataSource.getRepository(Transaction);
 
-    const groupId: string = event.groupId; // Assuming groupId is passed as part of the event payload
-    const username: string = event.username; // Assuming username is passed as part of the event payload
-
-    //Same Probleme here transaction doesnt have the group property yet
+    const groupId: string = event.groupId; 
+    const username: string = event.username;
 
     const transactions = await transactionRepository.find({
       where: {
-        //groupId: groupId,
+        groupId: groupId,
         receiverUsername: username,
         amount: LessThan(0)
       }

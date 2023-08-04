@@ -1,6 +1,6 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
-import { User } from '../models/user'; // Import your User entity
+import { User } from '../models/user'; 
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
@@ -9,8 +9,8 @@ export const handler: Handler = async (event: any) => {
     dataSource = await instantiateRdsClient();
     const userRepository = dataSource.getRepository(User);
 
-    const username: string = event.username; // Assuming username is passed as part of the event payload
-    const searchTerm: string = event.searchTerm; // Assuming searchTerm is passed as part of the event payload
+    const username: string = event.username; 
+    const searchTerm: string = event.searchTerm; 
 
     if (searchTerm === null || username === null) {
       return null;
@@ -18,16 +18,14 @@ export const handler: Handler = async (event: any) => {
 
     const user = await userRepository.findOne({
       where: { username: username },
-      relations: ["groups"] // Assuming you have set up a relation with groups
+      relations: ["groups"]
     });
 
     if (user === null) {
       return null;
     }
 
-    // same Problem with entity 
-    //const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().includes(searchTerm.toLowerCase().trim()));
-    const searchResult = null;
+    const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().includes(searchTerm.toLowerCase().trim()));
 
     // Close the connection when you're done
     await dataSource.destroy();

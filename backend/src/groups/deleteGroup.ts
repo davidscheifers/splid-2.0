@@ -17,7 +17,7 @@ export const handler: Handler = async (event: any) => {
 
     const group = await groupRepository.findOne({
       where: { id: groupId },
-      relations: ["users"] // Assuming you have set up a relation with users
+      relations: ["users"] 
     });
 
     const user = await userRepository.findOne({
@@ -28,12 +28,11 @@ export const handler: Handler = async (event: any) => {
       return false;
     }
 
-    // There is no property users in the Group entity yet!
     // Clearing users if you have a relation that needs to be cleared
-    //group.users = [];
+    group.Users = [];
 
-    await groupRepository.save(group); // Update the group to clear the users
-    await groupRepository.remove(group); // Remove the group
+    await groupRepository.save(group); 
+    await groupRepository.remove(group); 
 
     // Close the connection when you're done
     await dataSource.destroy();

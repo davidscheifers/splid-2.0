@@ -12,7 +12,7 @@ export const handler: Handler = async (event: any) => {
     const groupRepository = dataSource.getRepository(Group);
     const userRepository = dataSource.getRepository(User);
 
-    const inputGroup: Group = event.group; // Assuming group is passed as part of the event payload
+    const inputGroup: Group = event.group; 
 
     if (inputGroup.name === null || inputGroup.createdBy === null) {
       return null;
@@ -29,20 +29,18 @@ export const handler: Handler = async (event: any) => {
 
     const usernames = new Array<string>();
 
-    // There is no property users in the Group entity!
+    if (inputGroup.Users == null) {
+      usernames.push(inputGroup.createdBy);
+    } else {
+      usernames.push(...inputGroup.Users.map(u => u.username));
+      if (!usernames.includes(inputGroup.createdBy)) {
+        usernames.push(inputGroup.createdBy);
+      }
+    }
 
-    // if (inputGroup.users == null) {
-    //   usernames.push(inputGroup.created_by);
-    // } else {
-    //   usernames.push(...inputGroup.users.map(u => u.username));
-    //   if (!usernames.includes(inputGroup.created_by)) {
-    //     usernames.push(inputGroup.created_by);
-    //   }
-    // }
-
-    // group.users = await userRepository.find({
-    //   where: { username: In(usernames) }
-    // });
+    group.Users = await userRepository.find({
+      where: { username: In(usernames) }
+    });
 
     await groupRepository.save(group);
 
