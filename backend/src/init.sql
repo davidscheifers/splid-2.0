@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS evide
-    AUTHORIZATION postgres;
+    AUTHORIZATION librarian;
 
 CREATE TABLE IF NOT EXISTS evide."User"
 (
