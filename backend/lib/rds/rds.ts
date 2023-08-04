@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -20,9 +21,14 @@ export class RdsDatabase extends Construct {
       natGateways: 0,
       subnetConfiguration: [
         {
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes normal: Private
           cidrMask: 24,
           name: 'rds'
+        },
+        {
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          cidrMask: 24,
+          name: 'resolvers'
         }
       ]
     })
@@ -38,6 +44,16 @@ export class RdsDatabase extends Construct {
       securityGroupName: 'rds-sg',
       description: 'Security Group with RDS',
     })
+
+    // IP Address for local testing
+    const myIpAddress = '46.223.163.10/32';
+
+    // Ingress and Egress Rules
+    securityGroupRds.addIngressRule(
+      ec2.Peer.ipv4(myIpAddress),
+      ec2.Port.tcp(5432),
+      'Allow inbound traffic to RDS from local'
+    )
 
     // Ingress and Egress Rules
     securityGroupRds.addIngressRule(
@@ -95,9 +111,9 @@ export class RdsDatabase extends Construct {
     const rdsInstance = new rds.DatabaseInstance(this, 'PostgresRds', {
       vpc,
       securityGroups: [securityGroupRds],
-      vpcSubnets: { subnets: vpc.isolatedSubnets },
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
       availabilityZone: vpc.isolatedSubnets[0].availabilityZone,
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.SMALL),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
       engine: rds.DatabaseInstanceEngine.postgres({version: rds.PostgresEngineVersion.VER_14_6}),
       port: 5432,
       instanceIdentifier: 'spliddb-instance',
@@ -106,7 +122,7 @@ export class RdsDatabase extends Construct {
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
       credentials: rds.Credentials.fromUsername('splidUser'),
-      publiclyAccessible: false
+      publiclyAccessible: true
     })
     rdsInstance.secret?.grantRead(role)
 
@@ -142,9 +158,9 @@ export class RdsDatabase extends Construct {
     const getGroups = createResolver('get-groups', 'src/groups/getGroups.ts');
     getGroups.node.addDependency(rdsInstance);
 
-    // Lambda function for adding groups in the RDS table.
-    const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
-    addGroup.node.addDependency(rdsInstance);
+    // // Lambda function for adding groups in the RDS table.
+    // const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
+    // addGroup.node.addDependency(rdsInstance);
 
     // Custom Resource to execute instantiate function.
     const customResource = new cr.AwsCustomResource(this, 'TriggerInstantiate', {
@@ -156,7 +172,7 @@ export class RdsDatabase extends Construct {
         parameters: {
           FunctionName: instantiate.functionName,
         },
-        physicalResourceId: cr.PhysicalResourceId.of('TriggerInstantiate'),
+        physicalResourceId: cr.PhysicalResourceId.of(Date.now().toString()),
       },
       policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [instantiate.functionArn],

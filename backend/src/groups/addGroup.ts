@@ -1,46 +1,56 @@
 import { Handler } from 'aws-lambda';
-import { SecretsManager } from 'aws-sdk';
-import { Client } from 'pg';
+import { In } from 'typeorm';
 import { instantiateRdsClient } from '../utils/db-connection';
-import { uuid } from 'aws-sdk/clients/customerprofiles';
+import { Group } from '../models/group';
+import { User } from '../models/user'; 
 
-const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
-const HOST = process.env.HOST!;
+export const handler: Handler = async (event: any) => {
+  let dataSource;
 
-const secrets = new SecretsManager();
+  try {
+    dataSource = await instantiateRdsClient();
+    const groupRepository = dataSource.getRepository(Group);
+    const userRepository = dataSource.getRepository(User);
 
-interface IAddEvent {
-    id: uuid,
-    name: string,
-    picture_path: string,
-    description: string,
-    created_by: string,
-    created_at: Date,
-    updated_at: Date,
-}
+    const inputGroup: Group = event.group; 
 
-export const handler: Handler = async (event: IAddEvent) => {
-
-    let client: Client;
-
-    try {
-        //instantiate the database client
-        client = await instantiateRdsClient();
-
-        console.log('adding group...');
-        const queryText = `INSERT INTO "Group" (id, name, picture_path, description, created_by, created_at, updated_at) 
-        VALUES($1, $2, $3, $4, $5, $6, $7)`;
-
-        const queryValues = [event.id, event.name, event.picture_path, event.description, event.created_by, event.created_at, event.updated_at];
-
-        await client.query(queryText, queryValues);
-
-        // Break connection
-        console.log('tasks completed!');
-        await client.end();
-        
-    } catch (error) {
-        console.error('Error creating database:', error);
-        throw error;
+    if (inputGroup.name === null || inputGroup.createdBy === null) {
+      return null;
     }
+
+    const group = new Group();
+    group.id = "" // new UUID? oder macht das das TypeORM Automatisch?
+    group.name = inputGroup.name;
+    group.picturePath = inputGroup.picturePath;
+    group.description = inputGroup.description;
+    group.createdBy = inputGroup.createdBy;
+    group.createdAt = new Date(Date.now());
+    group.updatedAt = new Date(Date.now());
+
+    const usernames = new Array<string>();
+
+    if (inputGroup.Users == null) {
+      usernames.push(inputGroup.createdBy);
+    } else {
+      usernames.push(...inputGroup.Users.map(u => u.username));
+      if (!usernames.includes(inputGroup.createdBy)) {
+        usernames.push(inputGroup.createdBy);
+      }
+    }
+
+    group.Users = await userRepository.find({
+      where: { username: In(usernames) }
+    });
+
+    await groupRepository.save(group);
+
+    // Close the connection when you're done
+    await dataSource.destroy();
+
+    return group;
+
+  } catch (error) {
+    console.error('Error creating group:', error);
+    throw error;
+  }
 };
