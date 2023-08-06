@@ -1,34 +1,40 @@
 import { Group } from "@mantine/core";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 
+const navItems = [
+    {
+        name: "Übersicht",
+        link: (id: string) => `/groups/${id}`,
+    },
+    {
+        name: "Ausgaben",
+        link: (id: string) => `/groups/${id}/expenses`,
+    },
+    {
+        name: "Einstellungen",
+        link: (id: string) => `/groups/${id}/settings`,
+    },
+];
+
 const GroupNavigation = () => {
     const { id } = useParams<{ id: string }>();
     const { pathname } = useLocation();
 
-    const expensePath = `/groups/${id}/expenses`;
-    const settingsPath = `/groups/${id}/settings`;
-    const overviewPath = `/groups/${id}`;
-
     return (
         <Group>
-            <NavLink
-                className={pathname === overviewPath ? "active" : ""}
-                to={overviewPath}
-            >
-                Übersicht
-            </NavLink>
-            <NavLink
-                className={pathname === expensePath ? "active" : ""}
-                to={expensePath}
-            >
-                Ausgaben
-            </NavLink>
-            <NavLink
-                className={pathname === settingsPath ? "active" : ""}
-                to={settingsPath}
-            >
-                Einstellungen
-            </NavLink>
+            {navItems.map((item, i) => {
+                const link = item.link(id || "");
+
+                return (
+                    <NavLink
+                        key={i}
+                        className={pathname === link ? "active" : ""}
+                        to={link}
+                    >
+                        {item.name}
+                    </NavLink>
+                );
+            })}
         </Group>
     );
 };

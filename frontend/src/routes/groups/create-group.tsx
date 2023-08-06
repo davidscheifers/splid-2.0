@@ -1,34 +1,10 @@
 import { Button, TextInput, Title } from "@mantine/core";
-import { useState } from "react";
-import { TDummyUser } from "../../types/group";
+import { useCreateGroup } from "../../utils/hooks/Group/useCreateGroup";
 import UserAddButton from "../../components/UserAddButton/UserAddButton";
-import { notifications } from "@mantine/notifications";
 
 const CreateGroup = () => {
-    const [name, setName] = useState("");
-    const [members, setMembers] = useState<TDummyUser[]>([]);
-
-    function handleSubmit() {
-        if (members.length === 0) {
-            notifications.show({
-                color: "red",
-                title: "Please add a Member!",
-                message:
-                    "You need to add at least one member to create a group",
-            });
-            return;
-        }
-
-        if (!name) {
-            notifications.show({
-                color: "red",
-                title: "Please add a Group Name!",
-                message: "You need to add a group name to create a group",
-            });
-            return;
-        }
-        // navigate to group page
-    }
+    const { name, setName, members, setMembers, handleSubmit } =
+        useCreateGroup();
 
     return (
         <>

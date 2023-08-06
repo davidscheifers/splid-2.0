@@ -13,7 +13,7 @@ import {
     addElementToArray,
     removeElementFromArray,
 } from "../../utils/functions/functions";
-import { useAddMember } from "../../utils/hooks/AddMember/useAddMember";
+import { useAddMember } from "../../utils/hooks/Group/useAddMember";
 
 type UserAddButtonProps = {
     members: TDummyUser[];

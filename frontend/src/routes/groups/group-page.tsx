@@ -4,6 +4,8 @@ import Expenses from "../expenses/expenses";
 import ExpensePage from "../expenses/expense-page";
 import GroupUserPage from "./group-user-page";
 import GroupOverview from "./group-overview";
+import EditExpensePage from "../expenses/edit-expense-page";
+import CreateExpensePage from "../expenses/create-expense-page";
 
 const GroupPage = () => {
     return (
@@ -36,9 +38,15 @@ const GroupPage = () => {
                 }
             />
             <Route
-                path={`expenses/create`}
-                element={<div>create expense</div>}
+                path={`expenses/:expenseId/edit`}
+                element={
+                    <>
+                        <GroupNavigation />
+                        <EditExpensePage />
+                    </>
+                }
             />
+            <Route path={`expenses/create`} element={<CreateExpensePage />} />
             <Route
                 path={`expenses/total`}
                 element={<div>total expense overview</div>}
