@@ -1,17 +1,16 @@
 import { Button, Group, TextInput, Title } from "@mantine/core";
-import { Link } from "react-router-dom";
 import { IconSearch } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+
 import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
-import { filterDatasetByStringName } from "../../utils/functions/functions";
+
 import { dummyExpenses } from "../../utils/data/data";
+import { useFilterData } from "../../utils/hooks/useFilterData";
 
 const Expenses = () => {
-    const [searchQuery, setSearchQuery] = useState("");
-
-    const filteredGroups = useMemo(
-        () => filterDatasetByStringName(dummyExpenses, "name", searchQuery),
-        [searchQuery, dummyExpenses]
+    const { setSearchQuery, searchQuery, filteredData } = useFilterData(
+        dummyExpenses,
+        "name"
     );
 
     return (
@@ -29,7 +28,7 @@ const Expenses = () => {
                 placeholder="Search Expenses"
                 icon={<IconSearch size={20} />}
             />
-            {filteredGroups.map((expense) => {
+            {filteredData.map((expense) => {
                 return <ExpenseTeaser key={expense.id} expense={expense} />;
             })}
         </>

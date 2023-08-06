@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
 import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
-import GroupTeaser from "../../features/Group/GroupTeaser";
-import { filterDatasetByStringName } from "../../utils/functions/functions";
-import { dummyGroups } from "../../utils/data/data";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
+import GroupTeaser from "../../features/Group/GroupTeaser";
+
+import { dummyGroups } from "../../utils/data/data";
+import { useFilterData } from "../../utils/hooks/useFilterData";
 
 const Groups = () => {
     const { t } = useTranslation();
-    const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredGroups = useMemo(
-        () => filterDatasetByStringName(dummyGroups, "name", searchQuery),
-        [searchQuery, dummyGroups]
+    const { searchQuery, setSearchQuery, filteredData } = useFilterData(
+        dummyGroups,
+        "name"
     );
 
     return (
@@ -36,7 +36,7 @@ const Groups = () => {
                 placeholder="Search Groups"
                 icon={<IconSearch size={20} />}
             />
-            {filteredGroups.map((group) => {
+            {filteredData.map((group) => {
                 return <GroupTeaser key={group.id} group={group} />;
             })}
         </>

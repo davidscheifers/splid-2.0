@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TDummyUser } from "../../types/group";
 import UserPreview from "../User/UserPreview";
 import {
@@ -10,53 +9,31 @@ import {
     TextInput,
     Text,
 } from "@mantine/core";
+import {
+    addElementToArray,
+    removeElementFromArray,
+} from "../../utils/functions/functions";
+import { useAddMember } from "../../utils/hooks/AddMember/useAddMember";
 
 type UserAddButtonProps = {
     members: TDummyUser[];
     setMembers: React.Dispatch<React.SetStateAction<TDummyUser[]>>;
 };
 
-type UserAddButtonState = {
+export type UserAddButtonState = {
     modalOpen: boolean;
     memberName: string;
 };
 
 const UserAddButton = ({ members, setMembers }: UserAddButtonProps) => {
-    function removeMember(id: number) {
-        let clonedMembers = [...members];
-
-        const memberIndex = clonedMembers.findIndex((m) => m.id === id);
-
-        clonedMembers.splice(memberIndex, 1);
-        setMembers(clonedMembers);
-    }
-
-    function addMember(name: string) {
-        let clonedMembers = [...members];
-
-        const existingName = clonedMembers.find((m) => m.name === name);
-
-        if (existingName) {
-            alert("User already added");
-            return;
-        }
-
-        const isFirstMember = clonedMembers.length === 0;
-
-        const highestId = Math.max(...clonedMembers.map((m) => m.id));
-
-        clonedMembers.push({
-            id: isFirstMember ? 1 : highestId + 1,
-            name,
-        });
-
-        setMembers(clonedMembers);
-    }
-
     return (
         <Box mb="md">
             <Box mb="md">
-                <AddMemberButton addMember={addMember} />
+                <AddMemberButton
+                    addMember={(item) =>
+                        setMembers(addElementToArray(item, members, "name"))
+                    }
+                />
             </Box>
             {members.length > 0 ? (
                 <>
@@ -70,7 +47,15 @@ const UserAddButton = ({ members, setMembers }: UserAddButtonProps) => {
                                     />
                                     <Button
                                         variant="default"
-                                        onClick={() => removeMember(member.id)}
+                                        onClick={() =>
+                                            setMembers(
+                                                removeElementFromArray(
+                                                    member.id,
+                                                    members,
+                                                    "id"
+                                                )
+                                            )
+                                        }
                                     >
                                         Remove
                                     </Button>
@@ -87,19 +72,11 @@ const UserAddButton = ({ members, setMembers }: UserAddButtonProps) => {
 };
 
 type AddMemberButtonProps = {
-    addMember(name: string): void;
+    addMember(item: any): void;
 };
 
 function AddMemberButton({ addMember }: AddMemberButtonProps) {
-    const [state, setState] = useState<UserAddButtonState>({
-        modalOpen: false,
-        memberName: "",
-    });
-
-    function handleSubmit() {
-        addMember(state.memberName);
-        setState({ ...state, modalOpen: false, memberName: "" });
-    }
+    const { state, setState, handleSubmit } = useAddMember(addMember);
 
     return (
         <div>
