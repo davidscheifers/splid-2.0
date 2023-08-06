@@ -1,74 +1,135 @@
-import { Group, Title } from "@mantine/core";
-import { dummyUsers } from "../../utils/data/data";
+import {
+    Group,
+    NumberInput,
+    Title,
+    Text,
+    Modal,
+    Button,
+    Divider,
+    TextInput,
+    createStyles,
+    rem,
+} from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
+
 import UserPreview from "./UserPreview";
+
+import { dummyUsers } from "../../utils/data/data";
 import { TDummyUser } from "../../types/group";
+import { classNames } from "../../utils/functions/functions";
+import { useFilterData } from "../../utils/hooks/useFilterData";
+import { useCreateExpenseUserPercentage } from "../../utils/hooks/Expense/useCreateExpenseUserPercentage";
 
 type UserPercentageSelectProps = {
     value: UserItem[];
     onChange(value: UserItem[]): void;
 };
 
-type UserItem = {
+export type UserItem = {
     user: TDummyUser;
     percentage: number;
 };
+
+export const useStyles = createStyles((theme) => ({
+    user: {
+        padding: theme.spacing.sm,
+        borderRadius: rem(5),
+    },
+    userActive: {
+        border: `1px solid ${theme.colors.blue[6]}`,
+    },
+}));
 
 const UserPercentageSelect = ({
     value,
     onChange,
 }: UserPercentageSelectProps) => {
-    function toggleUser(user: TDummyUser, selectedUsers: UserItem[]) {
-        const clonedUsers = selectedUsers ? [...selectedUsers] : [];
+    const { classes } = useStyles();
 
-        const isAlreadySelected = clonedUsers.find(
-            (u) => u.user.id === user.id
-        );
+    const { setSearchQuery, searchQuery, filteredData } = useFilterData(
+        dummyUsers,
+        "name"
+    );
 
-        if (isAlreadySelected) {
-            return clonedUsers.filter(
-                (u) => u.user.id !== isAlreadySelected.user.id
-            );
-        }
-
-        clonedUsers.push({ user, percentage: 0 });
-
-        return clonedUsers;
-    }
-
-    console.log(value);
-
-    function handleIsSelected(user: TDummyUser, selectedUsers: UserItem[]) {
-        const foundUser = selectedUsers?.find((u) => u.user.id === user.id);
-        return foundUser !== undefined;
-    }
+    const {
+        handleIsSelected,
+        handlePreviewSelectedUsers,
+        handleChangePercentage,
+        modalOpen,
+        setModalOpen,
+        toggleUser,
+    } = useCreateExpenseUserPercentage();
 
     return (
         <div>
-            <Title order={3}>Selected users</Title>
-            <Group>
-                {value?.map((val) => {
-                    return (
-                        <div>
-                            <UserPreview user={val.user} />
-                            <Title order={3}>{val.percentage} %</Title>
-                        </div>
-                    );
-                })}
-            </Group>
+            <Title order={4}>For</Title>
+            <Text></Text>
+            <Button variant="default" onClick={() => setModalOpen(true)}>
+                {handlePreviewSelectedUsers(value)}
+            </Button>
+            <Modal
+                title="Expense for"
+                opened={modalOpen}
+                onClose={() => setModalOpen(false)}
+                fullScreen
+            >
+                <Title order={4} mb="md">
+                    Select Users
+                </Title>
+                <TextInput
+                    value={searchQuery}
+                    onChange={(event) =>
+                        setSearchQuery(event.currentTarget.value)
+                    }
+                    mb="md"
+                    placeholder="Search Users"
+                    icon={<IconSearch size={20} />}
+                />
+                <Group>
+                    {filteredData.map((user) => {
+                        return (
+                            <div
+                                key={user.id}
+                                onClick={() =>
+                                    onChange(toggleUser(user, value))
+                                }
+                                className={classNames(
+                                    classes.user,
+                                    handleIsSelected(user, value) &&
+                                        classes.userActive
+                                )}
+                            >
+                                <UserPreview user={user} />
+                            </div>
+                        );
+                    })}
+                </Group>
+                <Divider my="xl" />
 
-            <Title order={3}>Select users</Title>
-            <Group>
-                {dummyUsers.map((user) => {
-                    return (
-                        <div onClick={() => onChange(toggleUser(user, value))}>
-                            <UserPreview user={user} />
-                            {handleIsSelected(user, value)
-                                ? "selected"
-                                : "not selected"}
-                        </div>
-                    );
-                })}
-            </Group>
+                <Group>
+                    <Title order={4}>Selected users</Title>
+                    {value?.map((val) => {
+                        return (
+                            <Group key={val.user.id}>
+                                <UserPreview user={val.user} />
+                                <NumberInput
+                                    width={20}
+                                    value={val.percentage}
+                                    onChange={(num) =>
+                                        onChange(
+                                            handleChangePercentage(
+                                                val,
+                                                num,
+                                                value
+                                            )
+                                        )
+                                    }
+                                />
+                            </Group>
+                        );
+                    })}
+                </Group>
+            </Modal>
         </div>
     );
 };
