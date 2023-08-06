@@ -6,6 +6,9 @@ import GroupUserPage from "./group-user-page";
 import GroupOverview from "./group-overview";
 import EditExpensePage from "../expenses/edit-expense-page";
 import CreateExpensePage from "../expenses/create-expense-page";
+import CreateUserPage from "../users/create-user";
+import EditUserPage from "../users/edit-user";
+import TotalExpenses from "../expenses/total-expenses";
 
 const GroupPage = () => {
     return (
@@ -47,15 +50,10 @@ const GroupPage = () => {
                 }
             />
             <Route path={`expenses/create`} element={<CreateExpensePage />} />
-            <Route
-                path={`expenses/total`}
-                element={<div>total expense overview</div>}
-            />
-            <Route
-                path={`users/create`}
-                element={<div>create user in group</div>}
-            />
+            <Route path={`expenses/total`} element={<TotalExpenses />} />
+            <Route path={`users/create`} element={<CreateUserPage />} />
             <Route path={`users/:userId`} element={<GroupUserPage />} />
+            <Route path={`users/:userId/edit`} element={<EditUserPage />} />
             <Route path={`settings`} element={<div>Group Settings</div>} />
         </Routes>
     );

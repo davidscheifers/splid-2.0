@@ -1,22 +1,15 @@
 import {
-    Button,
     Group,
     ActionIcon,
     useMantineColorScheme,
     Title,
     Container,
 } from "@mantine/core";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
 
-import { IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconMoon, IconSun } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import { logout } from "../../features/actions/auth";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const TopNavigation = () => {
-    const dispatch = useDispatch();
-    const functions = bindActionCreators({ logout }, dispatch);
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const dark = colorScheme === "dark";
 
@@ -27,7 +20,6 @@ const TopNavigation = () => {
                     <Title order={3}>Splid 2.0</Title>
                 </Link>
                 <Group>
-                    <LanguageSwitcher />
                     <ActionIcon
                         variant="outline"
                         color="yellow"
@@ -36,14 +28,6 @@ const TopNavigation = () => {
                     >
                         {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
                     </ActionIcon>
-                    <Button
-                        size="xs"
-                        variant="default"
-                        leftIcon={<IconLogout size={20} />}
-                        onClick={() => functions.logout()}
-                    >
-                        Logout
-                    </Button>
                 </Group>
             </Group>
         </Container>
