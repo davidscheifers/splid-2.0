@@ -9,15 +9,15 @@ type PieChartProps = {
 export default function PieChartComponent({ data }: PieChartProps) {
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <PieChart width={400} height={400}>
+            <PieChart>
                 <Pie
                     data={data}
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
+                    innerRadius={60}
+                    outerRadius={100}
                     dataKey="value"
+                    label
                 >
                     {data.map((entry, index) => (
                         <Cell

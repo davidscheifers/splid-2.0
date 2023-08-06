@@ -43,7 +43,7 @@ type BalancePreviewProps = {
     groudId: number;
 };
 
-function BalancePreview({ balance, groudId }: BalancePreviewProps) {
+export function BalancePreview({ balance, groudId }: BalancePreviewProps) {
     return (
         <Paper withBorder p="sm" mb="md" radius="md">
             <Group position="apart">
