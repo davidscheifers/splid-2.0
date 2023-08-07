@@ -1,31 +1,45 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
-import { Transaction } from './transaction';
-import { Accounting } from './accounting';
-import { Group } from './group'
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+} from "typeorm";
+import { Accounting } from "./accounting";
+import { Group } from "./group";
+import { Transaction } from "./transaction";
 
-@Entity('User')
+@Index("User_pkey", ["username"], { unique: true })
+@Entity("User", { schema: "evide" })
 export class User {
-  @PrimaryColumn({ type: 'varchar', length: 255 })
+  @Column("character varying", { primary: true, name: "username", length: 255 })
   username: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column("character varying", { name: "password", length: 255 })
   password: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column("character varying", { name: "mail", length: 255 })
   mail: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column("character varying", { name: "number", nullable: true, length: 255 })
   number: string | null;
 
-  @OneToMany(() => Accounting, (userBalance) => userBalance.usernameNavigation)
+  @OneToMany(() => Accounting, (accounting) => accounting.username2)
   accountings: Accounting[];
 
-  @OneToMany(() => Transaction, (transaction) => transaction.receiverUsernameNavigation)
-  transactionReceiverUsernameNavigations: Transaction[];
-
-  @OneToMany(() => Transaction, (transaction) => transaction.senderUsernameNavigation)
-  transactionSenderUsernameNavigations: Transaction[];
-
-  @OneToMany(() => Group, (group) => group.Users)
+  @ManyToMany(() => Group, (group) => group.users)
+  @JoinTable({
+    name: "Group_User",
+    joinColumns: [{ name: "username", referencedColumnName: "username" }],
+    inverseJoinColumns: [{ name: "group_id", referencedColumnName: "id" }],
+    schema: "evide",
+  })
   groups: Group[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.receiverUsername)
+  transactions: Transaction[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.senderUsername)
+  transactions2: Transaction[];
 }

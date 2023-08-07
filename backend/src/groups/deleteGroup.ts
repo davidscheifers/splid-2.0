@@ -29,7 +29,7 @@ export const handler: Handler = async (event: any) => {
     }
 
     // Clearing users if you have a relation that needs to be cleared
-    group.Users = [];
+    group.users = [];
 
     await groupRepository.save(group); 
     await groupRepository.remove(group); 

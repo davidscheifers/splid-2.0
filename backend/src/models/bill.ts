@@ -1,13 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Transaction } from './transaction';
+import { Column, Entity, Index, OneToMany } from "typeorm";
+import { Transaction } from "./transaction";
 
-@Entity()
+@Index("Bill_pkey", ["id"], { unique: true })
+@Entity("Bill", { schema: "evide" })
 export class Bill {
-  @PrimaryGeneratedColumn('uuid')
+  @Column("uuid", { primary: true, name: "id" })
   id: string;
 
-  @Column({ type: 'varchar', length: 255, collation: 'pg_catalog."default"', nullable: true })
-  path: string | null;
+  @Column("character varying", { name: "path", length: 255 })
+  path: string;
 
   @OneToMany(() => Transaction, (transaction) => transaction.bill)
   transactions: Transaction[];

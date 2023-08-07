@@ -11,7 +11,7 @@ export const handler: Handler = async (event: any) => {
 
     const group: Group = event.group; 
 
-    if (group.Users === null) {
+    if (group.users === null) {
       return false;
     }
 
@@ -24,9 +24,7 @@ export const handler: Handler = async (event: any) => {
     group.updatedAt = new Date(); 
     group.createdBy = createdBy;
 
-    const users = group.Users;
-
-    group.Users = undefined;
+    const users = group.users;
 
     if (!await UpdateUsers(users, group)) { // You must define this function
       return false;
@@ -92,11 +90,11 @@ async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boo
   
       const groupOld = await groupRepository.findOne({ where: { id: group.id }, relations: ['users'] });
   
-      if (!groupOld || !groupOld.Users) {
+      if (!groupOld || !groupOld.users) {
         return false;
       }
   
-      const userToAdd = groupOld.Users ? users.filter(user => !groupOld.Users!.includes(user)) : [];
+      const userToAdd = groupOld.users ? users.filter(user => !groupOld.users!.includes(user)) : [];
   
       if (userToAdd.length > 0) {
         const newUsers = await CreateChangeListForUsersUpdate(userToAdd, group);
@@ -108,7 +106,7 @@ async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boo
         updateList = updateList.concat(newUsers);
       }
   
-      const userToDelete = groupOld.Users.filter(user => !users.includes(user));
+      const userToDelete = groupOld.users.filter(user => !users.includes(user));
   
       if (userToDelete.length > 0) {
         let checkBalanceSucc = true;

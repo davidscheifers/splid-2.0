@@ -21,7 +21,7 @@ export class RdsDatabase extends Construct {
       natGateways: 0,
       subnetConfiguration: [
         {
-          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes normal: Private
+          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes 
           cidrMask: 24,
           name: 'rds'
         },
@@ -154,18 +154,10 @@ export class RdsDatabase extends Construct {
     const instantiate = createResolver('instantiate', 'src/instantiate.ts');
     instantiate.node.addDependency(rdsInstance);
 
-    // Lambda function for gettings groups in the RDS table.
-    const getGroups = createResolver('get-groups', 'src/groups/getGroups.ts');
-    getGroups.node.addDependency(rdsInstance);
-
-    // // Lambda function for adding groups in the RDS table.
-    // const addGroup = createResolver('add-group', 'src/groups/addGroup.ts');
-    // addGroup.node.addDependency(rdsInstance);
-
     // Custom Resource to execute instantiate function.
     const customResource = new cr.AwsCustomResource(this, 'TriggerInstantiate', {
       functionName: 'trigger-instantiate',
-      role,
+      role, 
       onUpdate: {
         service: 'Lambda',
         action: 'invoke',

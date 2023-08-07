@@ -29,16 +29,16 @@ export const handler: Handler = async (event: any) => {
 
     const usernames = new Array<string>();
 
-    if (inputGroup.Users == null) {
+    if (inputGroup.users == null) {
       usernames.push(inputGroup.createdBy);
     } else {
-      usernames.push(...inputGroup.Users.map(u => u.username));
+      usernames.push(...inputGroup.users.map(u => u.username));
       if (!usernames.includes(inputGroup.createdBy)) {
         usernames.push(inputGroup.createdBy);
       }
     }
 
-    group.Users = await userRepository.find({
+    group.users = await userRepository.find({
       where: { username: In(usernames) }
     });
 
