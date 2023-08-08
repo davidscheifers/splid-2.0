@@ -45,6 +45,22 @@ export class ApiGateway extends Construct {
         timeout: cdk.Duration.seconds(props.lambda.timeout),
       });
 
+      const getExpensesFromGroupUser = new NodejsFunction(this, 'getExpensesFromGroupUser', {
+        entry: path.join(__dirname, '../../src/groups/getExpensesFromGroupUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const getIncomesFromGroupUser = new NodejsFunction(this, 'getIncomesFromGroupUser', {
+        entry: path.join(__dirname, '../../src/groups/getIncomesFromGroupUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
       const addGroupResolver = new NodejsFunction(this, 'addGroup', {
         entry: path.join(__dirname, '../../src/groups/addGroup.ts'),
         handler: 'handler',
@@ -61,12 +77,32 @@ export class ApiGateway extends Construct {
         timeout: cdk.Duration.seconds(props.lambda.timeout),
       });
 
+      const updateGroup = new NodejsFunction(this, 'updateGroup', {
+        entry: path.join(__dirname, '../../src/groups/updateGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const searchGroupOfUser = new NodejsFunction(this, 'searchGroupOfUser', {
+        entry: path.join(__dirname, '../../src/groups/searchGroupOfUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
       //group Integrations
 
       const getGroupIntegration = new apigateway.LambdaIntegration(getGroupsResolver);
       const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
       const addGroupIntegration = new apigateway.LambdaIntegration(addGroupResolver);
       const deleteGroupIntegration = new apigateway.LambdaIntegration(deleteGroupResolver);
+      const getExpansesFromGroupUserIntegration = new apigateway.LambdaIntegration(getExpensesFromGroupUser);
+      const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUser);
+      const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUser);
+      const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroup);
   
       // API Gateway RestApi
       const api = new apigateway.RestApi(this, 'RestAPI', {
@@ -117,7 +153,16 @@ export class ApiGateway extends Construct {
       //group ressources and methods
       const groupResource =  secureResource.addResource('Groups');
       const groupIdResource = groupResource.addResource('{groupId}');
-      const detailsResource = groupIdResource.addResource('details');
+
+      const groupSearchResource = groupResource.addResource('search');
+
+      const groupIdUsersResource = groupIdResource.addResource('users');
+      const groupIddetailsResource = groupIdResource.addResource('details');
+
+      const groupIdUsersUsernameResource = groupIdUsersResource.addResource('{username}');
+
+      const groupIdUsersUsernameExpenseResource = groupIdUsersUsernameResource.addResource('expense');
+      const groupIdUsersUsernameIncomeResource = groupIdUsersUsernameResource.addResource('income');
 
       groupResource.addMethod('GET', getGroupIntegration, {
         requestModels: { 'application/json': model },
@@ -130,9 +175,25 @@ export class ApiGateway extends Construct {
         requestModels: { 'application/json': model },
       });
 
-      detailsResource.addMethod('GET', getGroupDetailsIntegration, {
+      groupIddetailsResource.addMethod('GET', getGroupDetailsIntegration, {
         requestModels: { 'application/json': model },
       });  
+
+      groupIdUsersUsernameExpenseResource.addMethod('GET', getExpansesFromGroupUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupIdUsersUsernameIncomeResource.addMethod('GET', getIncomesFromGroupUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupSearchResource.addMethod('GET', searchGroupOfUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupResource.addMethod('PUT', updateGroupIntegration, {
+        requestModels: { 'application/json': model },
+      });
 
 
       ///api/Groups/{groupId} /details
