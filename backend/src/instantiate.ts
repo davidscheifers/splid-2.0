@@ -1,8 +1,6 @@
 import { Handler } from 'aws-lambda';
 import { SecretsManager } from 'aws-sdk';
 import { Client } from 'pg';
-import * as fs from 'fs';
-import * as path from 'path';
 
 const RDS_ARN = process.env.RDS_ARN!;
 const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
@@ -31,36 +29,22 @@ export const handler: Handler = async () => {
             port: 5432,
         });
 
-        try {
-            // Connect to RDS instance with Admin
-            console.log('connecting to rds with admin...');
-            await client.connect();
-            console.log('setting up new database...');
-            await client.query('CREATE DATABASE spliddb;');
-            await client.query(`CREATE USER ${credentials.user} WITH PASSWORD '${credentials.password}';`);
-            await client.query(`GRANT ALL PRIVILEGES ON DATABASE spliddb TO ${credentials.user};`);
-            console.log('setup completed!');
-          }catch {
-            console.log('db already exist');
-        }
-          
+        // // Instantiate RDS Client with new user
+        // console.log('instantiating client with new user...');
+        // const userClient = new Client({
+        //     host: admin.host,
+        //     user: credentials.user,
+        //     password: credentials.password,
+        //     database: 'spliddb',
+        //     port: 5432,
+        // });
 
-        // Instantiate RDS Client with new user
-        console.log('instantiating client with new user...');
-        const userClient = new Client({
-            host: admin.host,
-            user: credentials.user,
-            password: credentials.password,
-            database: 'spliddb',
-            port: 5432,
-        });
-
-        // Connect to RDS instance
-        console.log('connecting to rds with new user...');
-        await userClient.connect();
+        // // Connect to RDS instance
+        // console.log('connecting to rds with new user...');
+        // await userClient.connect();
 
         console.log('tasks completed!');
-        await userClient.end();
+        await client.end();
 
     } catch (error) {
         console.error('Error creating database:', error);

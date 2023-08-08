@@ -14,6 +14,9 @@ const secrets = new SecretsManager();
 export const instantiateRdsClient = async (): Promise<DataSource> => {
   
   console.log('retrieving spliddb credentials...');
+  console.log('CREDENTIALS_ARN: ', CREDENTIALS_ARN);
+
+  console.log(await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise());
   const credentialsSecret = await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise();
   const credentials = JSON.parse(credentialsSecret.SecretString as string);
 
@@ -25,7 +28,8 @@ export const instantiateRdsClient = async (): Promise<DataSource> => {
     username: credentials.user,
     password: credentials.password,
     database: 'spliddb',
-    entities: [Group, Accounting, Bill, Transaction, User], // Add all your entities here
+    schema: 'splid',
+    entities: [Group, Accounting, Bill, Transaction, User], // List of entities to load needed?
     synchronize: false, // Set to true if you want TypeORM to automatically create the database schema
   });
 
