@@ -7,6 +7,17 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //request body: multipart/form-data
+  // string($uuid)
+  // Name
+  // string
+  // Description
+  // string
+  // Users
+  // array
+  // Picture
+  // string($binary)
+
 
   try {
     console.log('addGroup lambda starts here')
