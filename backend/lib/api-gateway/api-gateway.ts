@@ -27,7 +27,7 @@ export class ApiGateway extends Construct {
   
     //   const integration = new apigateway.LambdaIntegration(resolver);
 
-      //group Resolvers
+      //FOR ENDPOINTS: group Resolvers
 
       const getGroupsResolver = new NodejsFunction(this, 'getGroupsResolver', {
         entry: path.join(__dirname, '../../src/groups/getGroups.ts'),
@@ -93,7 +93,7 @@ export class ApiGateway extends Construct {
         timeout: cdk.Duration.seconds(props.lambda.timeout),
       });
 
-      //group Integrations
+      //FOR ENDPOINTS group Integrations
 
       const getGroupIntegration = new apigateway.LambdaIntegration(getGroupsResolver);
       const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
@@ -142,6 +142,8 @@ export class ApiGateway extends Construct {
           },
         },
       });
+
+      //FOR ENDPOINTS
   
       // Root Resources 
       const rootResource = api.root.addResource(props.api.rootResource);
