@@ -15,7 +15,7 @@ const environmentConfig: IApiGatewayStackProps = {
     name: 'demo-rest-api',
     desc: 'Rest Api Gateway used for Api Gateway YouTube tutorial',
     modelName: 'DemoModel',
-    rootResource: 'v1',
+    rootResource: 'api',
   },
   usageplan: {
     name: 'demo-usage-plan',
