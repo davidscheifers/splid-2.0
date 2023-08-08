@@ -29,19 +29,22 @@ export const handler: Handler = async () => {
             port: 5432,
         });
 
-        // Instantiate RDS Client with new user
-        console.log('instantiating client with new user...');
-        const userClient = new Client({
-            host: admin.host,
-            user: credentials.user,
-            password: credentials.password,
-            database: 'spliddb',
-            port: 5432,
-        });
+        console.log(admin.username, admin.password);
+    
+
+        // // Instantiate RDS Client with new user
+        // console.log('instantiating client with new user...');
+        // const userClient = new Client({
+        //     host: admin.host,
+        //     user: credentials.user,
+        //     password: credentials.password,
+        //     database: 'spliddb',
+        //     port: 5432,
+        // });
 
         // Connect to RDS instance
         console.log('connecting to rds with new user...');
-        await userClient.connect();
+        await client.connect();
 
         console.log('tasks completed!');
         await client.end();
