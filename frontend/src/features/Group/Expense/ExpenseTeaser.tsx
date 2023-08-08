@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TDummyExpense } from "../../../types/group";
 import { Avatar, Group, Title, Text } from "@mantine/core";
 import { displayCurrency } from "../../../utils/functions/functions";
@@ -8,8 +8,10 @@ type ExpenseTeaserProps = {
 };
 
 const ExpenseTeaser = ({ expense }: ExpenseTeaserProps) => {
+    const { id } = useParams<{ id: string }>();
+
     return (
-        <Link to={`${expense.id}`}>
+        <Link to={`/groups/${id}/expenses/${expense.id}`}>
             <Group position="apart" py="sm">
                 <Group>
                     <Avatar radius="xl" />

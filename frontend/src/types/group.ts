@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type TDummyGroup = {
     id: number;
     name: string;
@@ -21,7 +23,21 @@ export type TDummyExpense = {
     createdAt: Date;
 };
 
+export type TDummyBalance = {
+    id: number;
+    amount: number;
+    currency: CurrencyType;
+    user: TDummyUser;
+};
+
 export type TDummyUser = {
     id: number;
     name: string;
 };
+
+export const GroupFormSchema = z.object({
+    name: z.string(),
+    currency: z.string(),
+});
+
+export type TGroupForm = z.infer<typeof GroupFormSchema>;
