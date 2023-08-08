@@ -13,6 +13,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { IApiGatewayStackProps, IValidators } from '../bin/stack-config-types';
+import { get } from 'http';
 
 export class MyAppStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
@@ -188,71 +189,30 @@ export class MyAppStack extends cdk.Stack {
       HOST: rdsInstance.dbInstanceEndpointAddress
     };
 
-    const getGroupsResolver = new NodejsFunction(this, 'getGroupsResolver', {
-      entry: path.join(__dirname, '../src/groups/getGroups.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const getGroupsResolver = createResolver('getGroupsResolver', 'src/groups/getGroups.ts');
+    getGroupsResolver.node.addDependency(rdsInstance);
 
-    const getGroupDetailsResolver = new NodejsFunction(this, 'getGroupDetails', {
-      entry: path.join(__dirname, '../src/groups/getGroupDetails.ts'),
-      handler: 'handler',
-      role: role,
-      runtime: lambda.Runtime.NODEJS_18_X,
-      environment: lambdaEnvironment,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const getGroupDetailsResolver = createResolver('getGroupDetailsResolver', 'src/groups/getGroupDetails.ts');
+    getGroupDetailsResolver.node.addDependency(rdsInstance);
 
-    const getExpensesFromGroupUser = new NodejsFunction(this, 'getExpensesFromGroupUser', {
-      entry: path.join(__dirname, '../src/groups/getExpensesFromGroupUser.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const getExpensesFromGroupUserResolver = createResolver('getExpensesFromGroupUser', 'src/groups/getExpensesFromGroupUser.ts');
+    getExpensesFromGroupUserResolver.node.addDependency(rdsInstance);
 
-    const getIncomesFromGroupUser = new NodejsFunction(this, 'getIncomesFromGroupUser', {
-      entry: path.join(__dirname, '../src/groups/getIncomesFromGroupUser.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const getIncomesFromGroupUserResolver = createResolver('getIncomesFromGroupUser', 'src/groups/getIncomesFromGroupUser.ts');
+    getIncomesFromGroupUserResolver.node.addDependency(rdsInstance);
 
-    const addGroupResolver = new NodejsFunction(this, 'addGroup', {
-      entry: path.join(__dirname, '../src/groups/addGroup.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const addGroupResolver = createResolver('addGroupResolver', 'src/groups/addGroup.ts');
+    addGroupResolver.node.addDependency(rdsInstance);
 
-    const deleteGroupResolver = new NodejsFunction(this, 'deleteGroup', {
-      entry: path.join(__dirname, '../src/groups/deleteGroup.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const deleteGroupResolver = createResolver('deleteGroupResolver', 'src/groups/deleteGroup.ts');
+    deleteGroupResolver.node.addDependency(rdsInstance);
 
-    const updateGroup = new NodejsFunction(this, 'updateGroup', {
-      entry: path.join(__dirname, '../src/groups/updateGroup.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const updateGroupResolver = createResolver('updateGroupResolver', 'src/groups/updateGroup.ts');
+    updateGroupResolver.node.addDependency(rdsInstance);
 
-    const searchGroupOfUser = new NodejsFunction(this, 'searchGroupOfUser', {
-      entry: path.join(__dirname, '../src/groups/searchGroupOfUser.ts'),
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-      memorySize: props.lambda.memory,
-      timeout: cdk.Duration.seconds(props.lambda.timeout),
-    });
+    const searchGroupOfUserResolver = createResolver('searchGroupOfUserResolver', 'src/groups/searchGroupOfUser.ts');
+    searchGroupOfUserResolver.node.addDependency(rdsInstance);
+
 
     //FOR ENDPOINTS group Integrations
 
@@ -260,10 +220,10 @@ export class MyAppStack extends cdk.Stack {
     const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
     const addGroupIntegration = new apigateway.LambdaIntegration(addGroupResolver);
     const deleteGroupIntegration = new apigateway.LambdaIntegration(deleteGroupResolver);
-    const getExpansesFromGroupUserIntegration = new apigateway.LambdaIntegration(getExpensesFromGroupUser);
-    const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUser);
-    const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUser);
-    const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroup);
+    const getExpansesFromGroupUserIntegration = new apigateway.LambdaIntegration(getExpensesFromGroupUserResolver);
+    const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUserResolver);
+    const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUserResolver);
+    const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroupResolver);
 
     // API Gateway RestApi
     const api = new apigateway.RestApi(this, 'RestAPI', {
