@@ -6,7 +6,11 @@ export const handler: Handler = async (event: any) => {
   let dataSource;
 
   try {
+    console.log('searchGroupOfUsers lambda starts here')
+
     dataSource = await instantiateRdsClient();
+
+    console.log('getting users from db');
     const userRepository = dataSource.getRepository(User);
 
     const username: string = event.username; 

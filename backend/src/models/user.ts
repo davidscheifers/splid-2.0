@@ -11,7 +11,7 @@ import { Group } from "./group";
 import { Transaction } from "./transaction";
 
 @Index("User_pkey", ["username"], { unique: true })
-@Entity("User", { schema: "evide" })
+@Entity("User", { schema: "splid" })
 export class User {
   @Column("character varying", { primary: true, name: "username", length: 255 })
   username: string;
@@ -33,7 +33,7 @@ export class User {
     name: "Group_User",
     joinColumns: [{ name: "username", referencedColumnName: "username" }],
     inverseJoinColumns: [{ name: "group_id", referencedColumnName: "id" }],
-    schema: "evide",
+    schema: "splid",
   })
   groups: Group[];
 

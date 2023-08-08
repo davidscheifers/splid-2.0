@@ -4,7 +4,7 @@ import { User } from "./user";
 import { Group } from "./group";
 
 @Index("Transaction_pkey", ["id"], { unique: true })
-@Entity("Transaction", { schema: "evide" })
+@Entity("Transaction", { schema: "splid" })
 export class Transaction {
   @Column("uuid", { primary: true, name: "id" })
   id: string;

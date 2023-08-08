@@ -1,58 +1,35 @@
-import { Handler } from 'aws-lambda';
+import { APIGatewayProxyHandler, Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { Group } from '../models/group';
+import { createResponse } from '../utils/response-utils';
 
-const createResponse = (code:number, body: any) => {
-  return {
-      statusCode: code,
-      headers: { 'Content-Type': 'application/json'},
-      isBase64Encoded: false,
-      body: JSON.stringify(body),
-  };
-}
-
-export const handler: Handler = async (event: any) => {
+export const handler: APIGatewayProxyHandler = async (event, _context) => {
   let dataSource;
 
   try {
-    console.log('Go into the lambda!')
-    dataSource = await instantiateRdsClient();
-    console.log('getting groups');
-    const groupRepository = dataSource.getRepository(Group);
-    const groups = await groupRepository.find({ take: 10 }); //prepare object for return
-    console.log(groups);
+    console.log('getGroups lambda starts here')
 
-     // Close the connection when you're done
-     await dataSource.destroy();
+    dataSource = await instantiateRdsClient();
+
+    console.log('getting groups from db');
+    const groupRepository = dataSource.getRepository(Group);
+    const groups = await groupRepository.find({
+      select: ["id", "name", "description", "createdAt", "updatedAt", "accountings", "users"],
+      take: 10
+    });
+
+    console.log('Successfully retrieved groups.');
+    console.log(groups);
 
     return createResponse(200, groups);
 
   } catch (error) {
-    console.error('Error creating database:', error);
-    throw error;
+    console.error('Error getting groups:', error);
+    return createResponse(500, 'Error getting groups.');
+  }finally{
+    if(dataSource){
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 };
-
-// import { instantiateRdsClient } from '../utils/db-connection';
-// import { Group } from '../models/group';
-
-// export const getGroups = async () => {
-//   let dataSource;
-
-//   try {
-//     dataSource = await instantiateRdsClient();
-//     console.log('getting groups');
-//     const groupRepository = dataSource.getRepository(Group);
-//     const groups = await groupRepository.find({ take: 10 });
-//     console.log(groups);
-
-//      // Close the connection when you're done
-//      await dataSource.destroy();
-
-//     return groups;
-
-//   } catch (error) {
-//     console.error('Error creating database:', error);
-//     throw error;
-//   }
-// };

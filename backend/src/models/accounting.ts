@@ -3,7 +3,7 @@ import { User } from "./user";
 import { Group } from "./group";
 
 @Index("Accounting_pkey", ["groupId", "username"], { unique: true })
-@Entity("Accounting", { schema: "evide" })
+@Entity("Accounting", { schema: "splid" })
 export class Accounting {
   @Column("character varying", { primary: true, name: "username", length: 255 })
   username: string;

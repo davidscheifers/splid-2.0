@@ -36,7 +36,37 @@ export class ApiGateway extends Construct {
         memorySize: props.lambda.memory,
         timeout: cdk.Duration.seconds(props.lambda.timeout),
       });
+
+      const getGroupDetailsResolver = new NodejsFunction(this, 'getGroupDetails', {
+        entry: path.join(__dirname, '../../src/groups/getGroupDetails.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const addGroupResolver = new NodejsFunction(this, 'addGroup', {
+        entry: path.join(__dirname, '../../src/groups/addGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const deleteGroupResolver = new NodejsFunction(this, 'deleteGroup', {
+        entry: path.join(__dirname, '../../src/groups/deleteGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      //group Integrations
+
       const getGroupIntegration = new apigateway.LambdaIntegration(getGroupsResolver);
+      const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
+      const addGroupIntegration = new apigateway.LambdaIntegration(addGroupResolver);
+      const deleteGroupIntegration = new apigateway.LambdaIntegration(deleteGroupResolver);
   
       // API Gateway RestApi
       const api = new apigateway.RestApi(this, 'RestAPI', {
@@ -85,11 +115,27 @@ export class ApiGateway extends Construct {
       const paramResource = secureResource.addResource('{param}');
 
       //group ressources and methods
-      const groupResource =  secureResource.addResource('groups');
+      const groupResource =  secureResource.addResource('Groups');
+      const groupIdResource = groupResource.addResource('{groupId}');
+      const detailsResource = groupIdResource.addResource('details');
 
       groupResource.addMethod('GET', getGroupIntegration, {
         requestModels: { 'application/json': model },
       });
+      groupResource.addMethod('POST', addGroupIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupIdResource.addMethod('DELETE', deleteGroupIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      detailsResource.addMethod('GET', getGroupDetailsIntegration, {
+        requestModels: { 'application/json': model },
+      });  
+
+
+      ///api/Groups/{groupId} /details
 
       // API Usageplan
       const usageplan = api.addUsagePlan('UsagePlan', {

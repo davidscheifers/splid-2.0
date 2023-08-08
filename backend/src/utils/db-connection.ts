@@ -1,6 +1,10 @@
 import { DataSource } from 'typeorm';
 import { SecretsManager } from 'aws-sdk';
-import { Group } from '../models/group'; // Import your entity
+import { Group } from '../models/group'; 
+import { Accounting } from '../models/accounting'; 
+import { Bill } from '../models/bill'; 
+import { Transaction } from '../models/transaction'; 
+import { User } from '../models/user'; 
 
 const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
 const HOST = process.env.HOST!;
@@ -8,6 +12,7 @@ const HOST = process.env.HOST!;
 const secrets = new SecretsManager();
 
 export const instantiateRdsClient = async (): Promise<DataSource> => {
+  
   console.log('retrieving spliddb credentials...');
   const credentialsSecret = await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise();
   const credentials = JSON.parse(credentialsSecret.SecretString as string);
@@ -20,7 +25,7 @@ export const instantiateRdsClient = async (): Promise<DataSource> => {
     username: credentials.user,
     password: credentials.password,
     database: 'spliddb',
-    entities: [Group], // Add all your entities here
+    entities: [Group, Accounting, Bill, Transaction, User], // Add all your entities here
     synchronize: false, // Set to true if you want TypeORM to automatically create the database schema
   });
 
