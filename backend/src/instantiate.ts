@@ -59,24 +59,6 @@ export const handler: Handler = async () => {
         console.log('connecting to rds with new user...');
         await userClient.connect();
 
-        //add init.sql script here -> ToDo: stack for s3 bucket
-
-        //for testing just a simple Group Table:
-
-        console.log('Creating table Group');
-        const createTableCommand = [
-            'CREATE TABLE IF NOT EXISTS "Group" (',
-            'id UUID PRIMARY KEY NOT NULL,',
-            'name CHARACTER VARYING(255) NOT NULL,',
-            'picture_path CHARACTER VARYING(255),',
-            'description CHARACTER VARYING(255),',
-            'created_by CHARACTER VARYING NOT NULL,',
-            'created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,',
-            'updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL',
-            ');',
-        ]
-
-        await userClient.query(createTableCommand.join(''))
         console.log('tasks completed!');
         await userClient.end();
 

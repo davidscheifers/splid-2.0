@@ -1,47 +1,61 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { Group } from '../models/group'; 
+import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //request body: application/json-patch+json
+  // {
+  //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  //   "name": "string",
+  //   "picturePath": "string",
+  //   "description": "string",
+  //   "createdAt": "2023-08-08T08:44:41.203Z",
+  //   "updatedAt": "2023-08-08T08:44:41.203Z",
+  //   "picture": "string"
+  // }
 
   try {
+    console.log('updateGroup lambda starts here')
+
     dataSource = await instantiateRdsClient();
+
     const groupRepository = dataSource.getRepository(Group);
 
-    const group: Group = event.group; 
+    const inputGroup: Group = JSON.parse(event.body);
 
-    if (group.Users === null) {
-      return false;
+    if (inputGroup.users === null) {
+      return createResponse(400, 'Cannot update group. Missing required fields.');
     }
 
-    const createdBy = await GetCreatedBy(group.id);
+    const createdBy = await GetCreatedBy(inputGroup.id);
 
     if (createdBy === null) {
-      return false;
+      return createResponse(400, 'Cannot update group. Group not found.');
     }
 
-    group.updatedAt = new Date(); 
-    group.createdBy = createdBy;
+    inputGroup.updatedAt = new Date(); 
+    inputGroup.createdBy = createdBy;
 
-    const users = group.Users;
+    const users = inputGroup.users;
 
-    group.Users = undefined;
-
-    if (!await UpdateUsers(users, group)) { // You must define this function
-      return false;
+    if (!await UpdateUsers(users, inputGroup)) { 
+      return createResponse(400, 'Cannot update group. Error updating users.');
     }
 
-    await groupRepository.save(group); 
+    await groupRepository.save(inputGroup); 
 
-    // Close the connection when you're done
-    await dataSource.destroy();
-
-    return true;
+    return createResponse(200, 'Group updated successfully.');
 
   } catch (error) {
     console.error('Error updating group:', error);
-    throw error;
+    return createResponse(500, 'Error updating group.');
+  }finally{
+    if(dataSource){
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 };
 
@@ -58,14 +72,16 @@ async function GetCreatedBy(id: string): Promise<string | null> {
       return null;
     }
 
-    // Close the connection when you're done
-    await dataSource.close();
-
     return group.createdBy; 
 
   } catch (error) {
     console.error('Error getting createdBy:', error);
-    throw error;
+    return null;
+  }finally{
+    if(dataSource){
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 }
 
@@ -73,12 +89,12 @@ export { GetCreatedBy };
 
 //---------------
 
-import { User } from '../models/user'; // Import your User entity
-import { Accounting } from '../models/accounting'; // Import your Accounting entity
+import { User } from '../models/user'; 
+import { Accounting } from '../models/accounting';
 
-async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boolean> {
+async function UpdateUsers(users: User[], group: Group): Promise<boolean> {
     if (!users) {
-      return false; // You can handle the undefined users case here as needed
+      return false; 
     }
   
     let dataSource;
@@ -92,11 +108,11 @@ async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boo
   
       const groupOld = await groupRepository.findOne({ where: { id: group.id }, relations: ['users'] });
   
-      if (!groupOld || !groupOld.Users) {
+      if (!groupOld || !groupOld.users) {
         return false;
       }
   
-      const userToAdd = groupOld.Users ? users.filter(user => !groupOld.Users!.includes(user)) : [];
+      const userToAdd = groupOld.users ? users.filter(user => !groupOld.users!.includes(user)) : [];
   
       if (userToAdd.length > 0) {
         const newUsers = await CreateChangeListForUsersUpdate(userToAdd, group);
@@ -108,7 +124,7 @@ async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boo
         updateList = updateList.concat(newUsers);
       }
   
-      const userToDelete = groupOld.Users.filter(user => !users.includes(user));
+      const userToDelete = groupOld.users.filter(user => !users.includes(user));
   
       if (userToDelete.length > 0) {
         let checkBalanceSucc = true;
@@ -142,12 +158,15 @@ async function UpdateUsers(users: User[] | undefined, group: Group): Promise<boo
         await userRepository.save(updateList);
       }
   
-      await dataSource.destroy();
-  
       return true;
     } catch (error) {
       console.error('Error updating users:', error);
-      throw error;
+      throw false;
+    }finally{
+      if(dataSource){
+        await dataSource.destroy();
+        console.log('Database connection closed.')
+      }
     }
   }
   
@@ -179,7 +198,12 @@ async function CreateChangeListForUsersUpdate(users: User[], group: Group): Prom
       return updateList;
     } catch (error) {
       console.error('Error getting user:', error);
-      throw error;
+      return null;;
+    }finally{
+      if(dataSource){
+        await dataSource.destroy();
+        console.log('Database connection closed.')
+      }
     }
   }
   
@@ -209,7 +233,13 @@ async function CheckBalance(user: User, group: Group): Promise<boolean> {
     return false;
   } catch (error) {
     console.error('Error checking balance:', error);
-    throw error;
+    return false;
+  }
+  finally{
+    if(dataSource){
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 }
 

@@ -1,21 +1,28 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
-import { User } from './user';
-import { Group } from './group';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { User } from "./user";
+import { Group } from "./group";
 
-@Entity('Accounting')
+@Index("Accounting_pkey", ["groupId", "username"], { unique: true })
+@Entity("Accounting", { schema: "splid" })
 export class Accounting {
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column("character varying", { primary: true, name: "username", length: 255 })
   username: string;
 
-  @Column({ type: 'double precision', nullable: false, default: 0.0 })
+  @Column("double precision", {
+    name: "balance",
+    precision: 53,
+    default: () => "0.0",
+  })
   balance: number;
 
-  @Column({ type: 'uuid', nullable: false })
+  @Column("uuid", { primary: true, name: "group_id" })
   groupId: string;
 
-  @ManyToOne(() => Group, (group) => group.accountings)
-  group: Group;
-
   @ManyToOne(() => User, (user) => user.accountings)
-  usernameNavigation: User;
+  @JoinColumn([{ name: "username", referencedColumnName: "username" }])
+  username2: User;
+
+  @ManyToOne(() => Group, (group) => group.accountings)
+  @JoinColumn([{ name: "group_id", referencedColumnName: "id" }])
+  group: Group;
 }

@@ -1,25 +1,108 @@
-import * as cdk from 'aws-cdk-lib';
+
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import { RestApi, LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
+import { NodejsFunction, NodejsFunctionProps } from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { IApiGatewayStackProps, IValidators } from '../../bin/stack-config-types'
+import { Lambda } from 'aws-sdk';
+import path = require('path');
+
 
 export class ApiGateway extends Construct {
     constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
         super(scope, id);
 
-         // Lambda for resolving API requests
-    const resolver = new lambda.Function(this, 'LambdaResolver', {
-        functionName: props.lambda.name,
-        description: props.lambda.desc,
-        handler: 'index.handler',
-        code: new lambda.AssetCode('dist/src'),
+    //      // Lambda for resolving API requests
+    // const resolver = new lambda.Function(this, 'LambdaResolver', {
+    //     functionName: props.lambda.name,
+    //     description: props.lambda.desc,
+    //     handler: 'index.handler',
+    //     code: new lambda.AssetCode('dist/src'),
+    //     runtime: lambda.Runtime.NODEJS_18_X,
+    //     memorySize: props.lambda.memory,
+    //     timeout: cdk.Duration.seconds(props.lambda.timeout),
+    //   });
+  
+    //   const integration = new apigateway.LambdaIntegration(resolver);
+
+      //FOR ENDPOINTS: group Resolvers
+
+      const getGroupsResolver = new NodejsFunction(this, 'getGroupsResolver', {
+        entry: path.join(__dirname, '../../src/groups/getGroups.ts'),
+        handler: 'handler',
         runtime: lambda.Runtime.NODEJS_18_X,
         memorySize: props.lambda.memory,
         timeout: cdk.Duration.seconds(props.lambda.timeout),
       });
-  
-      const integration = new apigateway.LambdaIntegration(resolver);
+
+      const getGroupDetailsResolver = new NodejsFunction(this, 'getGroupDetails', {
+        entry: path.join(__dirname, '../../src/groups/getGroupDetails.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const getExpensesFromGroupUser = new NodejsFunction(this, 'getExpensesFromGroupUser', {
+        entry: path.join(__dirname, '../../src/groups/getExpensesFromGroupUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const getIncomesFromGroupUser = new NodejsFunction(this, 'getIncomesFromGroupUser', {
+        entry: path.join(__dirname, '../../src/groups/getIncomesFromGroupUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const addGroupResolver = new NodejsFunction(this, 'addGroup', {
+        entry: path.join(__dirname, '../../src/groups/addGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const deleteGroupResolver = new NodejsFunction(this, 'deleteGroup', {
+        entry: path.join(__dirname, '../../src/groups/deleteGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const updateGroup = new NodejsFunction(this, 'updateGroup', {
+        entry: path.join(__dirname, '../../src/groups/updateGroup.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      const searchGroupOfUser = new NodejsFunction(this, 'searchGroupOfUser', {
+        entry: path.join(__dirname, '../../src/groups/searchGroupOfUser.ts'),
+        handler: 'handler',
+        runtime: lambda.Runtime.NODEJS_18_X,
+        memorySize: props.lambda.memory,
+        timeout: cdk.Duration.seconds(props.lambda.timeout),
+      });
+
+      //FOR ENDPOINTS group Integrations
+
+      const getGroupIntegration = new apigateway.LambdaIntegration(getGroupsResolver);
+      const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
+      const addGroupIntegration = new apigateway.LambdaIntegration(addGroupResolver);
+      const deleteGroupIntegration = new apigateway.LambdaIntegration(deleteGroupResolver);
+      const getExpansesFromGroupUserIntegration = new apigateway.LambdaIntegration(getExpensesFromGroupUser);
+      const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUser);
+      const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUser);
+      const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroup);
   
       // API Gateway RestApi
       const api = new apigateway.RestApi(this, 'RestAPI', {
@@ -59,52 +142,64 @@ export class ApiGateway extends Construct {
           },
         },
       });
+
+      //FOR ENDPOINTS
   
-      // Root Resources
+      // Root Resources 
       const rootResource = api.root.addResource(props.api.rootResource);
-  
-      // Open Resource and Methods
-      const openResource = rootResource.addResource('open');
-  
-      ['GET', 'POST', 'PATCH', 'DELETE'].map((method) => {
-        openResource.addMethod(method, integration, {
-          operationName: `${method} Open Resource`,
-        });
-      });
   
       // Secure Resources and Methods
       const secureResource = rootResource.addResource('secure');
       const paramResource = secureResource.addResource('{param}');
-  
-      secureResource.addMethod('GET', integration, {
-        operationName: 'Get Secure Resource',
-        apiKeyRequired: true,
-      });
-  
-      secureResource.addMethod('POST', integration, {
-        operationName: 'POST Secure Resource',
-        apiKeyRequired: true,
-        requestValidator: bodyValidator,
+
+      //group ressources and methods
+      const groupResource =  secureResource.addResource('Groups');
+      const groupIdResource = groupResource.addResource('{groupId}');
+
+      const groupSearchResource = groupResource.addResource('search');
+
+      const groupIdUsersResource = groupIdResource.addResource('users');
+      const groupIddetailsResource = groupIdResource.addResource('details');
+
+      const groupIdUsersUsernameResource = groupIdUsersResource.addResource('{username}');
+
+      const groupIdUsersUsernameExpenseResource = groupIdUsersUsernameResource.addResource('expense');
+      const groupIdUsersUsernameIncomeResource = groupIdUsersUsernameResource.addResource('income');
+
+      groupResource.addMethod('GET', getGroupIntegration, {
         requestModels: { 'application/json': model },
       });
-  
-      ['GET', 'DELETE'].map((method) => {
-        paramResource.addMethod(method, integration, {
-          operationName: `${method} Secure Param Resource`,
-          apiKeyRequired: true,
-          requestValidator: paramValidator,
-          requestParameters: { 'method.request.path.param': true },
-        });
-      });
-  
-      paramResource.addMethod('PATCH', integration, {
-        operationName: 'PATCH Secure Param Resource',
-        apiKeyRequired: true,
-        requestValidator: bodyAndParamValidator,
-        requestParameters: { 'method.request.path.param': true },
+      groupResource.addMethod('POST', addGroupIntegration, {
         requestModels: { 'application/json': model },
       });
-  
+
+      groupIdResource.addMethod('DELETE', deleteGroupIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupIddetailsResource.addMethod('GET', getGroupDetailsIntegration, {
+        requestModels: { 'application/json': model },
+      });  
+
+      groupIdUsersUsernameExpenseResource.addMethod('GET', getExpansesFromGroupUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupIdUsersUsernameIncomeResource.addMethod('GET', getIncomesFromGroupUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupSearchResource.addMethod('GET', searchGroupOfUserIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+      groupResource.addMethod('PUT', updateGroupIntegration, {
+        requestModels: { 'application/json': model },
+      });
+
+
+      ///api/Groups/{groupId} /details
+
       // API Usageplan
       const usageplan = api.addUsagePlan('UsagePlan', {
         name: props.usageplan.name,
