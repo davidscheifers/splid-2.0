@@ -6,6 +6,7 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path Groups/uuid
 
   try {
     console.log('deleteGroup lambda starts here')
@@ -31,8 +32,7 @@ export const handler: Handler = async (event: any) => {
     if (group === null || user === null || group.createdBy !== user.username) {
       return createResponse(500, 'Cannot delete group.');
     }
-
-    // Clearing users if you have a relation that needs to be cleared
+    
     group.users = [];
 
     await groupRepository.save(group); 

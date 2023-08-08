@@ -5,6 +5,7 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path /groups/groupid/details
 
   try {
     console.log('getGroupDetails lambda starts here')
