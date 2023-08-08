@@ -18,14 +18,6 @@ export class MyAppStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
         super(scope, id, props);
 
-    // // The RDS database
-    // new RdsDatabase(this, 'MyRdsDatabase', props);
-
-    //  // The API Gateway
-    //  new ApiGateway(this, 'MyApiGateway', props);
-
-    // // The Lambda functions
-
     // VPC for RDS and Lambda resolvers
     const vpc = new ec2.Vpc(this, 'VPC', {
       vpcName: 'rds-vpc',
@@ -187,19 +179,6 @@ export class MyAppStack extends cdk.Stack {
 
     
     //----------APIGATEWAY----------------
-
-  //      // Lambda for resolving API requests
-  // const resolver = new lambda.Function(this, 'LambdaResolver', {
-  //     functionName: props.lambda.name,
-  //     description: props.lambda.desc,
-  //     handler: 'index.handler',
-  //     code: new lambda.AssetCode('dist/src'),
-  //     runtime: lambda.Runtime.NODEJS_18_X,
-  //     memorySize: props.lambda.memory,
-  //     timeout: cdk.Duration.seconds(props.lambda.timeout),
-  //   });
-
-  //   const integration = new apigateway.LambdaIntegration(resolver);
 
     //FOR ENDPOINTS: group Resolvers
 
