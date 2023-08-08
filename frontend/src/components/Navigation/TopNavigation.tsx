@@ -14,7 +14,7 @@ const TopNavigation = () => {
     const dark = colorScheme === "dark";
 
     return (
-        <Container size="xl">
+        <Container size="md">
             <Group position="apart" style={{ width: "100%" }} py="xl">
                 <Link to="/">
                     <Title order={3}>Splid 2.0</Title>

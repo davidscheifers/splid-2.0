@@ -1,6 +1,5 @@
-import { Button, Group, TextInput, Title } from "@mantine/core";
+import { TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
 
 import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
 
@@ -15,12 +14,7 @@ const Expenses = () => {
 
     return (
         <>
-            <Group position="apart" mb="lg">
-                <Title>Expenses</Title>
-                <Link to="create">
-                    <Button variant="default">Create Expense</Button>
-                </Link>
-            </Group>
+            <Title mb="lg">Expenses</Title>
             <TextInput
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}

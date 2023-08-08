@@ -29,7 +29,9 @@ const Balance = ({ groudId }: BalanceProps) => {
             </Title>
             {userBalances}
             <Link to={`/groups/${groudId}/expenses/total`}>
-                <Button mb="md">Gesamtkosten</Button>
+                <Button fullWidth mb="md">
+                    Gesamtkosten
+                </Button>
             </Link>
         </>
     );

@@ -21,8 +21,11 @@ const GroupCode = ({ group }: GroupCodeProps) => {
                     <Title order={3}>{group?.code}</Title>
                 </Group>
             </Paper>
-            <Button onClick={() => setOpen(true)}>Einladung verschicken</Button>
+            <Button fullWidth onClick={() => setOpen(true)}>
+                Einladung verschicken
+            </Button>
             <Modal
+                centered
                 title="Einladung versenden"
                 opened={open}
                 onClose={() => setOpen(false)}

@@ -203,7 +203,7 @@ const ExpenseForm = ({
                     }}
                 />
             </Paper>
-            <Button loading={isSubmitting} type="submit">
+            <Button fullWidth loading={isSubmitting} type="submit">
                 {isEdit ? "Edit" : "Create"}
             </Button>
         </form>

@@ -1,31 +1,32 @@
-import { Button, Paper, TextInput } from "@mantine/core";
+import { Button, Paper, Select, TextInput } from "@mantine/core";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TUserForm, UserFormSchema } from "../../types/user";
 
-type ExpenseFormProps = {
+import { GroupFormSchema, TGroupForm } from "../../types/group";
+
+type GroupFormProps = {
     /* form submit handler */
-    onSubmit: SubmitHandler<TUserForm>;
+    onSubmit: SubmitHandler<TGroupForm>;
 
     /* optional initial form values */
-    defaultValues?: TUserForm;
+    defaultValues?: TGroupForm;
 
     /* optional loading state */
     isSubmitting?: boolean;
 };
 
-const UserForm = ({
+const GroupForm = ({
     onSubmit,
     defaultValues,
     isSubmitting,
-}: ExpenseFormProps) => {
+}: GroupFormProps) => {
     const {
         control,
         formState: { errors },
         handleSubmit,
-    } = useForm<TUserForm>({
+    } = useForm<TGroupForm>({
         defaultValues,
-        resolver: zodResolver(UserFormSchema),
+        resolver: zodResolver(GroupFormSchema),
     });
 
     const isEdit = defaultValues !== undefined;
@@ -41,12 +42,30 @@ const UserForm = ({
                             <TextInput
                                 label="Name"
                                 mb="md"
-                                placeholder="Choose a user name"
+                                placeholder="Choose an expense name"
                                 error={
                                     errors.name ? errors.name.message : false
                                 }
                                 onChange={onChange}
                                 value={value}
+                                required
+                            />
+                        );
+                    }}
+                />
+                <Controller
+                    name="currency"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <Select
+                                label="Category"
+                                placeholder="Select category..."
+                                value={value}
+                                mb="md"
+                                onChange={onChange}
+                                searchable
+                                data={["EUR", "USD", "GBP", "YEN"]}
                                 required
                             />
                         );
@@ -60,4 +79,4 @@ const UserForm = ({
     );
 };
 
-export default UserForm;
+export default GroupForm;
