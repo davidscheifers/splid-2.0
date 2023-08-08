@@ -18,27 +18,24 @@ export const handler: Handler = async (event: any) => {
     const userRepository = dataSource.getRepository(User);
 
     const groupId: string = event.pathParameters.groupId; 
-    const deleteGroup: Group = JSON.parse(event.body);
+
+    console.log(groupId);
 
     const group = await groupRepository.findOne({
       where: { id: groupId },
       relations: ["users"] 
     });
 
-    const user = await userRepository.findOne({
-      where: { username: deleteGroup.createdBy }
-    });
-
-    if (group === null || user === null || group.createdBy !== user.username) {
-      return createResponse(500, 'Cannot delete group.');
+    if (group === null) {
+      return createResponse(500, 'group not found');
     }
-    
+  
     group.users = [];
 
     await groupRepository.save(group); 
     await groupRepository.remove(group); 
 
-    return true;
+    return createResponse(200, 'group deleted');
 
   } catch (error) {
     console.error('Error deleting group:', error);
