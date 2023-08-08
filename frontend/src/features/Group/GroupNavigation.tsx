@@ -35,17 +35,17 @@ const navItems = [
     {
         name: "Übersicht",
         link: (id: string) => `/groups/${id}`,
-        icon: (color: string) => <IconGraph size={24} color={color} />,
+        icon: IconGraph,
     },
     {
         name: "Ausgaben",
         link: (id: string) => `/groups/${id}/expenses`,
-        icon: (color: string) => <IconDevicesDollar size={24} color={color} />,
+        icon: IconDevicesDollar,
     },
     {
         name: "Einstellungen",
         link: (id: string) => `/groups/${id}/settings`,
-        icon: (color: string) => <IconSettings size={24} color={color} />,
+        icon: IconSettings,
     },
 ];
 
@@ -53,13 +53,13 @@ const modalItems = [
     {
         title: "Neue Ausgabe",
         link: (id: string) => `/groups/${id}/expenses/create`,
-        icon: (color: string) => <IconDevicesDollar size={30} color={color} />,
+        icon: IconDevicesDollar,
         description: "Eine neue Ausgabe erstellen",
     },
     {
         title: "Neue Person",
         link: (id: string) => `/groups/${id}/users/create`,
-        icon: (color: string) => <IconUser size={30} color={color} />,
+        icon: IconUser,
         description: "Eine neue Person erstellen",
     },
 ];
@@ -92,7 +92,10 @@ const GroupNavigation = () => {
                                 key={i}
                             >
                                 <Group mb="md">
-                                    {item.icon(colors.blue[6])}
+                                    <item.icon
+                                        size={24}
+                                        color={colors.blue[6]}
+                                    />
                                     <Box>
                                         <Title order={4}>{item.title}</Title>
                                         <Text>{item.description}</Text>
@@ -111,11 +114,14 @@ const GroupNavigation = () => {
                         return (
                             <NavLink to={link} key={i}>
                                 <div style={{ textAlign: "center" }}>
-                                    {item.icon(
-                                        isActive
-                                            ? colors.blue[6]
-                                            : colors.gray[4]
-                                    )}
+                                    <item.icon
+                                        size={24}
+                                        color={
+                                            isActive
+                                                ? colors.blue[6]
+                                                : colors.gray[4]
+                                        }
+                                    />
                                     <Text
                                         color={
                                             isActive
