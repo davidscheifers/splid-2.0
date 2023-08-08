@@ -41,3 +41,12 @@ export const GroupFormSchema = z.object({
 });
 
 export type TGroupForm = z.infer<typeof GroupFormSchema>;
+
+// api types
+export type TGroup = {
+    id: string;
+    name: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+};

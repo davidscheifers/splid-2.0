@@ -7,17 +7,23 @@ import GroupTeaser from "../../features/Group/GroupTeaser";
 
 import { dummyGroups } from "../../utils/data/data";
 import { useFilterData } from "../../utils/hooks/useFilterData";
+import { useGetGroups } from "../../api/Groups/useGetGroups";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 const Groups = () => {
     const { t } = useTranslation();
+
+    const { data, status } = useGetGroups();
 
     const { searchQuery, setSearchQuery, filteredData } = useFilterData(
         dummyGroups,
         "name"
     );
 
+    console.log(data);
+
     return (
-        <>
+        <LoadingComponent status={status}>
             <Group position="apart" mb="lg">
                 <Title>{t("groups.title")}</Title>
                 <Group>
@@ -39,7 +45,7 @@ const Groups = () => {
             {filteredData.map((group) => {
                 return <GroupTeaser key={group.id} group={group} />;
             })}
-        </>
+        </LoadingComponent>
     );
 };
 export default Groups;
