@@ -6,6 +6,7 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path /groups/groupid/users/userid/income
 
   try {
     console.log('getIncomeFromGroupUser lambda starts here')
