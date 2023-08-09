@@ -1,7 +1,7 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { Transaction } from '../models/transaction'; 
-import { MoreThan } from 'typeorm/find-options/operator/MoreThan'; 
+import { MoreThan } from 'typeorm'; 
 import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
@@ -17,17 +17,15 @@ export const handler: Handler = async (event: any) => {
     const groupId: string = event.pathParameters.groupId; 
     const username: string = event.pathParameters.username;
 
-    // const transactions = await transactionRepository.find({
-    //   where: {
-    //     groupId: groupId, ///idk why the field groupID is missing in the transaction model
-    //     receiverUsername: username,
-    //     amount: MoreThan(0) 
-    //   }
-    // });
+    const transactions = await transactionRepository.find({
+      where: {
+        group: { id: groupId },
+        receiverUsername: { username: username }, 
+        amount: MoreThan(0) 
+      }
+    });
 
-    // return createResponse(200, transactions);
-
-    return createResponse(200, 'Not implemented yet.');
+    return createResponse(200, transactions);
 
   } catch (error) {
     console.error('Error fetching transactions:', error);
