@@ -1,4 +1,5 @@
 import { Handler } from "aws-lambda";
+import { In } from "typeorm";
 import { instantiateRdsClient } from "../utils/db-connection";
 import { Accounting } from "../models/accounting"; // Stellen Sie sicher, dass Sie den richtigen Pfad zum Accounting-Modell angeben
 import { User } from "../models/user";

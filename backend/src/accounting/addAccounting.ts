@@ -1,4 +1,5 @@
 import { Handler } from "aws-lambda";
+import { In } from "typeorm";
 import { instantiateRdsClient } from "../utils/db-connection";
 import { Group } from "../models/group";
 import { User } from "../models/user";
