@@ -297,33 +297,41 @@ export class MyAppStack extends cdk.Stack {
 
     groupResource.addMethod('GET', getGroupIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
     groupResource.addMethod('POST', addGroupIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
     groupIdResource.addMethod('DELETE', deleteGroupIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
     groupIddetailsResource.addMethod('GET', getGroupDetailsIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });  
 
     groupIdUsersUsernameExpenseResource.addMethod('GET', getExpansesFromGroupUserIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
     groupIdUsersUsernameIncomeResource.addMethod('GET', getIncomesFromGroupUserIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
     groupSearchResource.addMethod('GET', searchGroupOfUserIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
     groupResource.addMethod('PUT', updateGroupIntegration, {
       requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
 
 
