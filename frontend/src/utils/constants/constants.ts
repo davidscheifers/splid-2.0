@@ -4,12 +4,11 @@ export const API_URL =
         : "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com";
 
 export const apiEndPoints = {
-    auth: {
-        login: `/api/v1/auth/login`,
-    },
     group: {
         getGroups: "/prod/api/secure/Groups",
-        getGroupsFromUser: (userId: string) => `/api/v1/group/user/${userId}`,
-        getGroup: (groupId: string) => `/api/v1/group/${groupId}`,
+        getGroup: (groupId: string) =>
+            `/prod/api/secure/Groups/${groupId}/details`,
+        getExpensesFromGroup: (groupId: string) =>
+            `/prod/api/secure/Groups/${groupId}/users/tester/expense`,
     },
 };

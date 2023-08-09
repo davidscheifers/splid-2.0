@@ -46,7 +46,41 @@ export type TGroupForm = z.infer<typeof GroupFormSchema>;
 export type TGroup = {
     id: string;
     name: string;
+    picturePath: string;
     description: string;
     createdAt: string;
+    createdBy: string;
     updatedAt: string;
+};
+
+export type GroupDetail = {
+    id: string;
+    name: string;
+    picturePath: string;
+    description: string;
+    createdBy: string;
+    createdAt: string;
+    updatedAt: string;
+    users: User[];
+    accountings: Accounting[];
+};
+
+export interface User {
+    username: string;
+    password: string;
+    mail: string;
+    number: string;
+}
+
+export interface Accounting {
+    username: string;
+    balance: number;
+    groupId: string;
+}
+
+export type GroupExpense = {
+    id: string;
+    description: string;
+    amount: number;
+    createdAt: string;
 };

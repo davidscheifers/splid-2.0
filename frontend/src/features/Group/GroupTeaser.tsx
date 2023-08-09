@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { TDummyGroup } from "../../types/group";
+import { TGroup } from "../../types/group";
 import { Avatar, Group, Title, Text, Box, Paper } from "@mantine/core";
+import dayjs from "dayjs";
 
 type GroupTeaserProps = {
-    group: TDummyGroup;
+    group: TGroup;
 };
 
 const GroupTeaser = ({ group }: GroupTeaserProps) => {
@@ -15,10 +16,10 @@ const GroupTeaser = ({ group }: GroupTeaserProps) => {
                         <Avatar radius="xl" />
                         <Box>
                             <Title order={3}>{group.name}</Title>
-                            <Text>2 Persons</Text>
+                            <Text>{group.description}</Text>
                         </Box>
                     </Group>
-                    <Text>3AM</Text>
+                    <Text>{dayjs(group.updatedAt).format("DD.MM.YYYY")}</Text>
                 </Group>
             </Paper>
         </Link>
