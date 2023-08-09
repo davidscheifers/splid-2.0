@@ -14,7 +14,6 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
     console.log('getting groups from db');
     const groupRepository = dataSource.getRepository(Group);
     const groups = await groupRepository.find({
-      select: ["id", "name", "description", "createdAt", "updatedAt", "accountings", "users"],
       take: 10
     });
 
