@@ -1,26 +1,33 @@
-import { Link } from "react-router-dom";
 import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
 import GroupTeaser from "../../features/Group/GroupTeaser";
-import { filterDatasetByStringName } from "../../utils/functions/functions";
+
 import { dummyGroups } from "../../utils/data/data";
+import { useFilterData } from "../../utils/hooks/useFilterData";
 
 const Groups = () => {
-    const [searchQuery, setSearchQuery] = useState("");
+    const { t } = useTranslation();
 
-    const filteredGroups = useMemo(
-        () => filterDatasetByStringName(dummyGroups, "name", searchQuery),
-        [searchQuery, dummyGroups]
+    const { searchQuery, setSearchQuery, filteredData } = useFilterData(
+        dummyGroups,
+        "name"
     );
 
     return (
         <>
             <Group position="apart" mb="lg">
-                <Title>Groups</Title>
-                <Link to="/groups/create">
-                    <Button variant="default">Create Group</Button>
-                </Link>
+                <Title>{t("groups.title")}</Title>
+                <Group>
+                    <Link to="/groups/join">
+                        <Button variant="default">Join Group</Button>
+                    </Link>
+                    <Link to="/groups/create">
+                        <Button variant="default">Create Group</Button>
+                    </Link>
+                </Group>
             </Group>
             <TextInput
                 value={searchQuery}
@@ -29,7 +36,7 @@ const Groups = () => {
                 placeholder="Search Groups"
                 icon={<IconSearch size={20} />}
             />
-            {filteredGroups.map((group) => {
+            {filteredData.map((group) => {
                 return <GroupTeaser key={group.id} group={group} />;
             })}
         </>

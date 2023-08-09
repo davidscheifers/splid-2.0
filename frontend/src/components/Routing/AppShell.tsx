@@ -9,7 +9,7 @@ const AppShell = ({ children }: AppShellProps) => {
     return (
         <>
             <TopNavigation />
-            <Container size="xl">{children}</Container>
+            <Container size="md">{children}</Container>
         </>
     );
 };

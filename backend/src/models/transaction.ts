@@ -1,44 +1,43 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { User } from './user';
-import { Group } from './group';
-import { Bill } from './bill';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Bill } from "./bill";
+import { User } from "./user";
+import { Group } from "./group";
 
-@Entity('Transaction')
+@Index("Transaction_pkey", ["id"], { unique: true })
+@Entity("Transaction", { schema: "splid" })
 export class Transaction {
-  @PrimaryGeneratedColumn('uuid')
+  @Column("uuid", { primary: true, name: "id" })
   id: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column("character varying", {
+    name: "description",
+    nullable: true,
+    length: 255,
+  })
   description: string | null;
 
-  @Column()
-  senderUsername: string;
-
-  @Column()
-  receiverUsername: string;
-
-  @Column({ type: 'double precision', nullable: false })
+  @Column("double precision", { name: "amount", precision: 53 })
   amount: number;
 
-  @Column({ nullable: true })
-  billId: string | null;
-
-  @Column()
-  groupId: string;
-
-  @CreateDateColumn({ type: 'timestamp with time zone' })
+  @Column("timestamp with time zone", {
+    name: "created_at",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createdAt: Date;
 
   @ManyToOne(() => Bill, (bill) => bill.transactions)
+  @JoinColumn([{ name: "bill_id", referencedColumnName: "id" }])
   bill: Bill;
 
+  @ManyToOne(() => User, (user) => user.transactions)
+  @JoinColumn([{ name: "receiver_username", referencedColumnName: "username" }])
+  receiverUsername: User;
+
+  @ManyToOne(() => User, (user) => user.transactions2)
+  @JoinColumn([{ name: "sender_username", referencedColumnName: "username" }])
+  senderUsername: User;
+
   @ManyToOne(() => Group, (group) => group.transactions)
+  @JoinColumn([{ name: "group_id", referencedColumnName: "id" }])
   group: Group;
-
-  @ManyToOne(() => User, (user) => user.transactionReceiverUsernameNavigations)
-  receiverUsernameNavigation: User;
-
-  @ManyToOne(() => User, (user) => user.transactionSenderUsernameNavigations)
-  senderUsernameNavigation: User;
-  
 }

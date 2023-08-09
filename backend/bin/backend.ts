@@ -2,7 +2,7 @@
 import 'reflect-metadata';
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { MyAppStack } from '../lib/index';
+import { MyAppStack } from '../lib/splid-stack';
 import environmentConfig from './stack-config';
 
 const app = new cdk.App();

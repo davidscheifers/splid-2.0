@@ -1,70 +1,49 @@
 import { DataSource } from 'typeorm';
 import { SecretsManager } from 'aws-sdk';
-import { Group } from '../models/group'; // Import your entity
+import { Group } from '../models/group'; 
+import { Accounting } from '../models/accounting'; 
+import { Bill } from '../models/bill'; 
+import { Transaction } from '../models/transaction'; 
+import { User } from '../models/user'; 
 
-const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
-const HOST = process.env.HOST!;
+const RDS_ARN = process.env.RDS_ARN!;
 
 const secrets = new SecretsManager();
 
 export const instantiateRdsClient = async (): Promise<DataSource> => {
+  
   console.log('retrieving spliddb credentials...');
-  const credentialsSecret = await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise();
+  console.log('CREDENTIALS_ARN: ', RDS_ARN);
+
+  console.log(await secrets.getSecretValue({ SecretId: RDS_ARN }).promise());
+  const credentialsSecret = await secrets.getSecretValue({ SecretId: RDS_ARN }).promise();
   const credentials = JSON.parse(credentialsSecret.SecretString as string);
+
+  console.log('credentials: ', credentials.username, credentials.password, credentials.host);
 
   console.log('instantiating rds client...');
   const dataSource = new DataSource({
     type: 'postgres',
-    host: HOST,
+    host: credentials.host,
     port: 5432,
-    username: credentials.user,
+    username: credentials.username,
     password: credentials.password,
-    database: 'spliddb',
-    entities: [Group], // Add all your entities here
-    synchronize: false, // Set to true if you want TypeORM to automatically create the database schema
+    database: 'postgres',
+    schema: 'splid',
+    entities: [Group, Accounting, Bill, Transaction, User], // List of entities to load needed?
+    synchronize: false,
   });
 
-  await dataSource.initialize();
+  await dataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err)
+    })
 
   return dataSource;
 };
-
-
-
-// import { SecretsManager } from 'aws-sdk';
-// import { Client } from 'pg';
-
-// const CREDENTIALS_ARN = process.env.CREDENTIALS_ARN!;
-// const HOST = process.env.HOST!;
-
-// const secrets = new SecretsManager();
-
-// export const instantiateRdsClient = async () => {
-
-//     // Retrieve RDS User credentials
-//     console.log('retrieving spliddb credentials...');
-//     const credentialsSecret = await secrets.getSecretValue({ SecretId: CREDENTIALS_ARN }).promise();
-//     const credentials = JSON.parse(credentialsSecret.SecretString as string);
-
-//     // Instantiate RDS Client
-//     console.log('instantiating rds client...');
-//     const client = new Client({
-//         host: HOST,
-//         user: credentials.user,
-//         password: credentials.password,
-//         database: 'spliddb',
-//         port: 5432,
-//     });
-
-//     //Connect to RDS instance
-//     console.log('connecting to rds...');
-//     await client.connect();
-
-//     return client;
-
-// }
-
-
 
 
 
