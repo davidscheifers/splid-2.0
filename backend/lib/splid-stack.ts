@@ -62,6 +62,14 @@ export class MyAppStack extends cdk.Stack {
 
     // Ingress and Egress Rules
     securityGroupRds.addIngressRule(
+      ec2.Peer.ipv4('92.72.231.163/32'),
+      ec2.Port.tcp(5432),
+      'Allow inbound traffic to RDS from local'
+    )
+
+
+    // Ingress and Egress Rules
+    securityGroupRds.addIngressRule(
       securityGroupResolvers,
       ec2.Port.tcp(5432),
       'Allow inbound traffic to RDS'
