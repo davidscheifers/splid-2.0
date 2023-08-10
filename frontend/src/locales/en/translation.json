@@ -1,0 +1,24 @@
+{
+    "Welcome to React": "Welcome to React and react-i18next",
+    "home": {
+        "title": "English home title"
+    },
+    "groups": {
+        "title": "Groups"
+    },
+    "button": {
+        "goToLogin": "Login",
+        "logout": "Logout",
+        "loginAs": "Login as {{name}}"
+    },
+    "login": {
+        "title": "Welcome back!",
+        "introText": "Please login with your E-Mail address and password."
+    },
+    "notifications": {
+        "loginSuccess": {
+            "title": "Login success!",
+            "message": "Your login was successfull."
+        }
+    }
+}

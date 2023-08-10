@@ -9,6 +9,7 @@ import UserSettings from "./routes/users/user-settings";
 import NotFound from "./routes/not-found";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 import AppShell from "./components/Routing/AppShell";
+import JoinGroup from "./routes/groups/join-group";
 
 const AppRoutes = () => {
     return (
@@ -43,6 +44,16 @@ const AppRoutes = () => {
                         <PrivateRoute>
                             <AppShell>
                                 <CreateGroup />
+                            </AppShell>
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/groups/join"
+                    element={
+                        <PrivateRoute>
+                            <AppShell>
+                                <JoinGroup />
                             </AppShell>
                         </PrivateRoute>
                     }

@@ -1,58 +1,50 @@
-import { Title } from "@mantine/core";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import GroupNavigation from "../../features/Group/GroupNavigation";
-import Balance from "../balance/balance";
 import Expenses from "../expenses/expenses";
 import ExpensePage from "../expenses/expense-page";
+import GroupUserPage from "./group-user-page";
+import GroupOverview from "./group-overview";
+import EditExpensePage from "../expenses/edit-expense-page";
+import CreateExpensePage from "../expenses/create-expense-page";
+import CreateUserPage from "../users/create-user";
+import EditUserPage from "../users/edit-user";
+import TotalExpenses from "../expenses/total-expenses";
+import EditGroupPage from "./edit-group-page";
 
 const GroupPage = () => {
-    const { id } = useParams<{ id: string }>();
-
     return (
-        <Routes>
-            <Route
-                path=""
-                element={
-                    <div>
-                        <GroupNavigation />
-                        <Title order={1}>Group Overview {id}</Title>
-                    </div>
-                }
-            />
-            <Route
-                path={`balance`}
-                element={
-                    <div>
-                        <GroupNavigation />
-                        <Balance />
-                    </div>
-                }
-            />
-            <Route
-                path={`expenses`}
-                element={
-                    <div>
-                        <GroupNavigation />
-                        <Expenses />
-                    </div>
-                }
-            />
-            <Route
-                path={`expenses/:id`}
-                element={
-                    <div>
-                        <GroupNavigation />
-                        <ExpensePage />
-                    </div>
-                }
-            />
-            <Route
-                path={`expenses/create`}
-                element={<div>create expense</div>}
-            />
-            <Route path={`users/:id`} element={<div>single group user</div>} />
-            <Route path={`settings`} element={<div>Group Settings</div>} />
-        </Routes>
+        <>
+            <GroupNavigation />
+            <div style={{ marginBottom: "100px" }}>
+                <Routes>
+                    <Route path="" element={<GroupOverview />} />
+                    <Route path={`expenses`} element={<Expenses />} />
+                    <Route
+                        path={`expenses/:expenseId`}
+                        element={<ExpensePage />}
+                    />
+                    <Route
+                        path={`expenses/:expenseId/edit`}
+                        element={<EditExpensePage />}
+                    />
+                    <Route path={`settings`} element={<EditGroupPage />} />
+                    <Route
+                        path={`expenses/create`}
+                        element={<CreateExpensePage />}
+                    />
+                    <Route
+                        path={`expenses/total`}
+                        element={<TotalExpenses />}
+                    />
+                    <Route path={`users/create`} element={<CreateUserPage />} />
+                    <Route path={`users/:userId`} element={<GroupUserPage />} />
+                    <Route
+                        path={`users/:userId/edit`}
+                        element={<EditUserPage />}
+                    />
+                </Routes>
+            </div>
+        </>
     );
 };
 export default GroupPage;

@@ -1,48 +1,52 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    OneToMany,
-    ManyToMany,
-    JoinTable
-  } from 'typeorm';
-  import { Accounting } from './accounting';
-  import { Transaction } from './transaction';
-  import { User } from './user';
-    
-  @Entity()
-  export class Group {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-  
-    @Column({ type: 'varchar', length: 255, nullable: false })
-    name: string;
-  
-    @Column({ type: 'varchar', length: 255, nullable: true })
-    picturePath: string | null;
-  
-    @Column({ type: 'varchar', length: 255, nullable: true })
-    description: string | null;
-  
-    @Column({ type: 'varchar', nullable: false })
-    createdBy: string;
-  
-    @CreateDateColumn({ type: 'timestamp with time zone', nullable: false, default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date;
-  
-    @UpdateDateColumn({ type: 'timestamp with time zone', nullable: false, default: () => 'CURRENT_TIMESTAMP' })
-    updatedAt: Date;
-  
-    @OneToMany(() => Accounting, (userBalance) => userBalance.group)
-    accountings: Accounting[];
-  
-    @OneToMany(() => Transaction, (transaction) => transaction)
-    transactions: Transaction[];
+import { Column, Entity, Index, ManyToMany, OneToMany } from "typeorm";
+import { Accounting } from "./accounting";
+import { User } from "./user";
+import { Transaction } from "./transaction";
 
-    @ManyToMany(() => User)
-    @JoinTable()
-    Users?: User[]; 
-  }
-  
+@Index("Group_pkey", ["id"], { unique: true })
+@Entity("Group", { schema: "splid" })
+export class Group {
+  @Column("character varying", { name: "name", length: 255 })
+  name: string;
+
+  @Column("character varying", {
+    name: "picture_path",
+    nullable: true,
+    length: 255,
+  })
+  picturePath: string | null;
+
+  @Column("character varying", {
+    name: "description",
+    nullable: true,
+    length: 255,
+  })
+  description: string | null;
+
+  @Column("character varying", { name: "created_by" })
+  createdBy: string;
+
+  @Column("timestamp with time zone", {
+    name: "created_at",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt: Date;
+
+  @Column("timestamp with time zone", {
+    name: "update_at",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updatedAt: Date;
+
+  @Column("uuid", { primary: true, name: "id" })
+  id: string;
+
+  @OneToMany(() => Accounting, (accounting) => accounting.group)
+  accountings: Accounting[];
+
+  @ManyToMany(() => User, (user) => user.groups)
+  users: User[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.group)
+  transactions: Transaction[];
+}
