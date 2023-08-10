@@ -23,6 +23,12 @@ export const handler: Handler = async (event: any) => {
     console.log('Successfully retrieved user.');
     console.log(user);
 
+    //set password to null
+    if(user != null){
+      user.password = "";
+    }else
+      return createResponse(404, 'User not found.');
+    
     return createResponse(200,user);
 
   } catch (error) {
