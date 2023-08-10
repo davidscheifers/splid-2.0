@@ -208,13 +208,7 @@ export class MyAppStack extends cdk.Stack {
 
     //----------APIGATEWAY----------------
 
-    //FOR ENDPOINTS: group Resolvers
-
-    const lambdaEnvironment = {
-      RDS_ARN: rdsInstance.secret!.secretArn,
-      CREDENTIALS_ARN: credentials.secretArn,
-      HOST: rdsInstance.dbInstanceEndpointAddress,
-    };
+    //group Resolvers
 
     const getGroupsResolver = createResolver(
       "getGroupsResolver",
@@ -264,7 +258,17 @@ export class MyAppStack extends cdk.Stack {
     );
     searchGroupOfUserResolver.node.addDependency(rdsInstance);
 
-    //FOR ENDPOINTS group Integrations
+    //user resolvers
+
+    const getUserInfoResolver = createResolver('getUserInfoResolver', 'src/users/getUserInfo.ts');
+    getUserInfoResolver.node.addDependency(rdsInstance);
+
+    const getGroupsFromUserResolver = createResolver('getGroupsFromUserResolver', 'src/users/getGroupsFromUser.ts');
+    getGroupsFromUserResolver.node.addDependency(rdsInstance);
+
+
+
+    //group Integrations
 
     const getGroupIntegration = new apigateway.LambdaIntegration(
       getGroupsResolver
@@ -289,6 +293,13 @@ export class MyAppStack extends cdk.Stack {
     const updateGroupIntegration = new apigateway.LambdaIntegration(
       updateGroupResolver
     );
+
+    //user Integrations
+
+    const getUserInfoIntegration = new apigateway.LambdaIntegration(getUserInfoResolver);
+    const getGroupsFromUserIntegration = new apigateway.LambdaIntegration(getGroupsFromUserResolver);
+
+
 
     // API Gateway RestApi
     const api = new apigateway.RestApi(this, "RestAPI", {
@@ -337,9 +348,9 @@ export class MyAppStack extends cdk.Stack {
     const secureResource = rootResource.addResource("secure");
     const paramResource = secureResource.addResource("{param}");
 
-    //group ressources and methods
-    const groupResource = secureResource.addResource("Groups");
-    const groupIdResource = groupResource.addResource("{groupId}");
+    //group ressources 
+    const groupResource =  secureResource.addResource('Groups');
+    const groupIdResource = groupResource.addResource('{groupId}');
 
     const groupSearchResource = groupResource.addResource("search");
 
@@ -354,9 +365,17 @@ export class MyAppStack extends cdk.Stack {
     const groupIdUsersUsernameIncomeResource =
       groupIdUsersUsernameResource.addResource("income");
 
-    groupResource.addMethod("GET", getGroupIntegration, {
-      requestModels: { "application/json": model },
-      apiKeyRequired: true,
+    //user ressources 
+    const userResource = secureResource.addResource('User');
+    const userUsernameResource = userResource.addResource('{username}');
+
+    const userUsernameGroupsResource = userUsernameResource.addResource('groups');
+
+
+    //group methods
+    groupResource.addMethod('GET', getGroupIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
     groupResource.addMethod("POST", addGroupIntegration, {
       requestModels: { "application/json": model },
@@ -403,95 +422,18 @@ export class MyAppStack extends cdk.Stack {
 
     //FOR ENDPOINTS: accounting Resolvers
 
-    const addAccountingResolver = createResolver(
-      "addAccountingResolver",
-      "src/accounting/addAccounting.ts"
-    );
-    addAccountingResolver.node.addDependency(rdsInstance);
+    //user methods
 
-    const deleteAccountingResolver = createResolver(
-      "deleteAccountingResolver",
-      "src/accounting/deleteAccounting.ts"
-    );
-    deleteAccountingResolver.node.addDependency(rdsInstance);
-
-    const getAccountingResolver = createResolver(
-      "getAccountingResolver",
-      "src/accounting/getAccounting.ts"
-    );
-    getAccountingResolver.node.addDependency(rdsInstance);
-
-    const getAccountingDetailsResolver = createResolver(
-      "getAccountingDetailsResolver",
-      "src/accounting/getAccountingDetails.ts"
-    );
-    getAccountingDetailsResolver.node.addDependency(rdsInstance);
-
-    const getAccountingFromUserResolver = createResolver(
-      "getAccountingFromUserResolver",
-      "src/accounting/getAccountingFromUser.ts"
-    );
-    getAccountingFromUserResolver.node.addDependency(rdsInstance);
-
-    const getAccountingFromGroupResolver = createResolver(
-      "getAccountingFromGroupResolver",
-      "src/accounting/getAccountingFromGroup.ts"
-    );
-    getAccountingFromGroupResolver.node.addDependency(rdsInstance);
-
-    const updateAccountingResolver = createResolver(
-      "updateAccountingResolver",
-      "src/accounting/updateAccounting.ts"
-    );
-    updateAccountingResolver.node.addDependency(rdsInstance);
-
-    // ...
-
-    //FOR ENDPOINTS: accounting Integrations
-
-    const addAccountingIntegration = new apigateway.LambdaIntegration(
-      addAccountingResolver
-    );
-    const deleteAccountingIntegration = new apigateway.LambdaIntegration(
-      deleteAccountingResolver
-    );
-    const getAccountingIntegration = new apigateway.LambdaIntegration(
-      getAccountingResolver
-    );
-    const getAccountingDetailsIntegration = new apigateway.LambdaIntegration(
-      getAccountingDetailsResolver
-    );
-    const getAccountingFromUserIntegration = new apigateway.LambdaIntegration(
-      getAccountingFromUserResolver
-    );
-    const getAccountingFromGroupIntegration = new apigateway.LambdaIntegration(
-      getAccountingFromGroupResolver
-    );
-    const updateAccountingIntegration = new apigateway.LambdaIntegration(
-      updateAccountingResolver
-    );
-
-    // Accounting endpoints (Add these)
-    const accountingResource = secureResource.addResource("Accounting");
-    const accountingIdResource =
-      accountingResource.addResource("{accountingId}");
-
-    accountingResource.addMethod("POST", addAccountingIntegration, {
-      requestModels: { "application/json": model },
-      apiKeyRequired: true,
+    userUsernameResource.addMethod('GET', getUserInfoIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
-    accountingIdResource.addMethod("DELETE", deleteAccountingIntegration, {
-      requestModels: { "application/json": model },
-      apiKeyRequired: true,
+
+    userUsernameGroupsResource.addMethod('GET', getGroupsFromUserIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
     });
-    accountingIdResource.addMethod("GET", getAccountingDetailsIntegration, {
-      requestModels: { "application/json": model },
-      apiKeyRequired: true,
-    });
-    accountingIdResource.addMethod("PUT", updateAccountingIntegration, {
-      requestModels: { "application/json": model },
-      apiKeyRequired: true,
-    });
+
 
     ///api/Groups/{groupId} /details
 
