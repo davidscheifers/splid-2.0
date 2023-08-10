@@ -1,17 +1,16 @@
 import { Handler } from 'aws-lambda';
-import { In } from 'typeorm';
 import { instantiateRdsClient } from '../utils/db-connection';
-import { Group } from '../models/group';
 import { User } from '../models/user'; 
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  ////path //groupid/details
 
   try {
     dataSource = await instantiateRdsClient();
     const userRepository = dataSource.getRepository(User);
 
-    const inputUser: User = event.user; // Assuming user is passed as part of the event payload
+    const inputUser: User = event.user; 
 
     if (inputUser.username === null) {
       return null;

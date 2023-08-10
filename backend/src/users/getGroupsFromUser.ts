@@ -1,18 +1,22 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { User } from '../models/user'; // Import your User entity
+import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path  /users/username/groups
 
   try {
+    console.log('getGroupsFromUser lambda starts here')
+
     dataSource = await instantiateRdsClient();
     const userRepository = dataSource.getRepository(User);
 
-    const username: string = event.username; // Assuming username is passed as part of the event payload
+    const username: string = event.pathParameters.username; 
 
     if (username === null) {
-      return null;
+      return createResponse(400, 'Username is required.');
     }
 
     const user = await userRepository.findOne({
@@ -21,20 +25,22 @@ export const handler: Handler = async (event: any) => {
     });
 
     if (user === null) {
-      return null;
+      return createResponse(404, 'User not found.');
     }
 
-    // same Problem with entity 
-    //const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().trim());
-    const searchResult = null;
+    const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().trim());
 
-    // Close the connection when you're done
-    await dataSource.destroy();
+    console.log('Successfully retrieved groups.');
 
-    return searchResult;
+    return createResponse(200, searchResult);
 
   } catch (error) {
     console.error('Error searching groups:', error);
-    throw error;
+    return createResponse(500, 'Cannot search groups.');
+  }finally{
+    if(dataSource){
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 };

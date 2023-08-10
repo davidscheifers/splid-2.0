@@ -216,7 +216,13 @@ export class MyAppStack extends cdk.Stack {
     searchGroupOfUserResolver.node.addDependency(rdsInstance);
 
     //user resolvers
-    
+
+    const getUserInfoResolver = createResolver('getUserInfoResolver', 'src/users/getUserInfo.ts');
+    getUserInfoResolver.node.addDependency(rdsInstance);
+
+    const getGroupsFromUserResolver = createResolver('getGroupsFromUserResolver', 'src/users/getGroupsFromUser.ts');
+    getGroupsFromUserResolver.node.addDependency(rdsInstance);
+
 
 
     //group Integrations
@@ -229,6 +235,11 @@ export class MyAppStack extends cdk.Stack {
     const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUserResolver);
     const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUserResolver);
     const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroupResolver);
+
+    //user Integrations
+
+    const getUserInfoIntegration = new apigateway.LambdaIntegration(getUserInfoResolver);
+    const getGroupsFromUserIntegration = new apigateway.LambdaIntegration(getGroupsFromUserResolver);
 
 
 
@@ -280,7 +291,7 @@ export class MyAppStack extends cdk.Stack {
     const secureResource = rootResource.addResource('secure');
     const paramResource = secureResource.addResource('{param}');
 
-    //group ressources and methods
+    //group ressources 
     const groupResource =  secureResource.addResource('Groups');
     const groupIdResource = groupResource.addResource('{groupId}');
 
@@ -294,6 +305,14 @@ export class MyAppStack extends cdk.Stack {
     const groupIdUsersUsernameExpenseResource = groupIdUsersUsernameResource.addResource('expense');
     const groupIdUsersUsernameIncomeResource = groupIdUsersUsernameResource.addResource('income');
 
+    //user ressources 
+    const userResource = secureResource.addResource('User');
+    const userUsernameResource = userResource.addResource('{username}');
+
+    const userUsernameGroupsResource = userUsernameResource.addResource('groups');
+
+
+    //group methods
     groupResource.addMethod('GET', getGroupIntegration, {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
@@ -329,6 +348,18 @@ export class MyAppStack extends cdk.Stack {
     });
 
     groupResource.addMethod('PUT', updateGroupIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    //user methods
+
+    userUsernameResource.addMethod('GET', getUserInfoIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    userUsernameGroupsResource.addMethod('GET', getGroupsFromUserIntegration, {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
