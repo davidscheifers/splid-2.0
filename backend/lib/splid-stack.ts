@@ -189,13 +189,7 @@ export class MyAppStack extends cdk.Stack {
     
     //----------APIGATEWAY----------------
 
-    //FOR ENDPOINTS: group Resolvers
-
-    const lambdaEnvironment = {
-      RDS_ARN: rdsInstance.secret!.secretArn,
-      CREDENTIALS_ARN: credentials.secretArn,
-      HOST: rdsInstance.dbInstanceEndpointAddress
-    };
+    //group Resolvers
 
     const getGroupsResolver = createResolver('getGroupsResolver', 'src/groups/getGroups.ts');
     getGroupsResolver.node.addDependency(rdsInstance);
@@ -221,8 +215,11 @@ export class MyAppStack extends cdk.Stack {
     const searchGroupOfUserResolver = createResolver('searchGroupOfUserResolver', 'src/groups/searchGroupOfUser.ts');
     searchGroupOfUserResolver.node.addDependency(rdsInstance);
 
+    //user resolvers
+    
 
-    //FOR ENDPOINTS group Integrations
+
+    //group Integrations
 
     const getGroupIntegration = new apigateway.LambdaIntegration(getGroupsResolver);
     const getGroupDetailsIntegration = new apigateway.LambdaIntegration(getGroupDetailsResolver);
@@ -232,6 +229,8 @@ export class MyAppStack extends cdk.Stack {
     const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(getIncomesFromGroupUserResolver);
     const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(searchGroupOfUserResolver);
     const updateGroupIntegration = new apigateway.LambdaIntegration(updateGroupResolver);
+
+
 
     // API Gateway RestApi
     const api = new apigateway.RestApi(this, 'RestAPI', {
