@@ -386,6 +386,8 @@ export class MyAppStack extends cdk.Stack {
     const accountingResource = secureResource.addResource('Accounting');
     const accountingGroupIdResource = accountingResource.addResource('{groupId}');
 
+    const accountingGroupIdSettledebtsResource = accountingGroupIdResource.addResource('settle-debts');
+
     //group methods
     groupResource.addMethod('GET', getGroupIntegration, {
       requestModels: { 'application/json': model },
@@ -449,6 +451,11 @@ export class MyAppStack extends cdk.Stack {
     //accounting methods
 
     accountingGroupIdResource.addMethod('GET', getAccountingFromGroupIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    accountingGroupIdSettledebtsResource.addMethod('GET', getSettlingDebtsTransactionsIntegration, {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });

@@ -21,7 +21,9 @@ export const handler: Handler = async (event: any) => {
       where: { groupId: groupId }
     });
 
-    const transactions =SettleBalances(users);
+    console.log('users:', users);
+
+    const transactions = SettleBalances(users);
 
     if (transactions) {
       return createResponse(200, transactions);
@@ -57,6 +59,9 @@ function SettleBalances(users: Accounting[]): Transaction[] | null {
       debtors.push(u);
     }
   }
+
+  console.log('creditors:', creditors);
+  console.log('debtors:', debtors);
 
   if (Math.abs(totalBalance) > 0.009) {
     return null;
