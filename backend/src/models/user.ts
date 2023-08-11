@@ -37,9 +37,9 @@ export class User {
   })
   groups: Group[];
 
-  @OneToMany(() => Transaction, (transaction) => transaction.receiverUsername)
+  @OneToMany(() => Transaction, (transaction) => transaction.receiver)
   transactions: Transaction[];
 
-  @OneToMany(() => Transaction, (transaction) => transaction.senderUsername)
+  @OneToMany(() => Transaction, (transaction) => transaction.sender)
   transactions2: Transaction[];
 }

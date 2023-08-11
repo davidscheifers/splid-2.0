@@ -20,7 +20,7 @@ export const handler: Handler = async (event: any) => {
     const transactions = await transactionRepository.find({
       where: {
         group: { id: groupId },
-        receiverUsername: { username: username }, 
+        receiver: { username: username }, 
         amount: MoreThan(0) 
       }
     });
