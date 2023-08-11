@@ -21,7 +21,7 @@ const GroupUserPage = () => {
 
     return (
         <div>
-            <Link to="edit">edit user</Link>
+            <Link to="edit">Benutzer bearbeiten</Link>
             <Group my="md">
                 <Avatar radius="xl" />
                 <Title order={2}>{user?.name}</Title>
@@ -29,12 +29,12 @@ const GroupUserPage = () => {
 
             <Paper withBorder p="sm" mb="md" radius="md">
                 <Group position="apart">
-                    <Title order={3}>Balance</Title>
+                    <Title order={3}>Saldo</Title>
                     <Title order={3}>200 €</Title>
                 </Group>
             </Paper>
             <Title order={4} mb="md">
-                User Expenses
+                Nutzer Ausgaben
             </Title>
             <TextInput
                 value={searchQuery}

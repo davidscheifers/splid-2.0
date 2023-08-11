@@ -8,7 +8,7 @@ export const apiEndPoints = {
         getGroups: "/prod/api/secure/Groups",
         getGroup: (groupId: string) =>
             `/prod/api/secure/Groups/${groupId}/details`,
-        getExpensesFromGroup: (groupId: string) =>
-            `/prod/api/secure/Groups/${groupId}/users/tester/expense`,
+        getExpensesFromUserInGroup: (groupId: string, userName: string) =>
+            `/prod/api/secure/Groups/${groupId}/users/${userName}/expense`,
     },
 };

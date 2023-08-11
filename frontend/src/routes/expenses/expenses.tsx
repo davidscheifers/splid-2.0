@@ -22,8 +22,11 @@ const Expenses = () => {
 
     return (
         <>
-            <LoadingComponent status={status}>
-                <Title mb="lg">Expenses</Title>
+            <LoadingComponent
+                status={status}
+                errorMessage="Ausgaben konnten nicht geladen werden..."
+            >
+                <Title mb="lg">Ausgaben</Title>
                 <TextInput
                     value={searchQuery}
                     onChange={(event) =>
@@ -45,7 +48,7 @@ const Expenses = () => {
                         })}
                     </>
                 ) : (
-                    <Title order={4}>No expenses found</Title>
+                    <Title order={4}>Keine ausgaben gefunden</Title>
                 )}
             </LoadingComponent>
         </>

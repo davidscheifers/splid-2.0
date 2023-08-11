@@ -41,7 +41,7 @@ const UserForm = ({
                             <TextInput
                                 label="Name"
                                 mb="md"
-                                placeholder="Choose a user name"
+                                placeholder="Name eingeben"
                                 error={
                                     errors.name ? errors.name.message : false
                                 }
@@ -54,7 +54,7 @@ const UserForm = ({
                 />
             </Paper>
             <Button fullWidth loading={isSubmitting} type="submit">
-                {isEdit ? "Edit" : "Create"}
+                {isEdit ? "Bearbeiten" : "Erstellen"}
             </Button>
         </form>
     );

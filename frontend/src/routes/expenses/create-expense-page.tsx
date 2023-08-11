@@ -16,7 +16,7 @@ const CreateExpensePage = () => {
     }
     return (
         <div>
-            <Title mb="md">Create Expense</Title>
+            <Title mb="md">Ausgabe erstellen</Title>
             <Box mb="xl">
                 <ExpenseForm
                     isSubmitting={isSubmitting}

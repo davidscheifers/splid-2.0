@@ -1,4 +1,10 @@
+import { Container, Title } from "@mantine/core";
+
 const UserSettings = () => {
-    return <div>UserSettings</div>;
+    return (
+        <Container>
+            <Title>Benutzereinstellungen</Title>
+        </Container>
+    );
 };
 export default UserSettings;

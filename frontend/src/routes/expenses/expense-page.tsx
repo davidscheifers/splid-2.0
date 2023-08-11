@@ -1,4 +1,4 @@
-import { Avatar, Group, Title, Text, Paper, Box } from "@mantine/core";
+import { Avatar, Group, Title, Text, Paper, Box, Button } from "@mantine/core";
 import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { dummyExpenses } from "../../utils/data/data";
@@ -20,7 +20,9 @@ const ExpensePage = () => {
                         <Title>{expense.name}</Title>
                         <Text>{expense.category}</Text>
                         <Link to={`/groups/${id}/expenses/${expenseId}/edit`}>
-                            Edit
+                            <Button variant="outline" size="sm">
+                                Bearbeiten
+                            </Button>
                         </Link>
                     </Box>
 

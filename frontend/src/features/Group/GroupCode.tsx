@@ -1,7 +1,11 @@
 import { Group, Paper, Title, Text, Modal, Button } from "@mantine/core";
 import { useState } from "react";
-import { generateMailtoLink } from "../../utils/functions/functions";
+import {
+    generateMailtoLink,
+    generateRandomCode,
+} from "../../utils/functions/functions";
 import { TDummyGroup } from "../../types/group";
+import CopyToClipBoard from "../../components/CopyToClipBoard/CopyToClipBoard";
 
 type GroupCodeProps = {
     /* infos about the current group */
@@ -9,6 +13,8 @@ type GroupCodeProps = {
 };
 const GroupCode = ({ group }: GroupCodeProps) => {
     const [open, setOpen] = useState(false);
+
+    const code = generateRandomCode();
 
     return (
         <div>
@@ -18,7 +24,7 @@ const GroupCode = ({ group }: GroupCodeProps) => {
             <Paper withBorder p="sm" mb="md" radius="md">
                 <Group position="apart">
                     <Text>Code</Text>
-                    <Title order={3}>{group?.code}</Title>
+                    <Title order={3}>{code}</Title>
                 </Group>
             </Paper>
             <Button fullWidth onClick={() => setOpen(true)}>
@@ -40,8 +46,8 @@ const GroupCode = ({ group }: GroupCodeProps) => {
                     <Button mb="md" fullWidth>
                         Email
                     </Button>
-                    <Button fullWidth>Code kopieren</Button>
                 </a>
+                <CopyToClipBoard text={group?.code || ""} />
             </Modal>
         </div>
     );

@@ -33,7 +33,7 @@ const EditExpensePage = () => {
     }
     return (
         <div>
-            <Title mb="md">Edit expense with id {expenseId}</Title>
+            <Title mb="md">Ausgabe bearbeiten</Title>
             <Box mb="xl">
                 <ExpenseForm
                     isSubmitting={isSubmitting}

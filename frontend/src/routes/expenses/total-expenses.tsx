@@ -24,20 +24,20 @@ const TotalExpenses = () => {
     });
     return (
         <div>
-            <Title>Total Expenses</Title>
+            <Title>Gesamtausgaben</Title>
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <div style={{ width: "300px", height: "300px" }}>
                     <PieChartComponent data={data} />
                 </div>
             </div>
             <Group position="apart" mb="md">
-                <Title order={3}>Total Expenses</Title>
+                <Title order={3}>Gesamtausgaben:</Title>
                 <Title order={2}>1000 €</Title>
             </Group>
 
             <Box>
                 <Title order={3} mb="md">
-                    Total User Expenses
+                    Ausgaben pro Person:
                 </Title>
                 {userBalances}
             </Box>

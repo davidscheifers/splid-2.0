@@ -1,3 +1,5 @@
+import { Loader, Text } from "@mantine/core";
+
 type LoadingComponentProps = {
     /* status of the data fetching */
     status: "idle" | "loading" | "success" | "error";
@@ -7,23 +9,29 @@ type LoadingComponentProps = {
 
     /* optional error message to be displayed when fetching is error */
     errorMessage?: string;
-
-    /* optional loading message to be displayed when fetching is loading */
-    loadingMessage?: string;
 };
 
 const LoadingComponent = ({
     status,
     children,
     errorMessage = "Something went wrong",
-    loadingMessage = "loading...",
 }: LoadingComponentProps) => {
     const loadingStatus: { [key: string]: React.ReactNode } = {
-        loading: <p>{loadingMessage}</p>,
-        error: <p>{errorMessage}</p>,
+        loading: (
+            <div
+                style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
+                <Loader />
+            </div>
+        ),
+        error: <Text>{errorMessage}</Text>,
         success: children,
     };
 
-    return loadingStatus[status] ?? <p>Something went wrong</p>;
+    return loadingStatus[status] ?? <Text>Etwas ist schief gelaufen</Text>;
 };
 export default LoadingComponent;

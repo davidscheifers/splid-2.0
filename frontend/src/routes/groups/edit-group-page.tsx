@@ -1,19 +1,16 @@
 import { Box, Title } from "@mantine/core";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { TDummyGroup, TGroupForm } from "../../types/group";
+import { TGroupForm } from "../../types/group";
 import GroupForm from "../../features/Group/GroupForm";
-
-const dummyGroup: TDummyGroup = {
-    id: 1,
-    code: "123456",
-    name: "Dummy Group",
-    currency: "EUR",
-};
+import { useGetGroupDetail } from "../../api/Groups/useGetGroupDetails";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 const EditGroupPage = () => {
     const { id } = useParams<{ id: string }>();
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const { data, status } = useGetGroupDetail(id || "");
 
     function handleSubmit(data: TGroupForm) {
         setIsSubmitting(true);
@@ -25,16 +22,16 @@ const EditGroupPage = () => {
         console.log(data);
     }
     return (
-        <div>
-            <Title mb="sm">Settings</Title>
+        <LoadingComponent status={status}>
+            <Title mb="sm">Einstellungen</Title>
             <Box mb="xl">
                 <GroupForm
                     isSubmitting={isSubmitting}
                     onSubmit={(data) => handleSubmit(data)}
-                    defaultValues={dummyGroup}
+                    defaultValues={{ name: data?.name || "", currency: "EUR" }}
                 />
             </Box>
-        </div>
+        </LoadingComponent>
     );
 };
 export default EditGroupPage;

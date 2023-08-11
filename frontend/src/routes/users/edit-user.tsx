@@ -22,7 +22,7 @@ const EditUserPage = () => {
     }
     return (
         <div>
-            <Title mb="md">Edit User</Title>
+            <Title mb="md">Benutzer bearbeiten</Title>
             <Box mb="xl">
                 <UserForm
                     isSubmitting={isSubmitting}

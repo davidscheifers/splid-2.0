@@ -80,7 +80,7 @@ const TopNavigation = () => {
                         </Box>
                         <Divider my="xl" />
                         <Group position="apart">
-                            <Title order={4}>Colormode</Title>
+                            <Title order={4}>Farbschema</Title>
 
                             <ActionIcon
                                 variant="outline"

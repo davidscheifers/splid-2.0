@@ -95,3 +95,19 @@ export function addElementToArray<T, K extends keyof T>(
 
     return clonedArray;
 }
+
+export function generateRandomCode(): string {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let code = "";
+
+    for (let i = 0; i < 3; i++) {
+        let part = "";
+        for (let j = 0; j < 3; j++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            part += characters[randomIndex];
+        }
+        code += (i === 0 ? "" : " ") + part;
+    }
+
+    return code;
+}

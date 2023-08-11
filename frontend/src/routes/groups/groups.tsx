@@ -1,6 +1,5 @@
 import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import GroupTeaser from "../../features/Group/GroupTeaser";
@@ -10,8 +9,6 @@ import { useGetGroups } from "../../api/Groups/useGetGroups";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 const Groups = () => {
-    const { t } = useTranslation();
-
     const { data, status } = useGetGroups();
 
     const { searchQuery, setSearchQuery, filteredData } = useFilterData(
@@ -24,13 +21,13 @@ const Groups = () => {
     return (
         <LoadingComponent status={status}>
             <Group position="apart" mb="lg">
-                <Title>{t("groups.title")}</Title>
+                <Title>Gruppen</Title>
                 <Group>
                     <Link to="/groups/join">
-                        <Button variant="default">Join Group</Button>
+                        <Button variant="default">Gruppe beitreten</Button>
                     </Link>
                     <Link to="/groups/create">
-                        <Button variant="default">Create Group</Button>
+                        <Button variant="default">Gruppe erstellen</Button>
                     </Link>
                 </Group>
             </Group>
@@ -38,7 +35,7 @@ const Groups = () => {
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}
                 mb="md"
-                placeholder="Search Groups"
+                placeholder="Gruppen suchen"
                 icon={<IconSearch size={20} />}
             />
             {filteredData.map((group) => {
