@@ -38,20 +38,12 @@ CREATE TABLE IF NOT EXISTS splid."Group_User"
         ON DELETE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS splid."Bill"
-(
-    id uuid NOT NULL,
-    path character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "Bill_pkey" PRIMARY KEY (id)
-);
-
 CREATE TABLE IF NOT EXISTS splid."Transaction"
 (
     id uuid NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
     sender_username character varying(255) COLLATE pg_catalog."default" NOT NULL,
     amount double precision NOT NULL,
-    bill_id uuid,
     group_id uuid NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	receiver_username character varying(255) COLLATE pg_catalog."default" NOT NULL,
@@ -68,10 +60,6 @@ CREATE TABLE IF NOT EXISTS splid."Transaction"
         REFERENCES splid."User" (username) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT "bill" FOREIGN KEY (bill_id)
-        REFERENCES splid."Bill" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS splid."Accounting"
@@ -259,37 +247,37 @@ INSERT INTO splid."Group_User"(
 	VALUES ('tester', '5aa66f64-5717-4562-b3fc-2c963f66afa6');
 
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, group_id, created_at,  receiver_username)
-	VALUES ('705da552-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', 112.43, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06', 'admin');
+	id, description, sender_username, amount, group_id, created_at,  receiver_username)
+	VALUES ('705da552-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', 112.43, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06', 'admin');
 	
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705da7fa-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -36.65, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:02+06','tester');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705da7fa-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -36.65, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:02+06','tester');
 	
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705da8fe-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -50.12, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','admin');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705da8fe-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -50.12, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','admin');
 
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705da9da-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -25.66, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','max mustermann');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705da9da-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -25.66, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','max mustermann');
 
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, group_id, created_at, receiver_username)
-	VALUES ('705daab6-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', 143.95, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06', 'max mustermann');
+	id, description, sender_username, amount, group_id, created_at, receiver_username)
+	VALUES ('705daab6-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', 143.95,'5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06', 'max mustermann');
 	
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705dadcc-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:02+06', 'admin');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705dadcc-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:02+06', 'admin');
 	
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705daea8-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','max mustermann');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705daea8-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','max mustermann');
 
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705db150-998e-11ed-a8fc-0242ac120002','Payment', 'tester', 36.65, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','tester');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705db150-998e-11ed-a8fc-0242ac120002','Payment', 'tester', 36.65, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','tester');
 
 INSERT INTO splid."Transaction"(
-	id, description, sender_username, amount, bill_id, "group_id", created_at, receiver_username)
-	VALUES ('705db27c-998e-11ed-a8fc-0242ac120002','Payment', 'tester', -36.65, null, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','admin');
+	id, description, sender_username, amount, "group_id", created_at, receiver_username)
+	VALUES ('705db27c-998e-11ed-a8fc-0242ac120002','Payment', 'tester', -36.65, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','admin');

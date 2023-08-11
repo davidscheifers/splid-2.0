@@ -274,6 +274,20 @@ export class MyAppStack extends cdk.Stack {
     const getSettlingDebtsTransactionsResolver = createResolver('getSettlingDebtsTransactionsResolver', 'src/accounting/getSettlingDebtsTransactions.ts');
     getSettlingDebtsTransactionsResolver.node.addDependency(rdsInstance);
 
+    //transaction resolvers
+
+    const getTransactionByIdResolver = createResolver( 'getTransactionByIdResolver', 'src/transactions/getTransactionById.ts');
+    getTransactionByIdResolver.node.addDependency(rdsInstance);
+
+    const createTransactionResolver = createResolver( 'createTransactionResolver', 'src/transactions/createTransactions.ts');
+    createTransactionResolver.node.addDependency(rdsInstance);
+
+    const deleteTransactionResolver = createResolver( 'deleteTransactionResolver', 'src/transactions/deleteTransaction.ts');
+    deleteTransactionResolver.node.addDependency(rdsInstance);
+
+    const updateTransactionResolver = createResolver( 'updateTransactionResolver', 'src/transactions/updateTransaction.ts');
+    updateTransactionResolver.node.addDependency(rdsInstance);
+
     //group Integrations
 
     const getGroupIntegration = new apigateway.LambdaIntegration(
@@ -309,6 +323,13 @@ export class MyAppStack extends cdk.Stack {
 
     const getAccountingFromGroupIntegration = new apigateway.LambdaIntegration(getAccountingFromGroupResolver);
     const getSettlingDebtsTransactionsIntegration = new apigateway.LambdaIntegration(getSettlingDebtsTransactionsResolver);
+
+    //transaction Integrations
+
+    const getTransactionByIdIntegration = new apigateway.LambdaIntegration(getTransactionByIdResolver);
+    const createTransactionIntegration = new apigateway.LambdaIntegration(createTransactionResolver);
+    const deleteTransactionIntegration = new apigateway.LambdaIntegration(deleteTransactionResolver);
+    const updateTransactionIntegration = new apigateway.LambdaIntegration(updateTransactionResolver);
 
 
     // API Gateway RestApi
@@ -388,6 +409,11 @@ export class MyAppStack extends cdk.Stack {
 
     const accountingGroupIdSettledebtsResource = accountingGroupIdResource.addResource('settle-debts');
 
+    //transaction ressources
+
+    const transactionResource = secureResource.addResource('Transactions');
+    const transactionIdResource = transactionResource.addResource('{transactionId}');
+
     //group methods
     groupResource.addMethod('GET', getGroupIntegration, {
       requestModels: { 'application/json': model },
@@ -459,8 +485,28 @@ export class MyAppStack extends cdk.Stack {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
+    
+    //transaction methods
 
-    ///api/Groups/{groupId} /details
+    transactionIdResource.addMethod('GET', getTransactionByIdIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    transactionResource.addMethod('POST', createTransactionIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    transactionIdResource.addMethod('DELETE', deleteTransactionIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    transactionIdResource.addMethod('PUT', updateTransactionIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
 
     // API Usageplan
     const usageplan = api.addUsagePlan("UsagePlan", {

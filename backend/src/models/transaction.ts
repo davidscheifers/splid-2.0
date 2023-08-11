@@ -1,5 +1,4 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Bill } from "./bill";
 import { User } from "./user";
 import { Group } from "./group";
 
@@ -33,10 +32,6 @@ export class Transaction {
 
   @Column("uuid" , { name: "group_id", nullable: false })
   groupId: string;
-
-  @ManyToOne(() => Bill, (bill) => bill.transactions)
-  @JoinColumn([{ name: "bill_id", referencedColumnName: "id" }])
-  bill?: Bill;
 
   @ManyToOne(() => User, (user) => user.transactions)
   @JoinColumn([{ name: "receiver_username", referencedColumnName: "username" }])

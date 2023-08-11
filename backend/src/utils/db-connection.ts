@@ -2,7 +2,6 @@ import { DataSource } from 'typeorm';
 import { SecretsManager } from 'aws-sdk';
 import { Group } from '../models/group'; 
 import { Accounting } from '../models/accounting'; 
-import { Bill } from '../models/bill'; 
 import { Transaction } from '../models/transaction'; 
 import { User } from '../models/user'; 
 
@@ -30,7 +29,7 @@ export const instantiateRdsClient = async (): Promise<DataSource> => {
     password: credentials.password,
     database: 'postgres',
     schema: 'splid',
-    entities: [Group, Accounting, Bill, Transaction, User], // List of entities to load needed?
+    entities: [Group, Accounting, Transaction, User], // List of entities to load needed?
     synchronize: false,
   });
 
