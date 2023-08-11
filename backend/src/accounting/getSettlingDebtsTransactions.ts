@@ -1,10 +1,13 @@
 import { Handler } from 'aws-lambda';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { Accounting } from '../models/accounting'; 
+import { Transaction } from '../models/transaction';
 import { createResponse } from '../utils/response-utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  ////path /Accounting/groupid/settle-debts
 
   try {
     console.log('getSettlingDebtsTransactions lambda starts here');
@@ -18,7 +21,7 @@ export const handler: Handler = async (event: any) => {
       where: { groupId: groupId }
     });
 
-    const transactions = null//SettleBalances(users);
+    const transactions =SettleBalances(users);
 
     if (transactions) {
       return createResponse(200, transactions);
@@ -36,58 +39,61 @@ export const handler: Handler = async (event: any) => {
   }
 };
 
-// function SettleBalances(users: UserBalance[]): Transaction[] | null {
-//   if (!users || users.length === 0) {
-//     return null;
-//   }
+function SettleBalances(users: Accounting[]): Transaction[] | null {
+  if (!users || users.length === 0) {
+    return null;
+  }
 
-//   let totalBalance = 0;
-//   const creditors: UserBalance[] = [];
-//   const debtors: UserBalance[] = [];
+  let totalBalance = 0;
 
-//   for (const u of users) {
-//     totalBalance += u.balance;  // Assuming the property is 'balance' and not 'Balance'.
-//     if (u.balance > 0) {
-//       creditors.push(u);
-//     } else {
-//       debtors.push(u);
-//     }
-//   }
+  const creditors: Accounting[] = [];
+  const debtors: Accounting[] = [];
 
-//   if (Math.abs(totalBalance) > 0.009) {
-//     return null;
-//   }
+  for (const u of users) {
+    totalBalance += u.balance; 
+    if (u.balance > 0) {
+      creditors.push(u);
+    } else {
+      debtors.push(u);
+    }
+  }
 
-//   creditors.sort((x, y) => y.balance - x.balance);
-//   debtors.sort((x, y) => Math.abs(y.balance) - Math.abs(x.balance));
+  if (Math.abs(totalBalance) > 0.009) {
+    return null;
+  }
 
-//   const transactions: Transaction[] = [];
-//   let c = 0, d = 0;
-//   while (c < creditors.length && d < debtors.length) {
-//     const creditor = creditors[c];
-//     const debtor = debtors[d];
-//     const amount = Math.min(creditor.balance, Math.abs(debtor.balance));
+  creditors.sort((x, y) => y.balance - x.balance);
+  debtors.sort((x, y) => Math.abs(y.balance) - Math.abs(x.balance));
 
-//     if (amount !== 0) {
-//       transactions.push({
-//         senderUsername: debtor.username,
-//         receiverUsername: creditor.username,
-//         amount: amount,
-//         groupId: creditor.groupId,
-//         createdAt: new Date()
-//       });
-//     }
+  const transactions: Transaction[] = [];
+  let c = 0, d = 0;
+  while (c < creditors.length && d < debtors.length) {
+    const creditor = creditors[c];
+    const debtor = debtors[d];
+    const amount = Math.min(creditor.balance, Math.abs(debtor.balance));
 
-//     creditor.balance -= amount;
-//     debtor.balance += amount;
+    if (amount !== 0) {
+      transactions.push({ 
+        id: uuidv4(),
+        senderUsername: debtor.username, 
+        receiverUsername: creditor.username,
+        amount: amount,
+        groupId: creditor.groupId,
+        createdAt: new Date()
+      });
+    }
 
-//     if (creditor.balance === 0) {
-//       c++;
-//     }
-//     if (debtor.balance === 0) {
-//       d++;
-//     }
-//   }
+    creditor.balance -= amount;
+    debtor.balance += amount;
 
-//   return transactions;
-// }
+    if (creditor.balance === 0) {
+      c++;
+    }
+    if (debtor.balance === 0) {
+      d++;
+    }
+  }
+
+  return transactions;
+}
+

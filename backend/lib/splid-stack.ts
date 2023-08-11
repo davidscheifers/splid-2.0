@@ -69,7 +69,7 @@ export class MyAppStack extends cdk.Stack {
 
     // Ingress and Egress Rules
     securityGroupRds.addIngressRule(
-      ec2.Peer.ipv4("92.72.231.163/32"),
+      ec2.Peer.ipv4("82.207.248.40/32"),
       ec2.Port.tcp(5432),
       "Allow inbound traffic to RDS from local"
     );
@@ -268,7 +268,11 @@ export class MyAppStack extends cdk.Stack {
 
     //accounting resolvers
 
+    const getAccountingFromGroupResolver = createResolver('getAccountingFromGroupResolver', 'src/accounting/getAccountingFromGroup.ts');
+    getAccountingFromGroupResolver.node.addDependency(rdsInstance);
 
+    const getSettlingDebtsTransactionsResolver = createResolver('getSettlingDebtsTransactionsResolver', 'src/accounting/getSettlingDebtsTransactions.ts');
+    getSettlingDebtsTransactionsResolver.node.addDependency(rdsInstance);
 
     //group Integrations
 
@@ -302,6 +306,9 @@ export class MyAppStack extends cdk.Stack {
     const getGroupsFromUserIntegration = new apigateway.LambdaIntegration(getGroupsFromUserResolver);
 
     //accounting Integrations
+
+    const getAccountingFromGroupIntegration = new apigateway.LambdaIntegration(getAccountingFromGroupResolver);
+    const getSettlingDebtsTransactionsIntegration = new apigateway.LambdaIntegration(getSettlingDebtsTransactionsResolver);
 
 
     // API Gateway RestApi
@@ -376,6 +383,9 @@ export class MyAppStack extends cdk.Stack {
 
     //accounting ressources
 
+    const accountingResource = secureResource.addResource('Accounting');
+    const accountingGroupIdResource = accountingResource.addResource('{groupId}');
+
     //group methods
     groupResource.addMethod('GET', getGroupIntegration, {
       requestModels: { 'application/json': model },
@@ -437,6 +447,11 @@ export class MyAppStack extends cdk.Stack {
     });
 
     //accounting methods
+
+    accountingGroupIdResource.addMethod('GET', getAccountingFromGroupIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
 
     ///api/Groups/{groupId} /details
 
