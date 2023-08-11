@@ -5,6 +5,7 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path: /transactions/{transactionId} 
 
   try {
     console.log('deleteTransaction lambda starts here')
