@@ -5,6 +5,17 @@ import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path: /transactions/{transactionId}
+//   {
+//     "id": "b5083749-84aa-414f-b219-7ccd10dc535d",
+//     "description": "test2",
+//     "amount": 24,
+//     "createdAt": "2023-08-11T18:21:01.734Z",
+//     "senderUsername": "tester",
+//     "receiverUsername": "admin",
+//     "groupId": "5aa66f64-5717-4562-b3fc-2c963f66afa6"
+// }
+
 
   try {
     console.log('updateTransaction lambda starts here')

@@ -285,6 +285,9 @@ export class MyAppStack extends cdk.Stack {
     const deleteTransactionResolver = createResolver( 'deleteTransactionResolver', 'src/transactions/deleteTransaction.ts');
     deleteTransactionResolver.node.addDependency(rdsInstance);
 
+    const updateTransactionResolver = createResolver( 'updateTransactionResolver', 'src/transactions/updateTransaction.ts');
+    updateTransactionResolver.node.addDependency(rdsInstance);
+
     //group Integrations
 
     const getGroupIntegration = new apigateway.LambdaIntegration(
@@ -326,6 +329,7 @@ export class MyAppStack extends cdk.Stack {
     const getTransactionByIdIntegration = new apigateway.LambdaIntegration(getTransactionByIdResolver);
     const createTransactionIntegration = new apigateway.LambdaIntegration(createTransactionResolver);
     const deleteTransactionIntegration = new apigateway.LambdaIntegration(deleteTransactionResolver);
+    const updateTransactionIntegration = new apigateway.LambdaIntegration(updateTransactionResolver);
 
 
     // API Gateway RestApi
@@ -495,6 +499,11 @@ export class MyAppStack extends cdk.Stack {
     });
 
     transactionIdResource.addMethod('DELETE', deleteTransactionIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    transactionIdResource.addMethod('PUT', updateTransactionIntegration, {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
