@@ -1,34 +1,44 @@
 import { Handler } from 'aws-lambda';
-import { getRepository } from 'typeorm';
 import { instantiateRdsClient } from '../utils/db-connection';
 import { User } from '../models/user'; 
+import { createResponse } from '../utils/response-utils';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
+  //path  /users/{username}
 
   try {
+    console.log('deleteUser lambda starts here');
+
     dataSource = await instantiateRdsClient();
+
+    console.log('getting users from db');
     const userRepository = dataSource.getRepository(User);
 
-    const username: string = event.username;
+    const username: string = event.pathParameters.username;
 
     const user = await userRepository.findOne({
       where: { username: username }
     });
 
     if ( user === null ) {
-      return false;
+      return createResponse(500, 'User not found');
     }
 
-    await userRepository.remove(user); // Remove the user
+    //TODO: if user has any aktive balance +/- in a group you cannot delete the user  
+    // if not make sure to delete all relations
 
-    // Close the connection when you're done
-    await dataSource.destroy();
+    await userRepository.remove(user);
 
-    return true;
+    return createResponse(200, 'User deleted');
 
   } catch (error) {
     console.error('Error deleting user:', error);
-    throw error;
+    return createResponse(500, 'Cannot delete user.');
+  } finally {
+    if (dataSource) {
+      await dataSource.destroy();
+      console.log('Database connection closed.')
+    }
   }
 };

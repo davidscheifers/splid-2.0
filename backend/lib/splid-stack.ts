@@ -266,6 +266,9 @@ export class MyAppStack extends cdk.Stack {
     const getGroupsFromUserResolver = createResolver('getGroupsFromUserResolver', 'src/users/getGroupsFromUser.ts');
     getGroupsFromUserResolver.node.addDependency(rdsInstance);
 
+    const addUserResolver = createResolver('addUserResolver', 'src/users/addUser.ts');
+    addUserResolver.node.addDependency(rdsInstance);
+
     //accounting resolvers
 
     const getAccountingFromGroupResolver = createResolver('getAccountingFromGroupResolver', 'src/accounting/getAccountingFromGroup.ts');
@@ -318,6 +321,7 @@ export class MyAppStack extends cdk.Stack {
 
     const getUserInfoIntegration = new apigateway.LambdaIntegration(getUserInfoResolver);
     const getGroupsFromUserIntegration = new apigateway.LambdaIntegration(getGroupsFromUserResolver);
+    const addUserIntegration = new apigateway.LambdaIntegration(addUserResolver);
 
     //accounting Integrations
 
@@ -470,6 +474,11 @@ export class MyAppStack extends cdk.Stack {
     });
 
     userUsernameGroupsResource.addMethod('GET', getGroupsFromUserIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+
+    userResource.addMethod('POST', addUserIntegration, {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
