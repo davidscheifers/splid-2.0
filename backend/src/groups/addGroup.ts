@@ -20,6 +20,8 @@ export const handler: Handler = async (event: any) => {
 
 
   try {
+
+    //STILL TODO!
     console.log('addGroup lambda starts here')
 
     dataSource = await instantiateRdsClient();

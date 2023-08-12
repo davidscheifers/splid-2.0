@@ -9,6 +9,7 @@ export const handler: Handler = async (event: any) => {
   //path Groups/uuid
 
   try {
+    // STILL TODO!
     console.log('deleteGroup lambda starts here')
 
     dataSource = await instantiateRdsClient();
