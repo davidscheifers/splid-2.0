@@ -10,5 +10,28 @@ export const apiEndPoints = {
             `/prod/api/secure/Groups/${groupId}/details`,
         getExpensesFromUserInGroup: (groupId: string, userName: string) =>
             `/prod/api/secure/Groups/${groupId}/users/${userName}/expense`,
+        getIncomesFromUserInGroup: (groupId: string, userName: string) =>
+            `/prod/api/secure/Groups/${groupId}/users/${userName}/income`,
+        getTransactionsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Groups/${groupId}/transactions`,
+    },
+    user: {
+        getGroupsFromUser: (userName: string) =>
+            `/prod/api/secure/User/${userName}/groups`,
+    },
+    accounting: {
+        getAccountingInformationsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Accounting/${groupId}`,
+        getSettlingDebtsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Accounting/${groupId}/settle-debts`,
+    },
+    transaction: {
+        getTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
+        createTransaction: `/prod/api/secure/Transactions`,
+        updateTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
+        deleteTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
     },
 };

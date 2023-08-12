@@ -3,7 +3,7 @@ import { API_URL } from "../../utils/constants/constants";
 
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 
-const http = axios.create({
+const AwsApiClient = axios.create({
     baseURL: API_URL,
     timeout: 30000,
     headers: {
@@ -12,8 +12,7 @@ const http = axios.create({
     },
 });
 
-// Change request data/error here
-http.interceptors.request.use(
+AwsApiClient.interceptors.request.use(
     (config) => {
         config.headers["X-API-Key"] = VITE_API_KEY ?? "";
 
@@ -24,4 +23,4 @@ http.interceptors.request.use(
     }
 );
 
-export default http;
+export default AwsApiClient;

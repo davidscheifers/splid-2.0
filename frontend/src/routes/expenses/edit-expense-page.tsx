@@ -3,45 +3,51 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { TExpenseForm } from "../../types/expenses";
 import ExpenseForm from "../../features/Expense/ExpenseForm";
-
-const dummyExpense: TExpenseForm = {
-    name: "Dummy Expense",
-    category: "food",
-    amount: 100,
-    currency: "EUR",
-    from: "1",
-    for: [
-        { user: { id: 2, name: "User 2" }, percentage: 50 },
-        { user: { id: 3, name: "User 3" }, percentage: 50 },
-    ],
-    buyDate: new Date(),
-    createdAt: new Date(),
-};
+import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
+import { Transaction } from "../../types/transactions";
+import { apiEndPoints } from "../../utils/constants/constants";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useUpdateMutation } from "../../api/GenericCalls/useUpdate";
 
 const EditExpensePage = () => {
-    const { expenseId } = useParams<{ expenseId: string; id: string }>();
+    const { expenseId, id } = useParams<{ expenseId: string; id: string }>();
+
+    const { data, status } = useGetOneQuery<Transaction>({
+        url: apiEndPoints.transaction.getTransaction(expenseId || ""),
+        id: expenseId || "",
+        invalidationProperty: "transaction",
+    });
+
+    const { updateMutation } = useUpdateMutation({
+        url: apiEndPoints.transaction.updateTransaction(expenseId || ""),
+        entityName: "Transaktion",
+        invalidationProperty: "transaction",
+    });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
     function handleSubmit(data: TExpenseForm) {
         setIsSubmitting(true);
 
-        setTimeout(() => {
-            setIsSubmitting(false);
-        }, 2000);
-
-        console.log(data);
+        updateMutation.mutate({
+            ...data,
+            id: expenseId || "",
+            createdAt: new Date(),
+        });
     }
+
     return (
-        <div>
+        <LoadingComponent status={status}>
             <Title mb="md">Ausgabe bearbeiten</Title>
             <Box mb="xl">
                 <ExpenseForm
                     isSubmitting={isSubmitting}
                     onSubmit={(data) => handleSubmit(data)}
-                    defaultValues={dummyExpense}
+                    defaultValues={data}
+                    groupId={id || ""}
                 />
             </Box>
-        </div>
+        </LoadingComponent>
     );
 };
 export default EditExpensePage;

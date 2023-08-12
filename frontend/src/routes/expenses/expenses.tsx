@@ -5,13 +5,19 @@ import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
 
 import { useFilterData } from "../../utils/hooks/useFilterData";
 import { useParams } from "react-router-dom";
-import { useGetGroupExpenses } from "../../api/Groups/useGetExpensesFromGroup";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
+import { apiEndPoints } from "../../utils/constants/constants";
+import { Transaction } from "../../types/transactions";
 
 const Expenses = () => {
     const { id } = useParams<{ id: string }>();
 
-    const { data, status } = useGetGroupExpenses(id || "");
+    const { data, status } = useGetOneQuery<Transaction[]>({
+        url: apiEndPoints.group.getTransactionsFromGroup(id || ""),
+        id: id || "",
+        invalidationProperty: "groupTransactions",
+    });
 
     const { setSearchQuery, searchQuery, filteredData } = useFilterData(
         data || [],

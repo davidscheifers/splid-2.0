@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { TDummyUser } from "../../types/group";
 import { Avatar, Group, Title } from "@mantine/core";
+import { getFirstCharacterFromString } from "../../utils/functions/functions";
 
 type UserPreviewProps = {
     /* user information */
@@ -28,7 +29,9 @@ type UserProps = {
 function User({ user }: UserProps) {
     return (
         <Group>
-            <Avatar radius="xl" />
+            <Avatar radius="xl">
+                {getFirstCharacterFromString(user.name)}
+            </Avatar>
             <Title order={4}>{user.name}</Title>
         </Group>
     );

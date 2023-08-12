@@ -3,13 +3,18 @@ import Balance from "../balance/balance";
 import { useParams } from "react-router-dom";
 import { dummyGroups } from "../../utils/data/data";
 import GroupCode from "../../features/Group/GroupCode";
-import { useGetGroupDetail } from "../../api/Groups/useGetGroupDetails";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
+import { apiEndPoints } from "../../utils/constants/constants";
 
 const GroupOverview = () => {
     const { id } = useParams<{ id: string }>();
 
-    const { data, status } = useGetGroupDetail(id || "");
+    const { data, status } = useGetOneQuery({
+        url: apiEndPoints.group.getGroup(id || ""),
+        id: id || "",
+        invalidationProperty: "group",
+    });
 
     const group = dummyGroups.find((group) => group.id === parseInt(id || ""));
 

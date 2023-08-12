@@ -111,3 +111,7 @@ export function generateRandomCode(): string {
 
     return code;
 }
+
+export function getFirstCharacterFromString(str: string): string {
+    return str.charAt(0).toUpperCase();
+}

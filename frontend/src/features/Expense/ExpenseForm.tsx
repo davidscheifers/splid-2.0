@@ -1,13 +1,7 @@
 import { Button, NumberInput, Paper, Select, TextInput } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
 import { ExpenseFormSchema, TExpenseForm } from "../../types/expenses";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { dummyUsers } from "../../utils/data/data";
-import UserPreview from "../../components/User/UserPreview";
-import { forwardRef } from "react";
-import { TDummyUser } from "../../types/group";
-import UserPercentageSelect from "../../components/User/UserPercentageSelect";
 
 type ExpenseFormProps = {
     /* form submit handler */
@@ -18,33 +12,26 @@ type ExpenseFormProps = {
 
     /* optional loading state */
     isSubmitting?: boolean;
-};
 
-type SelectItemProps = {
-    label: string;
-    value: string;
-    user: TDummyUser;
+    /* mandatory group id */
+    groupId: string;
 };
-
-const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
-    ({ user, ...others }: SelectItemProps, ref) => (
-        <div ref={ref} {...others}>
-            <UserPreview user={user} />
-        </div>
-    )
-);
 
 const ExpenseForm = ({
     onSubmit,
     defaultValues,
     isSubmitting,
+    groupId,
 }: ExpenseFormProps) => {
     const {
         control,
         formState: { errors },
         handleSubmit,
     } = useForm<TExpenseForm>({
-        defaultValues,
+        defaultValues: {
+            ...defaultValues,
+            groupId,
+        },
         resolver: zodResolver(ExpenseFormSchema),
     });
 
@@ -54,16 +41,18 @@ const ExpenseForm = ({
         <form onSubmit={handleSubmit(onSubmit)}>
             <Paper withBorder p="sm" mb="md" radius="md">
                 <Controller
-                    name="name"
+                    name="description"
                     control={control}
                     render={({ field: { onChange, value } }) => {
                         return (
                             <TextInput
-                                label="Name"
+                                label="Beschreibung"
                                 mb="md"
-                                placeholder="Choose an expense name"
+                                placeholder="Beschreiben sie die Transaktion..."
                                 error={
-                                    errors.name ? errors.name.message : false
+                                    errors.description
+                                        ? errors.description.message
+                                        : false
                                 }
                                 onChange={onChange}
                                 value={value}
@@ -73,33 +62,54 @@ const ExpenseForm = ({
                     }}
                 />
                 <Controller
-                    name="category"
+                    name="senderUsername"
                     control={control}
                     render={({ field: { onChange, value } }) => {
                         return (
-                            <Select
-                                label="Category"
-                                placeholder="Select category..."
-                                value={value}
+                            <TextInput
+                                label="Sender"
+                                placeholder="Geben sie den Sendernamen ein..."
                                 mb="md"
+                                error={
+                                    errors.senderUsername
+                                        ? errors.senderUsername.message
+                                        : false
+                                }
                                 onChange={onChange}
-                                searchable
-                                data={["food", "no category"]}
+                                value={value}
                                 required
                             />
                         );
                     }}
                 />
-            </Paper>
-            <Paper withBorder p="sm" mb="md" radius="md">
+                <Controller
+                    name="receiverUsername"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <TextInput
+                                label="Empfänger"
+                                placeholder="Geben sie den Empfängernamen ein..."
+                                mb="md"
+                                error={
+                                    errors.senderUsername
+                                        ? errors.senderUsername.message
+                                        : false
+                                }
+                                onChange={onChange}
+                                value={value}
+                                required
+                            />
+                        );
+                    }}
+                />
                 <Controller
                     name="amount"
                     control={control}
                     render={({ field: { onChange, value } }) => {
                         return (
                             <NumberInput
-                                label="Amount"
-                                mb="md"
+                                label="Betrag"
                                 defaultValue={0}
                                 precision={2}
                                 value={value}
@@ -108,96 +118,6 @@ const ExpenseForm = ({
                                 min={0}
                                 step={0.05}
                                 max={100000}
-                            />
-                        );
-                    }}
-                />
-                <Controller
-                    name="currency"
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                        return (
-                            <Select
-                                label="Currency"
-                                placeholder="Select currency..."
-                                value={value}
-                                onChange={onChange}
-                                mb="md"
-                                searchable
-                                required
-                                data={["EUR", "USD", "GBP", "YEN"]}
-                            />
-                        );
-                    }}
-                />
-            </Paper>
-            <Paper withBorder p="sm" mb="md" radius="md">
-                <Controller
-                    name="from"
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                        return (
-                            <Select
-                                placeholder="Select User..."
-                                value={value}
-                                label="From"
-                                onChange={onChange}
-                                itemComponent={SelectItem}
-                                mb="md"
-                                required
-                                data={dummyUsers.map((user) => {
-                                    return {
-                                        user,
-                                        value: user.id.toString(),
-                                        label: user.name,
-                                    };
-                                })}
-                            />
-                        );
-                    }}
-                />
-                <Controller
-                    name="for"
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                        return (
-                            <UserPercentageSelect
-                                value={value}
-                                onChange={onChange}
-                            />
-                        );
-                    }}
-                />
-            </Paper>
-            <Paper withBorder p="sm" mb="md" radius="md">
-                <Controller
-                    name="buyDate"
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                        return (
-                            <DateInput
-                                label="Buy Date"
-                                value={value}
-                                onChange={onChange}
-                                required
-                                placeholder="Select buy date..."
-                                mb="md"
-                            />
-                        );
-                    }}
-                />
-                <Controller
-                    name="createdAt"
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                        return (
-                            <DateInput
-                                label="Created At"
-                                value={value}
-                                onChange={onChange}
-                                placeholder="Select createdAt date..."
-                                required
-                                mb="md"
                             />
                         );
                     }}

@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
 import GroupTeaser from "../../features/Group/GroupTeaser";
 
 import { useFilterData } from "../../utils/hooks/useFilterData";
-import { useGetGroups } from "../../api/Groups/useGetGroups";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useGetAllQuery } from "../../api/GenericCalls/useGetAllQuery";
+import { apiEndPoints } from "../../utils/constants/constants";
 
 const Groups = () => {
-    const { data, status } = useGetGroups();
+    const { data, status } = useGetAllQuery({
+        url: apiEndPoints.user.getGroupsFromUser("admin"),
+        invalidationProperty: "groups",
+    });
 
     const { searchQuery, setSearchQuery, filteredData } = useFilterData(
         data || [],

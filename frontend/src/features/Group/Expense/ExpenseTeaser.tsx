@@ -1,15 +1,15 @@
 import { Link, useParams } from "react-router-dom";
-import { GroupExpense } from "../../../types/group";
 import { Avatar, Group, Title, Text } from "@mantine/core";
 import { displayCurrency } from "../../../utils/functions/functions";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Transaction } from "../../../types/transactions";
 
 dayjs.extend(relativeTime);
 
 type ExpenseTeaserProps = {
-    expense: GroupExpense;
+    expense: Transaction;
 };
 
 const ExpenseTeaser = ({ expense }: ExpenseTeaserProps) => {
