@@ -258,6 +258,12 @@ export class MyAppStack extends cdk.Stack {
     );
     searchGroupOfUserResolver.node.addDependency(rdsInstance);
 
+    const getTransactionsFromGroupResolver = createResolver(
+      "getTransactionsFromGroupResolver",
+      "src/groups/getTransactionsFromGroup.ts"
+    );
+    getTransactionsFromGroupResolver.node.addDependency(rdsInstance);
+
     //user resolvers
 
     const getUserInfoResolver = createResolver('getUserInfoResolver', 'src/users/getUserInfo.ts');
@@ -315,6 +321,9 @@ export class MyAppStack extends cdk.Stack {
     );
     const updateGroupIntegration = new apigateway.LambdaIntegration(
       updateGroupResolver
+    );
+    const getTransactionsFromGroupIntegration = new apigateway.LambdaIntegration(
+      getTransactionsFromGroupResolver
     );
 
     //user Integrations
@@ -388,6 +397,7 @@ export class MyAppStack extends cdk.Stack {
     const groupIdResource = groupResource.addResource('{groupId}');
 
     const groupSearchResource = groupResource.addResource("search");
+    const groupIdTransactionsResource = groupIdResource.addResource("transactions");
 
     const groupIdUsersResource = groupIdResource.addResource("users");
     const groupIddetailsResource = groupIdResource.addResource("details");
@@ -466,6 +476,11 @@ export class MyAppStack extends cdk.Stack {
       apiKeyRequired: true,
     });
 
+    groupIdTransactionsResource.addMethod('GET', getTransactionsFromGroupIntegration, {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
+    
     //user methods
 
     userUsernameResource.addMethod('GET', getUserInfoIntegration, {

@@ -94,6 +94,21 @@
 				{
 					"name": "Search group of users with searchterm",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -130,6 +145,21 @@
 				{
 					"name": "Get Expenses from User in Group",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -159,6 +189,21 @@
 				{
 					"name": "Get Incomes from User in Group",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -186,10 +231,44 @@
 					"response": []
 				},
 				{
-					"name": "Delete group with id",
+					"name": "Get Transactions from Group",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/5aa66f64-5717-4562-b3fc-2c963f66afa6/transactions",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"transactions"
+							]
+						}
 					},
 					"response": []
 				}
@@ -276,6 +355,55 @@
 								"User",
 								"admin",
 								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"sevin\",\n    \"password\": \"\",\n    \"mail\": \"asd\",\n    \"number\": 123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/User",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"User"
 							]
 						}
 					},
