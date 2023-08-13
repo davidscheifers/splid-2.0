@@ -351,7 +351,7 @@ export class MyAppStack extends cdk.Stack {
       description: props.api.desc,
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
-        allowMethods: ["GET", "POST", "PATCH", "DELETE"],
+        allowMethods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
       },
     });
 

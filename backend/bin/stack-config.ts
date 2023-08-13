@@ -20,9 +20,9 @@ const environmentConfig: IApiGatewayStackProps = {
   usageplan: {
     name: 'demo-usage-plan',
     desc: 'Usage plan used for Api Gateway YouTube tutorial',
-    limit: 100, // per day
-    rateLimit: 20,
-    burstLimit: 10,
+    limit: 500, // per day
+    rateLimit: 40,
+    burstLimit: 20,
   },
   apiKey: {
     name: 'demo-api-key',
