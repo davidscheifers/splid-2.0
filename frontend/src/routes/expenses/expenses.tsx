@@ -44,9 +44,10 @@ const Expenses = () => {
                         return (
                             <Accordion.Item value={key}>
                                 <Accordion.Control>
-                                    {key} ({positiveTransaction.senderUsername},{" "}
+                                    {key} ({positiveTransaction?.senderUsername}
+                                    ,{" "}
                                     {displayCurrency(
-                                        positiveTransaction.amount,
+                                        positiveTransaction?.amount || 0,
                                         "EUR"
                                     )}
                                     )
