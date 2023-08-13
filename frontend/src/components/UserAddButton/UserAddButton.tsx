@@ -14,6 +14,7 @@ import {
     removeElementFromArray,
 } from "../../utils/functions/functions";
 import { useAddMember } from "../../utils/hooks/Group/useAddMember";
+import { IconPlus } from "@tabler/icons-react";
 
 type UserAddButtonProps = {
     members: TDummyUser[];
@@ -57,7 +58,7 @@ const UserAddButton = ({ members, setMembers }: UserAddButtonProps) => {
                                             )
                                         }
                                     >
-                                        Remove
+                                        Entfernen
                                     </Button>
                                 </Group>
                             </Paper>
@@ -65,7 +66,7 @@ const UserAddButton = ({ members, setMembers }: UserAddButtonProps) => {
                     })}
                 </>
             ) : (
-                <Text>Start to add a Member to your group</Text>
+                <Text>Füge einen Nutzer hinzu</Text>
             )}
         </Box>
     );
@@ -81,29 +82,34 @@ function AddMemberButton({ addMember }: AddMemberButtonProps) {
     return (
         <div>
             <Modal
-                title="Add Member"
+                title="Nutzer hinzufügen"
                 opened={state.modalOpen}
+                centered
                 onClose={() => setState({ ...state, modalOpen: false })}
             >
                 <form onSubmit={handleSubmit}>
                     <TextInput
                         mb="md"
+                        label="Nutzername"
                         value={state.memberName}
                         required
-                        placeholder="Enter Member Name"
+                        placeholder="Nutzername eingeben..."
                         onChange={(e) =>
                             setState({ ...state, memberName: e.target.value })
                         }
                     />
 
-                    <Button type="submit">Add</Button>
+                    <Button fullWidth type="submit">
+                        Hinzufügen
+                    </Button>
                 </form>
             </Modal>
             <Button
                 variant="default"
+                leftIcon={<IconPlus size={20} />}
                 onClick={() => setState({ ...state, modalOpen: true })}
             >
-                Add Member
+                Nutzer hinzufügen
             </Button>
         </div>
     );

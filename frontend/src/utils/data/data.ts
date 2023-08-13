@@ -53,12 +53,18 @@ export const dummyBalance: TDummyBalance[] = [
         id: 1,
         amount: 20,
         currency: "EUR",
-        user: { id: 1, name: "User 1" },
+        user: { id: 1, name: "admin" },
     },
     {
         id: 2,
         amount: 200,
         currency: "EUR",
-        user: { id: 2, name: "User 2" },
+        user: { id: 2, name: "tester" },
+    },
+    {
+        id: 3,
+        amount: 52,
+        currency: "EUR",
+        user: { id: 3, name: "max mustermann" },
     },
 ];

@@ -1,14 +1,39 @@
 export const API_URL =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:8080"
-        : "http://195.20.227.247";
+        ? "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com"
+        : "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com";
 
 export const apiEndPoints = {
-    auth: {
-        login: `/api/v1/auth/login`,
-    },
     group: {
-        getGroupsFromUser: (userId: string) => `/api/v1/group/user/${userId}`,
-        getGroup: (groupId: string) => `/api/v1/group/${groupId}`,
+        getGroups: "/prod/api/secure/Groups",
+        getGroup: (groupId: string) =>
+            `/prod/api/secure/Groups/${groupId}/details`,
+        getExpensesFromUserInGroup: (groupId: string, userName: string) =>
+            `/prod/api/secure/Groups/${groupId}/users/${userName}/expense`,
+        getIncomesFromUserInGroup: (groupId: string, userName: string) =>
+            `/prod/api/secure/Groups/${groupId}/users/${userName}/income`,
+        getTransactionsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Groups/${groupId}/transactions`,
+    },
+    user: {
+        getGroupsFromUser: (userName: string) =>
+            `/prod/api/secure/User/${userName}/groups`,
+        getUserInformations: (userName: string) =>
+            `/prod/api/secure/User/${userName}`,
+    },
+    accounting: {
+        getAccountingInformationsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Accounting/${groupId}`,
+        getSettlingDebtsFromGroup: (groupId: string) =>
+            `/prod/api/secure/Accounting/${groupId}/settle-debts`,
+    },
+    transaction: {
+        getTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
+        createTransaction: `/prod/api/secure/Transactions`,
+        updateTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
+        deleteTransaction: (transactionId: string) =>
+            `/prod/api/secure/Transactions/${transactionId}`,
     },
 };

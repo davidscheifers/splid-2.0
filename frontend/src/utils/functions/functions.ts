@@ -1,17 +1,35 @@
 import { CurrencyType } from "../../types/group";
 
+/**
+ * Returns an object of grouped elements by a given key
+ * @param {Array} arr - Array to group
+ * @param {string} category - Key of the array to group by
+ * @returns Returns an object of grouped elements by a given key
+ * @example ...
+ */
+export function groupBy(arr: Array<any>, category: string) {
+    return arr.reduce((acc, obj) => {
+        let key = obj[category];
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+    }, {});
+}
+
 export function displayCurrency(
     amount: number,
     currency: CurrencyType
 ): string {
     switch (currency) {
         case "EUR":
-            return `${amount} €`;
+            return `${amount.toFixed(2)} €`;
         case "USD":
-            return `${amount} $`;
+            return `${amount.toFixed(2)} $`;
 
         default:
-            return `${amount}`;
+            return `${amount.toFixed(2)}`;
     }
 }
 
@@ -94,4 +112,24 @@ export function addElementToArray<T, K extends keyof T>(
     });
 
     return clonedArray;
+}
+
+export function generateRandomCode(): string {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let code = "";
+
+    for (let i = 0; i < 3; i++) {
+        let part = "";
+        for (let j = 0; j < 3; j++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            part += characters[randomIndex];
+        }
+        code += (i === 0 ? "" : " ") + part;
+    }
+
+    return code;
+}
+
+export function getFirstCharacterFromString(str: string): string {
+    return str.charAt(0).toUpperCase();
 }

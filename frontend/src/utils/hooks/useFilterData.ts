@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { filterDatasetByStringName } from "../functions/functions";
 
 // while in dev mode use dummy data
-export function useFilterData(data: any[], key: string) {
+export function useFilterData<T>(data: T[], key: keyof T) {
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredData = useMemo(

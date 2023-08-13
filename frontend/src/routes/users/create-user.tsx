@@ -16,7 +16,7 @@ const CreateUserPage = () => {
     }
     return (
         <div>
-            <Title mb="md">Create User</Title>
+            <Title mb="md">Benutzer erstellen</Title>
             <Box mb="xl">
                 <UserForm
                     isSubmitting={isSubmitting}

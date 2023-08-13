@@ -8,16 +8,19 @@ const CreateGroup = () => {
 
     return (
         <>
-            <Title mb="md">Create a Group</Title>
+            <Title mb="md">Gruppe erstellen</Title>
             <TextInput
                 mb="md"
                 value={name}
                 required
-                placeholder="Enter Group Name"
+                size="md"
+                placeholder="Name der Gruppe eingeben..."
                 onChange={(e) => setName(e.target.value)}
             />
             <UserAddButton setMembers={setMembers} members={members} />
-            <Button onClick={handleSubmit}>Create Group</Button>
+            <Button fullWidth size="md" onClick={handleSubmit}>
+                Erstellen
+            </Button>
         </>
     );
 };

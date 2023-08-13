@@ -42,7 +42,7 @@ const GroupForm = ({
                             <TextInput
                                 label="Name"
                                 mb="md"
-                                placeholder="Choose an expense name"
+                                placeholder="Gruppenname auswählen"
                                 error={
                                     errors.name ? errors.name.message : false
                                 }
@@ -59,8 +59,8 @@ const GroupForm = ({
                     render={({ field: { onChange, value } }) => {
                         return (
                             <Select
-                                label="Category"
-                                placeholder="Select category..."
+                                label="Währung"
+                                placeholder="Währung auswählen"
                                 value={value}
                                 mb="md"
                                 onChange={onChange}
@@ -73,7 +73,7 @@ const GroupForm = ({
                 />
             </Paper>
             <Button fullWidth loading={isSubmitting} type="submit">
-                {isEdit ? "Edit" : "Create"}
+                {isEdit ? "Bearbeiten" : "Erstellen"}
             </Button>
         </form>
     );

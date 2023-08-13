@@ -2,6 +2,7 @@ import { Group, Paper, Title, Text, Modal, Button } from "@mantine/core";
 import { useState } from "react";
 import { generateMailtoLink } from "../../utils/functions/functions";
 import { TDummyGroup } from "../../types/group";
+import CopyToClipBoard from "../../components/CopyToClipBoard/CopyToClipBoard";
 
 type GroupCodeProps = {
     /* infos about the current group */
@@ -29,6 +30,7 @@ const GroupCode = ({ group }: GroupCodeProps) => {
                 title="Einladung versenden"
                 opened={open}
                 onClose={() => setOpen(false)}
+                zIndex={10030}
             >
                 <a
                     href={generateMailtoLink(
@@ -40,8 +42,8 @@ const GroupCode = ({ group }: GroupCodeProps) => {
                     <Button mb="md" fullWidth>
                         Email
                     </Button>
-                    <Button fullWidth>Code kopieren</Button>
                 </a>
+                <CopyToClipBoard text={group?.code || ""} />
             </Modal>
         </div>
     );

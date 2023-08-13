@@ -1,52 +1,81 @@
 import { Link, useParams } from "react-router-dom";
-import { dummyExpenses, dummyUsers } from "../../utils/data/data";
 import { Avatar, Group, Paper, TextInput, Title } from "@mantine/core";
 import { useFilterData } from "../../utils/hooks/useFilterData";
 import { IconSearch } from "@tabler/icons-react";
 import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
+import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
+import { apiEndPoints } from "../../utils/constants/constants";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { Transaction } from "../../types/transactions";
+import Balance from "../balance/balance";
+import { displayCurrency } from "../../utils/functions/functions";
 
 const GroupUserPage = () => {
-    const { userId } = useParams<{ userId: string }>();
+    const { userId, id } = useParams<{ userId: string; id: string }>();
 
-    const user = dummyUsers.find((user) => user.id === parseInt(userId || ""));
+    const { data, status } = useGetOneQuery({
+        url: apiEndPoints.user.getUserInformations(userId || ""),
+        id: userId || "",
+        invalidationProperty: "groupUser",
+    });
 
-    const filteredExpenses = dummyExpenses.filter(
-        (expense) => expense.from.id === parseInt(userId || "")
+    const transactions = useGetOneQuery<Transaction[]>({
+        url: apiEndPoints.group.getTransactionsFromGroup(id || ""),
+        id: id || "",
+        invalidationProperty: "groupTransactions",
+    });
+
+    const balances = useGetOneQuery<Balance[]>({
+        url: apiEndPoints.accounting.getAccountingInformationsFromGroup(
+            id || ""
+        ),
+        id: id || "",
+        invalidationProperty: "goupAccounting",
+    });
+
+    const filteredBalance = balances?.data?.find(
+        (balance) => balance.username === userId
+    );
+
+    const filteredExpenses = transactions?.data?.filter(
+        (transaction) => transaction.senderUsername === userId
     );
 
     const { setSearchQuery, searchQuery, filteredData } = useFilterData(
-        filteredExpenses,
-        "name"
+        filteredExpenses || [],
+        "senderUsername"
     );
 
     return (
-        <div>
-            <Link to="edit">edit user</Link>
+        <LoadingComponent status={status}>
+            <Link to="edit">Benutzer bearbeiten</Link>
             <Group my="md">
                 <Avatar radius="xl" />
-                <Title order={2}>{user?.name}</Title>
+                <Title order={2}>{data?.username}</Title>
             </Group>
 
             <Paper withBorder p="sm" mb="md" radius="md">
                 <Group position="apart">
                     <Title order={3}>Balance</Title>
-                    <Title order={3}>200 €</Title>
+                    <Title order={3}>
+                        {displayCurrency(filteredBalance?.balance || 0, "EUR")}
+                    </Title>
                 </Group>
             </Paper>
             <Title order={4} mb="md">
-                User Expenses
+                Nutzer Transaktionen
             </Title>
             <TextInput
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}
                 mb="md"
-                placeholder="Search Expenses"
+                placeholder="Nutzertransaktionen suchen"
                 icon={<IconSearch size={20} />}
             />
             {filteredData.map((expense) => {
                 return <ExpenseTeaser key={expense.id} expense={expense} />;
             })}
-        </div>
+        </LoadingComponent>
     );
 };
 export default GroupUserPage;

@@ -5,16 +5,19 @@ const JoinGroup = () => {
     const { code, setCode, handleSubmit } = useJoinGroup();
     return (
         <>
-            <Title mb="md">Join a Group</Title>
+            <Title mb="md">Gruppe beitreten</Title>
             <form onSubmit={handleSubmit}>
                 <TextInput
                     mb="md"
                     value={code}
                     required
-                    placeholder="Enter Group Code"
+                    placeholder="Gruppen Code eingeben"
                     onChange={(e) => setCode(e.target.value)}
+                    size="md"
                 />
-                <Button type="submit">Join Group</Button>
+                <Button size="md" fullWidth type="submit">
+                    Beitreten
+                </Button>
             </form>
         </>
     );

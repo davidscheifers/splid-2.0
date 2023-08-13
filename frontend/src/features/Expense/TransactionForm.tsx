@@ -1,33 +1,22 @@
 import {
-    Box,
     Button,
-    Divider,
-    Group,
     NumberInput,
     Paper,
     Select,
     TextInput,
-    Text,
     Title,
 } from "@mantine/core";
 import { ExpenseFormSchema, TExpenseForm } from "../../types/expenses";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
 import Balance from "../../routes/balance/balance";
 import { apiEndPoints } from "../../utils/constants/constants";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useState } from "react";
-import UserPreview from "../../components/User/UserPreview";
-import { displayCurrency } from "../../utils/functions/functions";
 
-type ExpenseFormProps = {
+type TransactionFormProps = {
     /* form submit handler */
-    onSubmit: (
-        data: TExpenseForm,
-        receiverPercentage: number,
-        senderPercentage: number
-    ) => void;
+    onSubmit: SubmitHandler<TExpenseForm>;
 
     /* optional initial form values */
     defaultValues?: TExpenseForm;
@@ -39,17 +28,16 @@ type ExpenseFormProps = {
     groupId: string;
 };
 
-const ExpenseForm = ({
+const TransactionForm = ({
     onSubmit,
     defaultValues,
     isSubmitting,
     groupId,
-}: ExpenseFormProps) => {
+}: TransactionFormProps) => {
     const {
         control,
         formState: { errors },
         handleSubmit,
-        watch,
     } = useForm<TExpenseForm>({
         defaultValues: {
             ...defaultValues,
@@ -57,10 +45,6 @@ const ExpenseForm = ({
         },
         resolver: zodResolver(ExpenseFormSchema),
     });
-    const [senderPercentage, setSenderPercentage] = useState(50);
-    const [receiverPercentage, setReceiverPercentage] = useState(50);
-
-    const matchingAmount = senderPercentage + receiverPercentage === 100;
 
     const { data, status } = useGetOneQuery<Balance[]>({
         url: apiEndPoints.accounting.getAccountingInformationsFromGroup(
@@ -74,16 +58,8 @@ const ExpenseForm = ({
 
     const isEdit = defaultValues !== undefined;
 
-    const sender = watch("senderUsername");
-    const receiver = watch("receiverUsername");
-    const amount = watch("amount");
-
     return (
-        <form
-            onSubmit={handleSubmit((data) =>
-                onSubmit(data, receiverPercentage, senderPercentage)
-            )}
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
             <LoadingComponent status={status}>
                 <Title order={3}>Informationen</Title>
                 <Paper withBorder p="sm" mb="md" radius="md">
@@ -173,64 +149,12 @@ const ExpenseForm = ({
                     />
                 </Paper>
 
-                {sender && receiver && (
-                    <Box>
-                        <Title order={3}>Verteilung</Title>
-                        <Paper withBorder p="sm" mb="md" radius="md">
-                            <Group mb="md" position="apart">
-                                <Group>
-                                    <UserPreview
-                                        user={{ name: sender, id: sender }}
-                                    />
-                                    <Text>
-                                        {displayCurrency(
-                                            (senderPercentage / 100) * amount ||
-                                                0,
-                                            "EUR"
-                                        )}
-                                    </Text>
-                                </Group>
-                                <NumberInput
-                                    value={senderPercentage}
-                                    onChange={(e) => setSenderPercentage(e)}
-                                />
-                            </Group>
-                            <Group mb="md" position="apart">
-                                <Group>
-                                    <UserPreview
-                                        user={{ name: receiver, id: receiver }}
-                                    />
-                                    <Text>
-                                        {displayCurrency(
-                                            (receiverPercentage / 100) *
-                                                amount || 0,
-                                            "EUR"
-                                        )}
-                                    </Text>
-                                </Group>
-                                <NumberInput
-                                    value={receiverPercentage}
-                                    onChange={(e) => setReceiverPercentage(e)}
-                                />
-                            </Group>
-                            <Divider mb="md" />
-                            {!matchingAmount && (
-                                <Text>
-                                    Gesamtprozentanzahl muss 100 ergeben!
-                                </Text>
-                            )}
-                        </Paper>
-                    </Box>
-                )}
-
-                {matchingAmount && (
-                    <Button fullWidth loading={isSubmitting} type="submit">
-                        {isEdit ? "Bearbeiten" : "Erstellen"}
-                    </Button>
-                )}
+                <Button fullWidth loading={isSubmitting} type="submit">
+                    {isEdit ? "Bearbeiten" : "Erstellen"}
+                </Button>
             </LoadingComponent>
         </form>
     );
 };
 
-export default ExpenseForm;
+export default TransactionForm;

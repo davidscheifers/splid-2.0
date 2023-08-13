@@ -1,47 +1,54 @@
 import { Box, Title } from "@mantine/core";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { TExpenseForm } from "../../types/expenses";
-import ExpenseForm from "../../features/Expense/ExpenseForm";
-
-const dummyExpense: TExpenseForm = {
-    name: "Dummy Expense",
-    category: "food",
-    amount: 100,
-    currency: "EUR",
-    from: "1",
-    for: [
-        { user: { id: 2, name: "User 2" }, percentage: 50 },
-        { user: { id: 3, name: "User 3" }, percentage: 50 },
-    ],
-    buyDate: new Date(),
-    createdAt: new Date(),
-};
+import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
+import { Transaction } from "../../types/transactions";
+import { apiEndPoints } from "../../utils/constants/constants";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+import { useUpdateMutation } from "../../api/GenericCalls/useUpdate";
+import TransactionForm from "../../features/Expense/TransactionForm";
 
 const EditExpensePage = () => {
-    const { expenseId } = useParams<{ expenseId: string; id: string }>();
+    const { expenseId, id } = useParams<{ expenseId: string; id: string }>();
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { data, status } = useGetOneQuery<Transaction>({
+        url: apiEndPoints.transaction.getTransaction(expenseId || ""),
+        id: expenseId || "",
+        invalidationProperty: "transaction",
+    });
+
+    const { updateMutation, loading, setLoading } = useUpdateMutation({
+        url: apiEndPoints.transaction.updateTransaction(expenseId || ""),
+        entityName: "Transaktion",
+        invalidationProperty: "transaction",
+    });
+
     function handleSubmit(data: TExpenseForm) {
-        setIsSubmitting(true);
+        setLoading(true);
 
-        setTimeout(() => {
-            setIsSubmitting(false);
-        }, 2000);
+        const obj = {
+            ...data,
+            id: expenseId || "",
+            createdAt: new Date().toISOString(),
+        };
 
-        console.log(data);
+        console.log(obj);
+
+        updateMutation.mutate(obj);
     }
+
     return (
-        <div>
-            <Title mb="md">Edit expense with id {expenseId}</Title>
+        <LoadingComponent status={status}>
+            <Title mb="md">Ausgabe bearbeiten</Title>
             <Box mb="xl">
-                <ExpenseForm
-                    isSubmitting={isSubmitting}
+                <TransactionForm
+                    isSubmitting={loading}
                     onSubmit={(data) => handleSubmit(data)}
-                    defaultValues={dummyExpense}
+                    defaultValues={data}
+                    groupId={id || ""}
                 />
             </Box>
-        </div>
+        </LoadingComponent>
     );
 };
 export default EditExpensePage;
