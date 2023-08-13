@@ -18,6 +18,8 @@ export const apiEndPoints = {
     user: {
         getGroupsFromUser: (userName: string) =>
             `/prod/api/secure/User/${userName}/groups`,
+        getUserInformations: (userName: string) =>
+            `/prod/api/secure/User/${userName}`,
     },
     accounting: {
         getAccountingInformationsFromGroup: (groupId: string) =>

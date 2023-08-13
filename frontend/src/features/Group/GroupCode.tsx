@@ -1,9 +1,6 @@
 import { Group, Paper, Title, Text, Modal, Button } from "@mantine/core";
 import { useState } from "react";
-import {
-    generateMailtoLink,
-    generateRandomCode,
-} from "../../utils/functions/functions";
+import { generateMailtoLink } from "../../utils/functions/functions";
 import { TDummyGroup } from "../../types/group";
 import CopyToClipBoard from "../../components/CopyToClipBoard/CopyToClipBoard";
 
@@ -14,8 +11,6 @@ type GroupCodeProps = {
 const GroupCode = ({ group }: GroupCodeProps) => {
     const [open, setOpen] = useState(false);
 
-    const code = generateRandomCode();
-
     return (
         <div>
             <Title mb="sm" order={2}>
@@ -24,7 +19,7 @@ const GroupCode = ({ group }: GroupCodeProps) => {
             <Paper withBorder p="sm" mb="md" radius="md">
                 <Group position="apart">
                     <Text>Code</Text>
-                    <Title order={3}>{code}</Title>
+                    <Title order={3}>{group?.code}</Title>
                 </Group>
             </Paper>
             <Button fullWidth onClick={() => setOpen(true)}>
@@ -35,6 +30,7 @@ const GroupCode = ({ group }: GroupCodeProps) => {
                 title="Einladung versenden"
                 opened={open}
                 onClose={() => setOpen(false)}
+                zIndex={10030}
             >
                 <a
                     href={generateMailtoLink(

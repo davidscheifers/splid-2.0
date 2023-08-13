@@ -29,11 +29,15 @@ const EditExpensePage = () => {
     function handleSubmit(data: TExpenseForm) {
         setIsSubmitting(true);
 
-        updateMutation.mutate({
+        const obj = {
             ...data,
             id: expenseId || "",
-            createdAt: new Date(),
-        });
+            createdAt: new Date().toISOString(),
+        };
+
+        console.log(obj);
+
+        updateMutation.mutate(obj);
     }
 
     return (

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type TDummyGroup = {
-    id: number;
+    id: number | string;
     name: string;
     code: string;
     currency: CurrencyType;
@@ -31,7 +31,7 @@ export type TDummyBalance = {
 };
 
 export type TDummyUser = {
-    id: number;
+    id: number | string;
     name: string;
 };
 

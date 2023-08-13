@@ -5,6 +5,7 @@ import {
     Button,
     UnstyledButton,
     Modal,
+    Text,
 } from "@mantine/core";
 import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
@@ -51,7 +52,7 @@ const ExpensePage = () => {
                 onClose={() => setOpen(false)}
                 centered
             >
-                <p>Wollen Sie die Transaktion wirklich löschen?</p>
+                <Text>Wollen Sie die Transaktion wirklich löschen?</Text>
                 <Button
                     fullWidth
                     mb="md"
@@ -114,7 +115,7 @@ const ExpensePage = () => {
                             id: (data?.senderUsername as any) || "",
                         }}
                         link={`/groups/${id}/users/${
-                            data?.receiverUsername || ""
+                            data?.senderUsername || ""
                         }`}
                     />
                 </Group>

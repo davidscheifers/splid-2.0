@@ -1,17 +1,35 @@
 import { CurrencyType } from "../../types/group";
 
+/**
+ * Returns an object of grouped elements by a given key
+ * @param {Array} arr - Array to group
+ * @param {string} category - Key of the array to group by
+ * @returns Returns an object of grouped elements by a given key
+ * @example ...
+ */
+export function groupBy(arr: Array<any>, category: string) {
+    return arr.reduce((acc, obj) => {
+        let key = obj[category];
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+    }, {});
+}
+
 export function displayCurrency(
     amount: number,
     currency: CurrencyType
 ): string {
     switch (currency) {
         case "EUR":
-            return `${amount} €`;
+            return `${amount.toFixed(2)} €`;
         case "USD":
-            return `${amount} $`;
+            return `${amount.toFixed(2)} $`;
 
         default:
-            return `${amount}`;
+            return `${amount.toFixed(2)}`;
     }
 }
 

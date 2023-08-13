@@ -28,7 +28,7 @@ const EditGroupPage = () => {
     }
     return (
         <LoadingComponent status={status}>
-            <Title mb="sm">Einstellungen</Title>
+            <Title mb="sm">Gruppeneinstellungen</Title>
             <Box mb="xl">
                 <GroupForm
                     isSubmitting={isSubmitting}
