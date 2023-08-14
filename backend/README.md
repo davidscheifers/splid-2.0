@@ -1,15 +1,27 @@
-# Welcome to your CDK TypeScript project
+# splid-2.0 backend
 
-You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`BackendStack`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+## Installation
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+1. configure aws-account
 
-## Useful commands
+```bash
+$ configure aws
+```
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+2. install dependiencies
+
+```bash
+$ npm install
+```
+
+3. build
+
+```env
+npm run build
+```
+
+3. deploy
+
+```bash
+$ cdk deploy
+```
