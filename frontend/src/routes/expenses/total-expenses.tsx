@@ -3,9 +3,21 @@ import PieChartComponent from "../../components/Charts/PieChart";
 import { BalancePreview } from "../balance/balance";
 
 const data = [
-    { username: "admin", balance: 249, groupId: "1" },
-    { username: "tester", balance: 300, groupId: "1" },
-    { username: "max", balance: 120, groupId: "1" },
+    {
+        username: "admin",
+        balance: 249,
+        groupId: "5aa66f64-5717-4562-b3fc-2c963f66afa6",
+    },
+    {
+        username: "tester",
+        balance: 300,
+        groupId: "5aa66f64-5717-4562-b3fc-2c963f66afa6",
+    },
+    {
+        username: "max",
+        balance: 120,
+        groupId: "5aa66f64-5717-4562-b3fc-2c963f66afa6",
+    },
 ];
 
 const totalExpenses = data.reduce((acc, curr) => acc + curr.balance, 0);
