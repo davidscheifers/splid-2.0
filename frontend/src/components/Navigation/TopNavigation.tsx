@@ -56,7 +56,7 @@ const TopNavigation = () => {
                         <Box mt="xl">
                             {navItems.map((item) => {
                                 return (
-                                    <Box mb="xl">
+                                    <Box key={item.link} mb="xl">
                                         <div
                                             style={{ cursor: "pointer" }}
                                             onClick={() => {

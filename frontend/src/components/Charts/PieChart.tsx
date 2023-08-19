@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -26,6 +26,7 @@ export default function PieChartComponent({ data }: PieChartProps) {
                         />
                     ))}
                 </Pie>
+                <Tooltip />
             </PieChart>
         </ResponsiveContainer>
     );

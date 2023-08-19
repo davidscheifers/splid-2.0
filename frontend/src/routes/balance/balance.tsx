@@ -61,7 +61,7 @@ export function BalancePreview({ balance }: BalancePreviewProps) {
                     user={{ name: balance.username, id: balance.username }}
                 />
                 <Title order={4}>
-                    {displayCurrency(balance.balance, "EUR")}
+                    {displayCurrency(balance?.balance || 0, "EUR")}
                 </Title>
             </Group>
         </Paper>
