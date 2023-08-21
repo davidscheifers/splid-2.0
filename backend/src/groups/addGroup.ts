@@ -5,10 +5,10 @@ import { Group } from "../models/group";
 import { User } from "../models/user";
 import { createResponse } from "../utils/response-utils";
 
-// Definiert die Lambda-Handler-Funktion
+// Defines the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  //request body: multipart/form-data
+  // request body: multipart/form-data
   // string($uuid)
   // Name
   // string
@@ -20,21 +20,21 @@ export const handler: Handler = async (event: any) => {
   // string($binary)
 
   try {
-    // Lambda-Funktion startet
+    // Lambda function starts
     console.log("addGroup lambda starts here");
 
-    // Datenverbindung wird hergestellt
+    // Establishes the data connection
     dataSource = await instantiateRdsClient();
 
-    // Datenbank-Repositories für Group und User werden abgerufen
-    console.log("getting groups and User from db");
+    // Retrieves database repositories for Group and User
+    console.log("getting groups and users from the database");
     const groupRepository = dataSource.getRepository(Group);
     const userRepository = dataSource.getRepository(User);
 
-    // Eingabedaten für die Gruppe werden aus dem Event-Objekt geparst
+    // Parses input group data from the event object
     const inputGroup: Group = JSON.parse(event.body);
 
-    // Validierung der erforderlichen Felder
+    // Validation of required fields
     if (inputGroup.name === null || inputGroup.createdBy === null) {
       return createResponse(
         400,
@@ -42,15 +42,15 @@ export const handler: Handler = async (event: any) => {
       );
     }
 
-    // ID und Zeitstempel werden vorbereitet
-    inputGroup.id = ""; // new UUID? oder macht das das TypeORM Automatisch?
+    // Prepares ID and timestamps
+    inputGroup.id = ""; // new UUID? or is this handled automatically by TypeORM?
     inputGroup.createdAt = new Date(Date.now());
     inputGroup.updatedAt = new Date(Date.now());
 
-    // Array für Benutzernamen wird erstellt
+    // Array for usernames is created
     const usernames = new Array<string>();
 
-    // Extrahieren der Benutzernamen aus den Eingabedaten
+    // Extracts usernames from the input data
     if (inputGroup.users == null) {
       usernames.push(inputGroup.createdBy);
     } else {
@@ -60,26 +60,26 @@ export const handler: Handler = async (event: any) => {
       }
     }
 
-    // Benutzerdaten werden aus der Datenbank gespeichert
+    // User data is retrieved from the database
     inputGroup.users = await userRepository.find({
       where: { username: In(usernames) },
     });
 
-    // Gruppendaten werden in der Datenbank gespeichert
+    // Group data is saved in the database
     await groupRepository.save(inputGroup);
 
-    // Datenbankverbindung wird geschlossen
+    // Closes the database connection
     await dataSource.destroy();
 
-    // Erfolgreiche Antwort wird erstellt
+    // Successful response is created
     return createResponse(200, inputGroup);
 
-    // Fehlerbehandlung
+    // Error handling
   } catch (error) {
     console.error("Error adding group:", error);
     return createResponse(500, "Cannot add group.");
   } finally {
-    // Datenbankverbindung wird geschlossen, falls vorhanden.
+    // Closes the database connection if available
     if (dataSource) {
       await dataSource.destroy();
       console.log("Database connection closed.");

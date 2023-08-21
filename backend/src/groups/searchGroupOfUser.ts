@@ -1,59 +1,57 @@
 import { Handler } from "aws-lambda";
 import { instantiateRdsClient } from "../utils/db-connection";
 import { User } from "../models/user";
-import { createReadStream } from "fs";
 import { createResponse } from "../utils/response-utils";
-import { create } from "domain";
 
-// Definiere die Lambda-Handler-Funktion
+// Define the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  //Query-Parameter: searchTerm=test&username=TestUser
+  // Query Parameter: searchTerm=test&username=TestUser
 
   try {
-    // Lambda-Funktion startet
+    // Lambda function starts
     console.log("searchGroupOfUsers lambda starts here");
 
-    // Datenbankverbindung wird hergestellt
+    // Establishes the database connection
     dataSource = await instantiateRdsClient();
 
-    // Repository für Benutzer wird abgerufen
-    console.log("getting users from db");
+    // Retrieves the repository for users
+    console.log("getting users from the database");
     const userRepository = dataSource.getRepository(User);
 
-    // Benutzername und Suchbegriff werden aus den Query-Parametern des Events extrahiert
+    // Extracts the username and search term from the event's query parameters
     const username: string = event.queryStringParameters?.username;
     const searchTerm: string = event.queryStringParameters?.searchTerm;
 
-    // Validierung der erforderlichen Parameter
+    // Validation of required parameters
     if (searchTerm === null || username === null) {
       return createResponse(400, "Missing search term or username.");
     }
 
-    // Benutzer wird aus der Datenbank abgerufen
+    // Retrieves the user from the database
     const user = await userRepository.findOne({
       where: { username: username },
       relations: ["groups"],
     });
 
-    // Falls der Benutzer nicht gefunden wurde, wird eine Fehlerantwort erstellt
+    // If the user was not found, creates an error response
     if (user === null) {
       return createResponse(404, "User not found.");
     }
 
-    // Suchergebnis: Gruppen des Benutzers, die den Suchbegriff enthalten
+    // Search result: Groups of the user that contain the search term
     const searchResult = user.groups.filter((g) =>
       g.name.trim().toLowerCase().includes(searchTerm.toLowerCase().trim())
     );
 
-    // Erfolgreiche Antwort mit dem Suchergebnis wird erstellt
+    // Creates a successful response with the search result
     return createResponse(200, searchResult);
   } catch (error) {
-    // Fehlerbehandlung
+    // Error handling
     console.error("Error searching groups:", error);
     return createResponse(500, "Cannot search groups.");
   } finally {
-    // Datenbankverbindung wird geschlossen, falls vorhanden
+    // Closes the database connection if available
     if (dataSource) {
       await dataSource.destroy();
       console.log("Database connection closed.");

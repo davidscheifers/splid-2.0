@@ -3,42 +3,42 @@ import { instantiateRdsClient } from "../utils/db-connection";
 import { Group } from "../models/group";
 import { createResponse } from "../utils/response-utils";
 
-// Definiert die Lambda-Handler-Funktion
+// Defines the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  // Pfadstruktur: /users/userid/
+  // Path structure: /users/userid/
 
   try {
-    // Lambda-Funktion startet
+    // Lambda function starts
     console.log("getGroupDetails lambda starts here");
 
-    // Datenbankverbindung wird hergestellt
+    // Establishes the database connection
     dataSource = await instantiateRdsClient();
 
-    // Repository für Gruppen wird abgerufen
-    console.log("getting groups from db");
+    // Retrieves the repository for groups
+    console.log("getting groups from the database");
     const groupRepository = dataSource.getRepository(Group);
 
-    // Gruppen-ID wird aus den Pfadparametern des Events extrahiert
+    // Extracts the group ID from the event's path parameters
     const groupId: string = event.pathParameters.groupId;
 
-    // Gruppendaten werden aus der Datenbank abgerufen
+    // Retrieves group data from the database
     const group = await groupRepository.findOne({
       where: { id: groupId },
-      relations: ["users", "accountings"], // Beziehungen können mithilfe der Relationen abgerufen werden
+      relations: ["users", "accountings"], // Relationships can be retrieved using relations
     });
 
-    // Erfolgreiche Antwort mit den abgerufenen Gruppendaten wird erstellt
+    // Creates a successful response with the retrieved group data
     console.log("Successfully retrieved group.");
     console.log(group);
 
     return createResponse(200, group);
   } catch (error) {
-    // Fehlerbehandlung
+    // Error handling
     console.error("Error getting group:", error);
     return createResponse(500, "Cannot get group.");
   } finally {
-    // Datenbankverbindung wird geschlossen, falls vorhanden
+    // Closes the database connection if available
     if (dataSource) {
       await dataSource.destroy();
       console.log("Database connection closed.");

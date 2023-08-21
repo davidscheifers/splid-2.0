@@ -1,12 +1,14 @@
 import { Handler } from "aws-lambda";
 import { instantiateRdsClient } from "../utils/db-connection";
 import { Group } from "../models/group";
+import { User } from "../models/user";
+import { Accounting } from "../models/accounting";
 import { createResponse } from "../utils/response-utils";
 
-// Definiere die Lambda-Handler-Funktion
+// Define the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  //request body: application/json-patch+json
+  // Request body: application/json-patch+json
   // {
   //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   //   "name": "string",
@@ -18,18 +20,18 @@ export const handler: Handler = async (event: any) => {
   // }
 
   try {
-    // Lambda-Funktion startet
+    // Lambda function starts
     console.log("updateGroup lambda starts here");
 
-    // Datenbankverbindung wird hergestellt
+    // Establishes the database connection
     dataSource = await instantiateRdsClient();
 
     const groupRepository = dataSource.getRepository(Group);
 
-    // Der JSON-Request-Body wird in ein Group-Objekt geparst
+    // The JSON request body is parsed into a Group object
     const inputGroup: Group = JSON.parse(event.body);
 
-    // Validierung auf fehlende Felder
+    // Validation for missing fields
     if (inputGroup.users === null) {
       return createResponse(
         400,
@@ -37,7 +39,7 @@ export const handler: Handler = async (event: any) => {
       );
     }
 
-    // Ersteller der Gruppe wird aus der Datenbank geholt
+    // Get the creator of the group from the database
     const createdBy = await GetCreatedBy(inputGroup.id);
 
     if (createdBy === null) {
@@ -49,21 +51,21 @@ export const handler: Handler = async (event: any) => {
 
     const users = inputGroup.users;
 
-    // Benutzeraktualisierung wird durchgeführt, inklusive Balance-Prüfung
+    // Perform user update, including balance check
     if (!(await UpdateUsers(users, inputGroup))) {
       return createResponse(400, "Cannot update group. Error updating users.");
     }
 
-    // Gruppendaten werden gespeichert
+    // Save group data
     await groupRepository.save(inputGroup);
 
     return createResponse(200, "Group updated successfully.");
   } catch (error) {
-    // Fehlerbehandlung
+    // Error handling
     console.error("Error updating group:", error);
     return createResponse(500, "Error updating group.");
   } finally {
-    // Datenbankverbindung wird geschlossen, falls vorhanden
+    // Closes the database connection if available
     if (dataSource) {
       await dataSource.destroy();
       console.log("Database connection closed.");
