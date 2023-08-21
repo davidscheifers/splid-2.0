@@ -1,38 +1,47 @@
-import { Handler } from 'aws-lambda';
-import { instantiateRdsClient } from '../utils/db-connection';
-import { Group } from '../models/group'; 
-import { createResponse } from '../utils/response-utils';
+import { Handler } from "aws-lambda";
+import { instantiateRdsClient } from "../utils/db-connection";
+import { Group } from "../models/group";
+import { createResponse } from "../utils/response-utils";
 
+// Definiert die Lambda-Handler-Funktion
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  //path /users/userid/
+  // Pfadstruktur: /users/userid/
 
   try {
-    console.log('getGroupDetails lambda starts here')
-    
+    // Lambda-Funktion startet
+    console.log("getGroupDetails lambda starts here");
+
+    // Datenbankverbindung wird hergestellt
     dataSource = await instantiateRdsClient();
 
-    console.log('getting groups from db');
+    // Repository für Gruppen wird abgerufen
+    console.log("getting groups from db");
     const groupRepository = dataSource.getRepository(Group);
-    const groupId: string = event.pathParameters.groupId; 
 
+    // Gruppen-ID wird aus den Pfadparametern des Events extrahiert
+    const groupId: string = event.pathParameters.groupId;
+
+    // Gruppendaten werden aus der Datenbank abgerufen
     const group = await groupRepository.findOne({
       where: { id: groupId },
-      relations: ["users", "accountings"] //dont know if i need this. test!
+      relations: ["users", "accountings"], // Beziehungen können mithilfe der Relationen abgerufen werden
     });
 
-    console.log('Successfully retrieved group.');
+    // Erfolgreiche Antwort mit den abgerufenen Gruppendaten wird erstellt
+    console.log("Successfully retrieved group.");
     console.log(group);
 
-    return createResponse(200,group);
-
+    return createResponse(200, group);
   } catch (error) {
-    console.error('Error getting group:', error);
-    return createResponse(500, 'Cannot get group.');
-  }finally{
-    if(dataSource){
+    // Fehlerbehandlung
+    console.error("Error getting group:", error);
+    return createResponse(500, "Cannot get group.");
+  } finally {
+    // Datenbankverbindung wird geschlossen, falls vorhanden
+    if (dataSource) {
       await dataSource.destroy();
-      console.log('Database connection closed.')
+      console.log("Database connection closed.");
     }
   }
 };

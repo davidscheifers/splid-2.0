@@ -1,50 +1,60 @@
-import { Handler } from 'aws-lambda';
-import { instantiateRdsClient } from '../utils/db-connection';
-import { Group } from '../models/group';
-import { User } from '../models/user'; 
-import { createResponse } from '../utils/response-utils';
+import { Handler } from "aws-lambda";
+import { instantiateRdsClient } from "../utils/db-connection";
+import { Group } from "../models/group";
+import { User } from "../models/user";
+import { createResponse } from "../utils/response-utils";
 
+// Definiert die Lambda-Handler-Funktion
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  //path Groups/uuid
+  // Pfadstruktur: Groups/uuid
 
   try {
-    // STILL TODO!
-    console.log('deleteGroup lambda starts here')
+    // Lambda-Funktion startet
+    console.log("deleteGroup lambda starts here");
 
+    // Datenbankverbindung wird hergestellt
     dataSource = await instantiateRdsClient();
 
-    console.log('getting groups and user from db');
+    // Datenbank-Repositories für Group und User werden abgerufen
+    console.log("getting groups and user from db");
     const groupRepository = dataSource.getRepository(Group);
     const userRepository = dataSource.getRepository(User);
 
-    const groupId: string = event.pathParameters.groupId; 
+    // Die Gruppen-ID wird aus den Pfadparametern des Events extrahiert
+    const groupId: string = event.pathParameters.groupId;
 
     console.log(groupId);
 
+    // Die Gruppe mit zugehörigen Benutzern wird aus der Datenbank abgerufen
     const group = await groupRepository.findOne({
       where: { id: groupId },
-      relations: ["users"] 
+      relations: ["users"],
     });
 
+    // Falls die Gruppe nicht gefunden wurde, wird eine Fehlerantwort erstellt
     if (group === null) {
-      return createResponse(500, 'group not found');
+      return createResponse(500, "group not found");
     }
-  
+
+    // Alle Benutzer der Gruppe werden entfernt
     group.users = [];
 
-    await groupRepository.save(group); 
-    await groupRepository.remove(group); 
+    // Die modifizierte Gruppe wird in der Datenbank gespeichert und dann entfernt
+    await groupRepository.save(group);
+    await groupRepository.remove(group);
 
-    return createResponse(200, 'group deleted');
-
+    // Erfolgreiche Antwort wird erstellt
+    return createResponse(200, "group deleted");
   } catch (error) {
-    console.error('Error deleting group:', error);
-    return createResponse(500, 'Cannot delete group.')
-  }finally{
-    if(dataSource){
+    // Fehlerbehandlung
+    console.error("Error deleting group:", error);
+    return createResponse(500, "Cannot delete group.");
+  } finally {
+    // Datenbankverbindung wird geschlossen, falls vorhanden
+    if (dataSource) {
       await dataSource.destroy();
-      console.log('Database connection closed.')
+      console.log("Database connection closed.");
     }
   }
 };
