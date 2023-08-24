@@ -17,10 +17,33 @@ import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as cr from "aws-cdk-lib/custom-resources";
 import { IApiGatewayStackProps, IValidators } from "../bin/stack-config-types";
 import { get } from "http";
+import { VpcConstruct } from "./vpc/vpc-construct";
+import { IamConstruct } from "./iam/iam-construct";
+import { RdsConstruct } from "./rds/rds-construct";
 
 export class MyAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
     super(scope, id, props);
+
+    const credentials = secrets.Secret.fromSecretCompleteArn(
+      this,
+      "CredentialsSecret",
+      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
+    );
+    
+    const vpcConstruct = new VpcConstruct(this, 'VpcConstruct');
+    
+    const iamConstruct = new IamConstruct(this, "IamConstruct", {
+      credentialsSecret: credentials
+    });
+    
+    const rdsConstruct = new RdsConstruct(this, 'RdsConstruct', {
+      vpc: vpcConstruct.vpc,
+      securityGroup: vpcConstruct.securityGroupRds, // Assuming you expose this from VpcConstruct
+      role: iamConstruct.role
+    });
+    
+
 
     // VPC for RDS and Lambda resolvers
     const vpc = new ec2.Vpc(this, "VPC", {
@@ -29,7 +52,7 @@ export class MyAppStack extends cdk.Stack {
       natGateways: 0,
       subnetConfiguration: [
         {
-          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes
+          subnetType: ec2.SubnetType.PUBLIC, 
           cidrMask: 24,
           name: "rds",
         },
@@ -151,13 +174,13 @@ export class MyAppStack extends cdk.Stack {
 
     rdsInstance.secret?.grantRead(role);
 
-    // Secrets for database credentials.
-    const credentials = secrets.Secret.fromSecretCompleteArn(
-      this,
-      "CredentialsSecret",
-      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
-    );
-    credentials.grantRead(role);
+    // // Secrets for database credentials.
+    // const credentials = secrets.Secret.fromSecretCompleteArn(
+    //   this,
+    //   "CredentialsSecret",
+    //   "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
+    // );
+    // credentials.grantRead(role);
 
     // Returns function to connect with RDS instance.
     const createResolver = (name: string, entry: string) =>
