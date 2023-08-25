@@ -11,7 +11,7 @@ export interface IamConstructProps {
 export class IamConstruct extends Construct {
   public readonly role: iam.Role;
 
-  constructor(scope: Construct, id: string, props: IamConstructProps) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     this.role = new iam.Role(this, "Role", {
@@ -46,8 +46,5 @@ export class IamConstruct extends Construct {
         resources: ["*"],
       })
     );
-
-    props.rdsInstance.secret?.grantRead(this.role);
-    props.credentialsSecret.grantRead(this.role);
   }
 }

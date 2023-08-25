@@ -3,6 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cdk from "aws-cdk-lib";
+import * as secrets from "aws-cdk-lib/aws-secretsmanager";
 
 export interface RdsConstructProps {
   vpc: ec2.IVpc;
@@ -12,6 +13,7 @@ export interface RdsConstructProps {
 
 export class RdsConstruct extends Construct {
   public readonly rdsInstance: rds.DatabaseInstance;
+  public readonly credentials: secrets.ISecret;
 
   constructor(scope: Construct, id: string, props: RdsConstructProps) {
     super(scope, id);
@@ -39,5 +41,13 @@ export class RdsConstruct extends Construct {
     });
 
     this.rdsInstance.secret?.grantRead(props.role);
+
+    // Secrets for database credentials.
+    const credentials = secrets.Secret.fromSecretCompleteArn(
+      this,
+      "CredentialsSecret",
+      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
+    );
+    credentials.grantRead(props.role);
   }
 }

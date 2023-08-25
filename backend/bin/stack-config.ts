@@ -6,41 +6,41 @@ const environmentConfig: IApiGatewayStackProps = {
     Application: 'Splid-2.0',
   },
   lambda: {
-    name: 'demo-resolver',
-    desc: 'Lambda resolver used for Api Gateway YouTube tutorial',
+    name: 'lambda-resolver',
+    desc: 'Lambda resolver used for Api Gateway',
     memory: 256,
     timeout: 30,
   },
   api: {
-    name: 'demo-rest-api',
-    desc: 'Rest Api Gateway used for Api Gateway YouTube tutorial',
-    modelName: 'DemoModel',
+    name: 'splid-rest-api',
+    desc: 'Rest Api Gateway used for Api Gateway',
+    modelName: 'SplidModel',
     rootResource: 'api',
   },
   usageplan: {
-    name: 'demo-usage-plan',
-    desc: 'Usage plan used for Api Gateway YouTube tutorial',
+    name: 'splid-usage-plan',
+    desc: 'Usage plan used for Api Gateway',
     limit: 500, // per day
     rateLimit: 40,
     burstLimit: 20,
   },
   apiKey: {
-    name: 'demo-api-key',
-    desc: 'Api Key used for Api Gateway YouTube tutorial',
+    name: 'splid-api-key',
+    desc: 'Api Key used for Api Gateway',
   },
   validators: {
     bodyValidator: {
-        requestValidatorName: 'demo-body-validator',
+        requestValidatorName: 'splid-body-validator',
         validateRequestBody: true,
         validateRequestParameters: false,
     },
     paramValidator: {
-        requestValidatorName: 'demo-param-validator',
+        requestValidatorName: 'splid-param-validator',
         validateRequestBody: false,
         validateRequestParameters: true,
     },
     bodyAndParamValidator: {
-        requestValidatorName: 'demo-body-and-param-validator',
+        requestValidatorName: 'splid-body-and-param-validator',
         validateRequestBody: true,
         validateRequestParameters: true,
     },
