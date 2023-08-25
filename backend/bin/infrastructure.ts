@@ -6,8 +6,4 @@ import { SplidStack } from '../lib/infrastructure-stack';
 import environmentConfig from './stack-config';
 
 const app = new cdk.App();
-new SplidStack(app, 'MyAppStack', environmentConfig);
-
-
-
-
+new SplidStack(app, 'SplidStack', environmentConfig);

@@ -18,12 +18,15 @@ export class RdsConstruct extends Construct {
   constructor(scope: Construct, id: string, props: RdsConstructProps) {
     super(scope, id);
 
-    // Secrets for database credentials.
-    this.credentials = secrets.Secret.fromSecretCompleteArn(
-      this,
-      "CredentialsSecret",
-      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
-    );
+    this.credentials = new secrets.Secret(this, 'DbCredentials', {
+      generateSecretString: {
+        secretStringTemplate: JSON.stringify({ username: 'splidUser' }),
+        generateStringKey: 'password',
+        excludePunctuation: true,
+        passwordLength: 16,
+      },
+    });
+    
 
     this.rdsInstance = new rds.DatabaseInstance(this, "PostgresRds", {
       vpc: props.vpc,
@@ -43,7 +46,7 @@ export class RdsConstruct extends Construct {
       maxAllocatedStorage: 10,
       deleteAutomatedBackups: true,
       backupRetention: cdk.Duration.millis(0),
-      credentials: rds.Credentials.fromUsername("splidUser"),
+      credentials: rds.Credentials.fromSecret(this.credentials),
       publiclyAccessible: true,
     });
 
