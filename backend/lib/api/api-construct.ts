@@ -1,163 +1,28 @@
-import "reflect-metadata";
-import * as cdk from "aws-cdk-lib";
-import { Construct } from "constructs";
-import { RestApi, LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
-import {
-  NodejsFunction,
-  NodejsFunctionProps,
-} from "aws-cdk-lib/aws-lambda-nodejs";
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import path = require("path");
-import * as ec2 from "aws-cdk-lib/aws-ec2";
-import * as iam from "aws-cdk-lib/aws-iam";
-import * as rds from "aws-cdk-lib/aws-rds";
-import * as secrets from "aws-cdk-lib/aws-secretsmanager";
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
-import * as cr from "aws-cdk-lib/custom-resources";
-import { IApiGatewayStackProps, IValidators } from "../bin/stack-config-types";
-import { get } from "http";
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as rds from 'aws-cdk-lib/aws-rds';
+import * as secrets from 'aws-cdk-lib/aws-secretsmanager';
+import { IApiGatewayStackProps, IValidators } from '../../bin/stack-config-types';
 
-export class MyAppStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: IApiGatewayStackProps) {
-    super(scope, id, props);
+export interface ApiConstructProps {
+  vpc: ec2.IVpc;
+  securityGroup: ec2.ISecurityGroup;
+  role: iam.IRole;
+  rdsInstance: rds.DatabaseInstance;
+  credentials: secrets.ISecret;
+  config: IApiGatewayStackProps;
+}
 
-    // VPC for RDS and Lambda resolvers
-    const vpc = new ec2.Vpc(this, "VPC", {
-      vpcName: "rds-vpc",
-      maxAzs: 2,
-      natGateways: 0,
-      subnetConfiguration: [
-        {
-          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes
-          cidrMask: 24,
-          name: "rds",
-        },
-        {
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
-          cidrMask: 24,
-          name: "resolvers",
-        },
-      ],
-    });
+export class ApiConstruct extends Construct {
+  public readonly rdsInstance: rds.DatabaseInstance;
 
-    // Security Groups
-    const securityGroupResolvers = new ec2.SecurityGroup(
-      this,
-      "SecurityGroupResolvers",
-      {
-        vpc,
-        securityGroupName: "resolvers-sg",
-        description: "Security Group with Resolvers",
-      }
-    );
-    const securityGroupRds = new ec2.SecurityGroup(this, "SecurityGroupRds", {
-      vpc,
-      securityGroupName: "rds-sg",
-      description: "Security Group with RDS",
-    });
-
-    // IP Address for local testing
-    const myIpAddress = "46.223.163.10/32";
-
-    // Ingress and Egress Rules
-    securityGroupRds.addIngressRule(
-      ec2.Peer.ipv4(myIpAddress),
-      ec2.Port.tcp(5432),
-      "Allow inbound traffic to RDS from local"
-    );
-
-    // Ingress and Egress Rules
-    securityGroupRds.addIngressRule(
-      ec2.Peer.ipv4("82.207.248.40/32"),
-      ec2.Port.tcp(5432),
-      "Allow inbound traffic to RDS from local"
-    );
-
-    // Ingress and Egress Rules
-    securityGroupRds.addIngressRule(
-      securityGroupResolvers,
-      ec2.Port.tcp(5432),
-      "Allow inbound traffic to RDS"
-    );
-
-    // VPC Interfaces
-    vpc.addInterfaceEndpoint("LAMBDA", {
-      service: ec2.InterfaceVpcEndpointAwsService.LAMBDA,
-      subnets: { subnets: vpc.isolatedSubnets },
-      securityGroups: [securityGroupResolvers],
-    });
-    vpc.addInterfaceEndpoint("SECRETS_MANAGER", {
-      service: ec2.InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
-      subnets: { subnets: vpc.isolatedSubnets },
-      securityGroups: [securityGroupResolvers],
-    });
-
-    // IAM Role
-    const role = new iam.Role(this, "Role", {
-      roleName: "rds-role",
-      description: "Role used in the RDS stack",
-      assumedBy: new iam.CompositePrincipal(
-        new iam.ServicePrincipal("ec2.amazonaws.com"),
-        new iam.ServicePrincipal("lambda.amazonaws.com")
-      ),
-    });
-    role.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: [
-          "cloudwatch:PutMetricData",
-          "ec2:CreateNetworkInterface",
-          "ec2:DescribeNetworkInterfaces",
-          "ec2:DeleteNetworkInterface",
-          "ec2:DescribeInstances",
-          "ec2:DescribeSubnets",
-          "ec2:DescribeSecurityGroups",
-          "ec2:DescribeRouteTables",
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "lambda:InvokeFunction",
-          "secretsmanager:GetSecretValue",
-          "kms:decrypt",
-          "rds-db:connect",
-        ],
-        resources: ["*"],
-      })
-    );
-
-    // RDS PostgreSQL Instance
-    const rdsInstance = new rds.DatabaseInstance(this, "PostgresRds", {
-      vpc,
-      securityGroups: [securityGroupRds],
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
-      availabilityZone: vpc.isolatedSubnets[0].availabilityZone,
-      instanceType: ec2.InstanceType.of(
-        ec2.InstanceClass.T3,
-        ec2.InstanceSize.MICRO
-      ),
-      engine: rds.DatabaseInstanceEngine.postgres({
-        version: rds.PostgresEngineVersion.VER_14_6,
-      }),
-      port: 5432,
-      instanceIdentifier: "spliddb-instance",
-      allocatedStorage: 10,
-      maxAllocatedStorage: 10,
-      deleteAutomatedBackups: true,
-      backupRetention: cdk.Duration.millis(0),
-      credentials: rds.Credentials.fromUsername("splidUser"),
-      publiclyAccessible: true,
-    });
-
-    rdsInstance.secret?.grantRead(role);
-
-    // Secrets for database credentials.
-    const credentials = secrets.Secret.fromSecretCompleteArn(
-      this,
-      "CredentialsSecret",
-      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
-    );
-    credentials.grantRead(role);
+  constructor(scope: Construct, id: string, props: ApiConstructProps) {
+    super(scope, id);
 
     // Returns function to connect with RDS instance.
     const createResolver = (name: string, entry: string) =>
@@ -169,42 +34,16 @@ export class MyAppStack extends cdk.Stack {
         },
         runtime: lambda.Runtime.NODEJS_18_X,
         timeout: cdk.Duration.minutes(2),
-        role,
-        vpc,
-        vpcSubnets: { subnets: vpc.isolatedSubnets },
-        securityGroups: [securityGroupResolvers],
+        role: props.role,
+        vpc: props.vpc,
+        vpcSubnets: { subnets: props.vpc.isolatedSubnets },
+        securityGroups: [props.securityGroup],
         environment: {
-          RDS_ARN: rdsInstance.secret!.secretArn,
-          CREDENTIALS_ARN: credentials.secretArn,
-          HOST: rdsInstance.dbInstanceEndpointAddress,
+          RDS_ARN: props.rdsInstance.secret!.secretArn,
+          CREDENTIALS_ARN: props.credentials.secretArn,
+          HOST: props.rdsInstance.dbInstanceEndpointAddress,
         },
       });
-
-    // Instantiate new db with user and permissions
-    const instantiate = createResolver("instantiate", "src/instantiate.ts");
-    instantiate.node.addDependency(rdsInstance);
-
-    // Custom Resource to execute instantiate function.
-    const customResource = new cr.AwsCustomResource(
-      this,
-      "TriggerInstantiate",
-      {
-        functionName: "trigger-instantiate",
-        role,
-        onUpdate: {
-          service: "Lambda",
-          action: "invoke",
-          parameters: {
-            FunctionName: instantiate.functionName,
-          },
-          physicalResourceId: cr.PhysicalResourceId.of(Date.now().toString()),
-        },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: [instantiate.functionArn],
-        }),
-      }
-    );
-    customResource.node.addDependency(instantiate);
 
     //----------APIGATEWAY----------------
 
@@ -214,88 +53,88 @@ export class MyAppStack extends cdk.Stack {
       "getGroupsResolver",
       "src/groups/getGroups.ts"
     );
-    getGroupsResolver.node.addDependency(rdsInstance);
+    getGroupsResolver.node.addDependency(props.rdsInstance);
 
     const getGroupDetailsResolver = createResolver(
       "getGroupDetailsResolver",
       "src/groups/getGroupDetails.ts"
     );
-    getGroupDetailsResolver.node.addDependency(rdsInstance);
+    getGroupDetailsResolver.node.addDependency(props.rdsInstance);
 
     const getExpensesFromGroupUserResolver = createResolver(
       "getExpensesFromGroupUser",
       "src/groups/getExpensesFromGroupUser.ts"
     );
-    getExpensesFromGroupUserResolver.node.addDependency(rdsInstance);
+    getExpensesFromGroupUserResolver.node.addDependency(props.rdsInstance);
 
     const getIncomesFromGroupUserResolver = createResolver(
       "getIncomesFromGroupUser",
       "src/groups/getIncomesFromGroupUser.ts"
     );
-    getIncomesFromGroupUserResolver.node.addDependency(rdsInstance);
+    getIncomesFromGroupUserResolver.node.addDependency(props.rdsInstance);
 
     const addGroupResolver = createResolver(
       "addGroupResolver",
       "src/groups/addGroup.ts"
     );
-    addGroupResolver.node.addDependency(rdsInstance);
+    addGroupResolver.node.addDependency(props.rdsInstance);
 
     const deleteGroupResolver = createResolver(
       "deleteGroupResolver",
       "src/groups/deleteGroup.ts"
     );
-    deleteGroupResolver.node.addDependency(rdsInstance);
+    deleteGroupResolver.node.addDependency(props.rdsInstance);
 
     const updateGroupResolver = createResolver(
       "updateGroupResolver",
       "src/groups/updateGroup.ts"
     );
-    updateGroupResolver.node.addDependency(rdsInstance);
+    updateGroupResolver.node.addDependency(props.rdsInstance);
 
     const searchGroupOfUserResolver = createResolver(
       "searchGroupOfUserResolver",
       "src/groups/searchGroupOfUser.ts"
     );
-    searchGroupOfUserResolver.node.addDependency(rdsInstance);
+    searchGroupOfUserResolver.node.addDependency(props.rdsInstance);
 
     const getTransactionsFromGroupResolver = createResolver(
       "getTransactionsFromGroupResolver",
       "src/groups/getTransactionsFromGroup.ts"
     );
-    getTransactionsFromGroupResolver.node.addDependency(rdsInstance);
+    getTransactionsFromGroupResolver.node.addDependency(props.rdsInstance);
 
     //user resolvers
 
     const getUserInfoResolver = createResolver('getUserInfoResolver', 'src/users/getUserInfo.ts');
-    getUserInfoResolver.node.addDependency(rdsInstance);
+    getUserInfoResolver.node.addDependency(props.rdsInstance);
 
     const getGroupsFromUserResolver = createResolver('getGroupsFromUserResolver', 'src/users/getGroupsFromUser.ts');
-    getGroupsFromUserResolver.node.addDependency(rdsInstance);
+    getGroupsFromUserResolver.node.addDependency(props.rdsInstance);
 
     const addUserResolver = createResolver('addUserResolver', 'src/users/addUser.ts');
-    addUserResolver.node.addDependency(rdsInstance);
+    addUserResolver.node.addDependency(props.rdsInstance);
 
     //accounting resolvers
 
     const getAccountingFromGroupResolver = createResolver('getAccountingFromGroupResolver', 'src/accounting/getAccountingFromGroup.ts');
-    getAccountingFromGroupResolver.node.addDependency(rdsInstance);
+    getAccountingFromGroupResolver.node.addDependency(props.rdsInstance);
 
     const getSettlingDebtsTransactionsResolver = createResolver('getSettlingDebtsTransactionsResolver', 'src/accounting/getSettlingDebtsTransactions.ts');
-    getSettlingDebtsTransactionsResolver.node.addDependency(rdsInstance);
+    getSettlingDebtsTransactionsResolver.node.addDependency(props.rdsInstance);
 
     //transaction resolvers
 
     const getTransactionByIdResolver = createResolver( 'getTransactionByIdResolver', 'src/transactions/getTransactionById.ts');
-    getTransactionByIdResolver.node.addDependency(rdsInstance);
+    getTransactionByIdResolver.node.addDependency(props.rdsInstance);
 
     const createTransactionResolver = createResolver( 'createTransactionResolver', 'src/transactions/createTransactions.ts');
-    createTransactionResolver.node.addDependency(rdsInstance);
+    createTransactionResolver.node.addDependency(props.rdsInstance);
 
     const deleteTransactionResolver = createResolver( 'deleteTransactionResolver', 'src/transactions/deleteTransaction.ts');
-    deleteTransactionResolver.node.addDependency(rdsInstance);
+    deleteTransactionResolver.node.addDependency(props.rdsInstance);
 
     const updateTransactionResolver = createResolver( 'updateTransactionResolver', 'src/transactions/updateTransaction.ts');
-    updateTransactionResolver.node.addDependency(rdsInstance);
+    updateTransactionResolver.node.addDependency(props.rdsInstance);
 
     //group Integrations
 
@@ -347,8 +186,8 @@ export class MyAppStack extends cdk.Stack {
 
     // API Gateway RestApi
     const api = new apigateway.RestApi(this, "RestAPI", {
-      restApiName: props.api.name,
-      description: props.api.desc,
+      restApiName: props.config.api.name,
+      description: props.config.api.desc,
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
         allowMethods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
@@ -364,15 +203,15 @@ export class MyAppStack extends cdk.Stack {
         validateRequestParameters: input.validateRequestParameters,
       });
 
-    const bodyValidator = createValidator(props.validators.bodyValidator);
-    const paramValidator = createValidator(props.validators.paramValidator);
+    const bodyValidator = createValidator(props.config.validators.bodyValidator);
+    const paramValidator = createValidator(props.config.validators.paramValidator);
     const bodyAndParamValidator = createValidator(
-      props.validators.bodyAndParamValidator
+      props.config.validators.bodyAndParamValidator
     );
 
     // API Gateway Model
     const model = new apigateway.Model(this, "Model", {
-      modelName: props.api.modelName,
+      modelName: props.config.api.modelName,
       restApi: api,
       schema: {
         type: apigateway.JsonSchemaType.OBJECT,
@@ -386,7 +225,7 @@ export class MyAppStack extends cdk.Stack {
     //FOR ENDPOINTS
 
     // Root Resources
-    const rootResource = api.root.addResource(props.api.rootResource);
+    const rootResource = api.root.addResource(props.config.api.rootResource);
 
     // Secure Resources and Methods
     const secureResource = rootResource.addResource("secure");
@@ -534,8 +373,8 @@ export class MyAppStack extends cdk.Stack {
 
     // API Usageplan
     const usageplan = api.addUsagePlan("UsagePlan", {
-      name: props.usageplan.name,
-      description: props.usageplan.desc,
+      name: props.config.usageplan.name,
+      description: props.config.usageplan.desc,
       apiStages: [
         {
           api: api,
@@ -543,21 +382,22 @@ export class MyAppStack extends cdk.Stack {
         },
       ],
       quota: {
-        limit: props.usageplan.limit,
+        limit: props.config.usageplan.limit,
         period: apigateway.Period.DAY,
       },
       throttle: {
-        rateLimit: props.usageplan.rateLimit,
-        burstLimit: props.usageplan.burstLimit,
+        rateLimit: props.config.usageplan.rateLimit,
+        burstLimit: props.config.usageplan.burstLimit,
       },
     });
 
     // API Key for authorization
     const apiKey = api.addApiKey("ApiKey", {
-      apiKeyName: props.apiKey.name,
-      description: props.apiKey.desc,
+      apiKeyName: props.config.apiKey.name,
+      description: props.config.apiKey.desc,
     });
 
     usageplan.addApiKey(apiKey);
   }
+
 }
