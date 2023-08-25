@@ -1,5 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS splid
-    AUTHORIZATION librarian;
+CREATE SCHEMA IF NOT EXISTS splid;
 
 CREATE TABLE IF NOT EXISTS splid."User"
 (
@@ -59,7 +58,7 @@ CREATE TABLE IF NOT EXISTS splid."Transaction"
 	CONSTRAINT "receiver" FOREIGN KEY (receiver_username)
         REFERENCES splid."User" (username) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS splid."Accounting"
@@ -140,7 +139,7 @@ INSERT INTO splid."User"(
 
 INSERT INTO splid."User"(
 	username, password, mail, "number")
-	VALUES ('max mustermann', '$2b$10$u7rRiUYTt5x.zFrP5.SrwOGP7eX.FLhhM4JD6Z0VnaShR4o0qIj2e', 'maxmustermann@mail.com', '007');
+	VALUES ('max', '$2b$10$u7rRiUYTt5x.zFrP5.SrwOGP7eX.FLhhM4JD6Z0VnaShR4o0qIj2e', 'maxmustermann@mail.com', '007');
 
 INSERT INTO splid."Group"(
 	name, picture_path, description, created_by, created_at, update_at, id)
@@ -148,7 +147,7 @@ INSERT INTO splid."Group"(
 	
 INSERT INTO splid."Group"(
 	name, picture_path, description, created_by, created_at, update_at, id)
-	VALUES ( 'Bella Italia', '/GroupPictures/bella_italia.jpeg', 'Italien Urlaub Gruppe', 'max mustermann', '2022-01-12 00:00:00', '2022-02-01 00:00:00+06', '5aa66f64-5717-4562-b3fc-2c963f66afa6');
+	VALUES ( 'Bella Italia', '/GroupPictures/bella_italia.jpeg', 'Italien Urlaub Gruppe', 'max', '2022-01-12 00:00:00', '2022-02-01 00:00:00+06', '5aa66f64-5717-4562-b3fc-2c963f66afa6');
 
 INSERT INTO splid."Group"(
 	name, picture_path, description, created_by, created_at, update_at, id)
@@ -240,7 +239,7 @@ INSERT INTO splid."Group_User"(
 
 INSERT INTO splid."Group_User"(
 	username, "group_id")
-	VALUES ('max mustermann', '5aa66f64-5717-4562-b3fc-2c963f66afa6');
+	VALUES ('max', '5aa66f64-5717-4562-b3fc-2c963f66afa6');
 
 INSERT INTO splid."Group_User"(
 	username, "group_id")
@@ -260,19 +259,19 @@ INSERT INTO splid."Transaction"(
 
 INSERT INTO splid."Transaction"(
 	id, description, sender_username, amount, "group_id", created_at, receiver_username)
-	VALUES ('705da9da-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -25.66, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','max mustermann');
+	VALUES ('705da9da-998e-11ed-a8fc-0242ac120002','Pizza Mario', 'admin', -25.66, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-01 00:00:01+06','max');
 
 INSERT INTO splid."Transaction"(
 	id, description, sender_username, amount, group_id, created_at, receiver_username)
-	VALUES ('705daab6-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', 143.95,'5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06', 'max mustermann');
+	VALUES ('705daab6-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max', 143.95,'5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06', 'max');
 	
 INSERT INTO splid."Transaction"(
 	id, description, sender_username, amount, "group_id", created_at, receiver_username)
-	VALUES ('705dadcc-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:02+06', 'admin');
+	VALUES ('705dadcc-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:02+06', 'admin');
 	
 INSERT INTO splid."Transaction"(
 	id, description, sender_username, amount, "group_id", created_at, receiver_username)
-	VALUES ('705daea8-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max mustermann', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','max mustermann');
+	VALUES ('705daea8-998e-11ed-a8fc-0242ac120002','Einkauf Lebensmittel', 'max', -71.975, '5aa66f64-5717-4562-b3fc-2c963f66afa6', '2022-02-02 00:00:01+06','max');
 
 INSERT INTO splid."Transaction"(
 	id, description, sender_username, amount, "group_id", created_at, receiver_username)

@@ -18,6 +18,13 @@ export class RdsConstruct extends Construct {
   constructor(scope: Construct, id: string, props: RdsConstructProps) {
     super(scope, id);
 
+    // Secrets for database credentials.
+    this.credentials = secrets.Secret.fromSecretCompleteArn(
+      this,
+      "CredentialsSecret",
+      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
+    );
+
     this.rdsInstance = new rds.DatabaseInstance(this, "PostgresRds", {
       vpc: props.vpc,
       securityGroups: [props.securityGroup],
@@ -41,13 +48,6 @@ export class RdsConstruct extends Construct {
     });
 
     this.rdsInstance.secret?.grantRead(props.role);
-
-    // Secrets for database credentials.
-    const credentials = secrets.Secret.fromSecretCompleteArn(
-      this,
-      "CredentialsSecret",
-      "arn:aws:secretsmanager:eu-central-1:973206779484:secret:rds-db-creds-test-2RiK43"
-    );
-    credentials.grantRead(props.role);
+    this.credentials.grantRead(props.role);
   }
 }
