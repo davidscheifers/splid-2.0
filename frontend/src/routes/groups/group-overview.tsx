@@ -1,6 +1,6 @@
-import { Title, Text } from "@mantine/core";
+import { Title, Text, Button } from "@mantine/core";
 import Balance from "../balance/balance";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import GroupCode from "../../features/Group/GroupCode";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
@@ -20,6 +20,11 @@ const GroupOverview = () => {
             <Title order={1}>{data?.name}</Title>
             <Text mb="md">{data?.description}</Text>
             <Balance groupId={data?.id} />
+            <Link to={`/groups/${id}/accounting`}>
+                <Button fullWidth mb="md">
+                    Abrechnen
+                </Button>
+            </Link>
             <GroupCode
                 group={{
                     id: id || "",
