@@ -1,7 +1,7 @@
 export const API_URL =
     process.env.NODE_ENV === "development"
-        ? "https://hiq7zsjefj.execute-api.eu-central-1.amazonaws.com"
-        : "https://hiq7zsjefj.execute-api.eu-central-1.amazonaws.com";
+        ? "https://elvip7nvnf.execute-api.eu-central-1.amazonaws.com"
+        : "https://elvip7nvnf.execute-api.eu-central-1.amazonaws.com";
 
 export const apiEndPoints = {
     group: {
