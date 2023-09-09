@@ -10,6 +10,7 @@ import CreateUserPage from "../users/create-user";
 import EditUserPage from "../users/edit-user";
 import TotalExpenses from "../expenses/total-expenses";
 import EditGroupPage from "./edit-group-page";
+import GroupSettlingDebts from "./group-settling-debts";
 
 const GroupPage = () => {
     return (
@@ -28,6 +29,10 @@ const GroupPage = () => {
                         element={<EditExpensePage />}
                     />
                     <Route path={`settings`} element={<EditGroupPage />} />
+                    <Route
+                        path={`accounting`}
+                        element={<GroupSettlingDebts />}
+                    />
                     <Route
                         path={`expenses/create`}
                         element={<CreateExpensePage />}
