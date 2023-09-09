@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "901de4ef-9918-446e-beb9-ed0616799776",
+		"name": "Splid-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13905969"
+	},
+	"item": [
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Get all groups",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get group details",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/5aa66f64-5717-4562-b3fc-2c963f66afa6/details",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search group of users with searchterm",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/search?searchTerm=bella&username=admin",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "bella"
+								},
+								{
+									"key": "username",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expenses from User in Group",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/5aa66f64-5717-4562-b3fc-2c963f66afa6/users/tester/expense",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"users",
+								"tester",
+								"expense"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Incomes from User in Group",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/5aa66f64-5717-4562-b3fc-2c963f66afa6/users/tester/income",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"users",
+								"tester",
+								"income"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions from Group",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Groups/5aa66f64-5717-4562-b3fc-2c963f66afa6/transactions",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Groups",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get user information for specified username",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/User/admin",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"User",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of group thats associated with a specific user",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/User/admin/groups",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"User",
+								"admin",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"sevin\",\n    \"password\": \"\",\n    \"mail\": \"asd\",\n    \"number\": 123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/User",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"User"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounting",
+			"item": [
+				{
+					"name": "Get accounting information for group",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Accounting/4aa85f64-5717-4562-b3fc-2c963f66afa6",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Accounting",
+								"4aa85f64-5717-4562-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get settling debts transactions",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Accounting/5aa66f64-5717-4562-b3fc-2c963f66afa6/settle-debts",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Accounting",
+								"5aa66f64-5717-4562-b3fc-2c963f66afa6",
+								"settle-debts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Get transaction by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "post transaction",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"test3\",\n    \"senderUsername\": \"admin\",\n    \"receiverUsername\": \"tester\",\n    \"amount\": 11,\n    \"groupId\": \"5aa66f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Transactions",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post transactions",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"description\": \"test3\",\n        \"senderUsername\": \"admin\",\n        \"receiverUsername\": \"tester\",\n        \"amount\": 11,\n        \"groupId\": \"5aa66f64-5717-4562-b3fc-2c963f66afa6\"\n    },\n    {\n        \"description\": \"test2\",\n        \"senderUsername\": \"tester\",\n        \"receiverUsername\": \"admin\",\n        \"amount\": 22,\n        \"groupId\": \"5aa66f64-5717-4562-b3fc-2c963f66afa6\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete transaction",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Transactions/3f2af5ab-d26c-42a3-9708-132c73f1bfe7",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Transactions",
+								"3f2af5ab-d26c-42a3-9708-132c73f1bfe7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update transaction",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "aI06UB0YO78Ro04TnO1Sv4kqGyFf0YkJ1aV7Knvu",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"b5083749-84aa-414f-b219-7ccd10dc535d\",\n    \"description\": \"test2\",\n    \"amount\": 24,\n    \"createdAt\": \"2023-08-11T18:21:01.734Z\",\n    \"senderUsername\": \"tester\",\n    \"receiverUsername\": \"admin\",\n    \"groupId\": \"5aa66f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uy72e7fwd6.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Transactions/b5083749-84aa-414f-b219-7ccd10dc535d",
+							"protocol": "https",
+							"host": [
+								"uy72e7fwd6",
+								"execute-api",
+								"eu-central-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"prod",
+								"api",
+								"secure",
+								"Transactions",
+								"b5083749-84aa-414f-b219-7ccd10dc535d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Endpoint",
+			"value": "https://925xuthdwa.execute-api.eu-central-1.amazonaws.com/prod/"
+		},
+		{
+			"key": "X-API-Key",
+			"value": "FdRngJ6uVr12BgFX8fWop8XYCoCmslbL2isGMtUU"
+		}
+	]
+}
