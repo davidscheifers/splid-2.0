@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { API_URL } from "../../utils/constants/constants";
 
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;

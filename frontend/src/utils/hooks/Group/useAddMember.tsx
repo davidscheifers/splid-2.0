@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { UserAddButtonState } from "../../../components/UserAddButton/UserAddButton";
+
+import { UserAddButtonState } from "@/components/UserAddButton/UserAddButton";
 
 export function useAddMember(addMember: (item: any) => void) {
     const [state, setState] = useState<UserAddButtonState>({

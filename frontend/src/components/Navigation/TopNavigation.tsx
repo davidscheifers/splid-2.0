@@ -1,16 +1,15 @@
 import {
-    Group,
     ActionIcon,
-    useMantineColorScheme,
-    Title,
-    Container,
-    Drawer,
-    Burger,
-    useMantineTheme,
     Box,
+    Burger,
+    Container,
     Divider,
+    Drawer,
+    Group,
+    Title,
+    useMantineColorScheme,
+    useMantineTheme,
 } from "@mantine/core";
-
 import {
     IconMoon,
     IconSettings,

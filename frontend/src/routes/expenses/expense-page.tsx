@@ -1,23 +1,24 @@
 import {
-    Group,
-    Title,
-    Paper,
     Button,
-    UnstyledButton,
+    Group,
     Modal,
+    Paper,
     Text,
+    Title,
+    UnstyledButton,
 } from "@mantine/core";
-import { Link, useParams } from "react-router-dom";
-import dayjs from "dayjs";
-import { displayCurrency } from "../../utils/functions/functions";
-import UserPreview from "../../components/User/UserPreview";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { Transaction } from "../../types/transactions";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
-import { useDeleteMutation } from "../../api/GenericCalls/useDeleteMutation";
+import dayjs from "dayjs";
 import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
+import { useDeleteMutation } from "@/api/GenericCalls/useDeleteMutation";
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import UserPreview from "@/components/User/UserPreview";
+import { Transaction } from "@/types/transactions";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency } from "@/utils/functions/functions";
 
 const ExpensePage = () => {
     const { expenseId, id } = useParams<{ expenseId: string; id: string }>();

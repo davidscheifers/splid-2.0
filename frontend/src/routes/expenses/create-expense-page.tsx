@@ -1,10 +1,10 @@
 import { Box, Title } from "@mantine/core";
-import ExpenseForm from "../../features/Expense/ExpenseForm";
-import { TExpenseForm } from "../../types/expenses";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCreateMutation } from "../../api/GenericCalls/useCreateMutation";
-import { apiEndPoints } from "../../utils/constants/constants";
+
+import { useCreateMutation } from "@/api/GenericCalls/useCreateMutation";
+import ExpenseForm from "@/features/Expense/ExpenseForm";
+import { TExpenseForm } from "@/types/expenses";
+import { apiEndPoints } from "@/utils/constants/constants";
 
 const CreateExpensePage = () => {
     const { id } = useParams<{ expenseId: string; id: string }>();

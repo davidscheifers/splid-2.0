@@ -1,12 +1,12 @@
 import {
-    Group,
-    NumberInput,
-    Title,
-    Text,
-    Modal,
     Button,
     Divider,
+    Group,
+    Modal,
+    NumberInput,
+    Text,
     TextInput,
+    Title,
     createStyles,
     rem,
 } from "@mantine/core";
@@ -14,11 +14,11 @@ import { IconSearch } from "@tabler/icons-react";
 
 import UserPreview from "./UserPreview";
 
-import { dummyUsers } from "../../utils/data/data";
-import { TDummyUser } from "../../types/group";
-import { classNames } from "../../utils/functions/functions";
-import { useFilterData } from "../../utils/hooks/useFilterData";
-import { useCreateExpenseUserPercentage } from "../../utils/hooks/Expense/useCreateExpenseUserPercentage";
+import { TDummyUser } from "@/types/group";
+import { dummyUsers } from "@/utils/data/data";
+import { classNames } from "@/utils/functions/functions";
+import { useCreateExpenseUserPercentage } from "@/utils/hooks/Expense/useCreateExpenseUserPercentage";
+import { useFilterData } from "@/utils/hooks/useFilterData";
 
 type UserPercentageSelectProps = {
     value: UserItem[];

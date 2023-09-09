@@ -1,20 +1,22 @@
-import { TDummyUser } from "../../types/group";
-import UserPreview from "../User/UserPreview";
 import {
     Box,
     Button,
     Group,
     Modal,
     Paper,
-    TextInput,
     Text,
+    TextInput,
 } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
+
+import UserPreview from "../User/UserPreview";
+
+import { TDummyUser } from "@/types/group";
 import {
     addElementToArray,
     removeElementFromArray,
-} from "../../utils/functions/functions";
-import { useAddMember } from "../../utils/hooks/Group/useAddMember";
-import { IconPlus } from "@tabler/icons-react";
+} from "@/utils/functions/functions";
+import { useAddMember } from "@/utils/hooks/Group/useAddMember";
 
 type UserAddButtonProps = {
     members: TDummyUser[];

@@ -1,4 +1,4 @@
-import { Button, Container, Group, Title, Text } from "@mantine/core";
+import { Button, Container, Group, Text, Title } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 

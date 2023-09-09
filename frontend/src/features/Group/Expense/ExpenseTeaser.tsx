@@ -1,14 +1,14 @@
+import { Avatar, Box, Group, Paper, Text, Title } from "@mantine/core";
+import { IconArrowBadgeRight } from "@tabler/icons-react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link, useParams } from "react-router-dom";
-import { Avatar, Group, Title, Text, Box, Paper } from "@mantine/core";
+
+import { Transaction } from "@/types/transactions";
 import {
     displayCurrency,
     getFirstCharacterFromString,
-} from "../../../utils/functions/functions";
-
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { Transaction } from "../../../types/transactions";
-import { IconArrowBadgeRight } from "@tabler/icons-react";
+} from "@/utils/functions/functions";
 
 dayjs.extend(relativeTime);
 

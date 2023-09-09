@@ -1,10 +1,12 @@
-import { Title, Text, Button } from "@mantine/core";
-import Balance from "../balance/balance";
+import { Button, Text, Title } from "@mantine/core";
 import { Link, useParams } from "react-router-dom";
-import GroupCode from "../../features/Group/GroupCode";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
+
+import Balance from "../balance/balance";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import GroupCode from "@/features/Group/GroupCode";
+import { apiEndPoints } from "@/utils/constants/constants";
 
 const GroupOverview = () => {
     const { id } = useParams<{ id: string }>();

@@ -1,11 +1,12 @@
 import { Box, Title } from "@mantine/core";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { TGroupForm } from "../../types/group";
-import GroupForm from "../../features/Group/GroupForm";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import GroupForm from "@/features/Group/GroupForm";
+import { TGroupForm } from "@/types/group";
+import { apiEndPoints } from "@/utils/constants/constants";
 
 const EditGroupPage = () => {
     const { id } = useParams<{ id: string }>();
