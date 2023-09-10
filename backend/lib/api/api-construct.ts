@@ -9,6 +9,16 @@ import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secrets from 'aws-cdk-lib/aws-secretsmanager';
 import { IApiGatewayStackProps, IValidators } from '../../bin/stack-config-types';
 
+/**
+ * Properties required to initialize the ApiConstruct.
+ * 
+ * @property vpc - The VPC in which the Lambda function and RDS instance operate.
+ * @property securityGroup - The security group for the Lambda function.
+ * @property role - The IAM role for the Lambda function.
+ * @property rdsInstance - The RDS instance associated with the Lambda function.
+ * @property credentials - The secret containing RDS credentials.
+ * @property config - Configuration for the API Gateway.
+ */
 export interface ApiConstructProps {
   vpc: ec2.IVpc;
   securityGroup: ec2.ISecurityGroup;
@@ -18,13 +28,23 @@ export interface ApiConstructProps {
   config: IApiGatewayStackProps;
 }
 
+/**
+ * ApiConstruct creates an API Gateway with Lambda integrations to perform CRUD operations on database resources.
+ * 
+ * The construct:
+ * - Initializes multiple Lambda functions using Node.js runtime, each serving different API endpoints.
+ * - Each Lambda function is provided with environment variables to connect to the RDS instance.
+ * - Sets up an API Gateway with CORS enabled and integrates the Lambda functions.
+ * - Configures API Gateway resources and methods for the CRUD operations.
+ * - Sets up API usage plans and API keys for client access.
+ */
 export class ApiConstruct extends Construct {
   public readonly rdsInstance: rds.DatabaseInstance;
 
   constructor(scope: Construct, id: string, props: ApiConstructProps) {
     super(scope, id);
 
-    // Returns function to connect with RDS instance.
+    // Helper function to create a Lambda function with RDS integration.
     const createResolver = (name: string, entry: string) =>
       new nodejs.NodejsFunction(this, name, {
         functionName: name,
@@ -69,6 +89,7 @@ export class ApiConstruct extends Construct {
       { name: "updateTransaction", path: "src/transactions/updateTransaction.ts" }
     ];
 
+     // Create Lambda functions and API Gateway integrations.
     const resolvers: { [key: string]: cdk.aws_lambda_nodejs.NodejsFunction } = {};
     const integrations: { [key: string]: apigateway.LambdaIntegration } = {};
 
@@ -138,13 +159,10 @@ export class ApiConstruct extends Construct {
     const groupIdUsersResource = groupIdResource.addResource("users");
     const groupIddetailsResource = groupIdResource.addResource("details");
 
-    const groupIdUsersUsernameResource =
-      groupIdUsersResource.addResource("{username}");
+    const groupIdUsersUsernameResource = groupIdUsersResource.addResource("{username}");
 
-    const groupIdUsersUsernameExpenseResource =
-      groupIdUsersUsernameResource.addResource("expense");
-    const groupIdUsersUsernameIncomeResource =
-      groupIdUsersUsernameResource.addResource("income");
+    const groupIdUsersUsernameExpenseResource = groupIdUsersUsernameResource.addResource("expense");
+    const groupIdUsersUsernameIncomeResource = groupIdUsersUsernameResource.addResource("income");
 
     //user ressources 
     const userResource = secureResource.addResource('User');
@@ -184,19 +202,13 @@ export class ApiConstruct extends Construct {
       apiKeyRequired: true,
     });
 
-    groupIdUsersUsernameExpenseResource.addMethod(
-      "GET",
-      integrations['getExpansesFromGroupUserIntegration'],
-      {
+    groupIdUsersUsernameExpenseResource.addMethod("GET", integrations['getExpansesFromGroupUserIntegration'], {
         requestModels: { "application/json": model },
         apiKeyRequired: true,
       }
     );
 
-    groupIdUsersUsernameIncomeResource.addMethod(
-      "GET",
-      integrations['getIncomesFromGroupUserIntegration'],
-      {
+    groupIdUsersUsernameIncomeResource.addMethod("GET", integrations['getIncomesFromGroupUserIntegration'], {
         requestModels: { "application/json": model },
         apiKeyRequired: true,
       }
