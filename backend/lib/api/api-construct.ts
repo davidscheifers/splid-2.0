@@ -45,144 +45,41 @@ export class ApiConstruct extends Construct {
         },
       });
 
-    //----------APIGATEWAY----------------
+    const configurations = [
+      { name: "getGroups", path: "src/groups/getGroups.ts" },
+      { name: "getGroupDetails", path: "src/groups/getGroupDetails.ts" },
+      { name: "getExpensesFromGroupUser", path: "src/groups/getExpensesFromGroupUser.ts" },
+      { name: "getIncomesFromGroupUser", path: "src/groups/getIncomesFromGroupUser.ts" },
+      { name: "addGroup", path: "src/groups/addGroup.ts" },
+      { name: "deleteGroup", path: "src/groups/deleteGroup.ts" },
+      { name: "updateGroup", path: "src/groups/updateGroup.ts" },
+      { name: "searchGroupOfUser", path: "src/groups/searchGroupOfUser.ts" },
+      { name: "getTransactionsFromGroup", path: "src/groups/getTransactionsFromGroup.ts" },
 
-    //group Resolvers
+      { name: "getUserInfo", path: "src/users/getUserInfo.ts" },
+      { name: "getGroupsFromUser", path: "src/users/getGroupsFromUser.ts" },
+      { name: "addUser", path: "src/users/addUser.ts" },
 
-    const getGroupsResolver = createResolver(
-      "getGroupsResolver",
-      "src/groups/getGroups.ts"
-    );
-    getGroupsResolver.node.addDependency(props.rdsInstance);
+      { name: "getAccountingFromGroup", path: "src/accounting/getAccountingFromGroup.ts" },
+      { name: "getSettlingDebtsTransactions", path: "src/accounting/getSettlingDebtsTransactions.ts" },
+      { name: "getTransactionById", path: "src/transactions/getTransactionById.ts" },
 
-    const getGroupDetailsResolver = createResolver(
-      "getGroupDetailsResolver",
-      "src/groups/getGroupDetails.ts"
-    );
-    getGroupDetailsResolver.node.addDependency(props.rdsInstance);
+      { name: "createTransaction", path: "src/transactions/createTransactions.ts" },
+      { name: "deleteTransaction", path: "src/transactions/deleteTransaction.ts" },
+      { name: "updateTransaction", path: "src/transactions/updateTransaction.ts" }
+    ];
 
-    const getExpensesFromGroupUserResolver = createResolver(
-      "getExpensesFromGroupUser",
-      "src/groups/getExpensesFromGroupUser.ts"
-    );
-    getExpensesFromGroupUserResolver.node.addDependency(props.rdsInstance);
+    const resolvers: { [key: string]: cdk.aws_lambda_nodejs.NodejsFunction } = {};
+    const integrations: { [key: string]: apigateway.LambdaIntegration } = {};
 
-    const getIncomesFromGroupUserResolver = createResolver(
-      "getIncomesFromGroupUser",
-      "src/groups/getIncomesFromGroupUser.ts"
-    );
-    getIncomesFromGroupUserResolver.node.addDependency(props.rdsInstance);
+    configurations.forEach(config => {
+      resolvers[config.name + 'Resolver'] = createResolver(config.name + 'Resolver', config.path);
+      resolvers[config.name + 'Resolver'].node.addDependency(props.rdsInstance);
 
-    const addGroupResolver = createResolver(
-      "addGroupResolver",
-      "src/groups/addGroup.ts"
-    );
-    addGroupResolver.node.addDependency(props.rdsInstance);
-
-    const deleteGroupResolver = createResolver(
-      "deleteGroupResolver",
-      "src/groups/deleteGroup.ts"
-    );
-    deleteGroupResolver.node.addDependency(props.rdsInstance);
-
-    const updateGroupResolver = createResolver(
-      "updateGroupResolver",
-      "src/groups/updateGroup.ts"
-    );
-    updateGroupResolver.node.addDependency(props.rdsInstance);
-
-    const searchGroupOfUserResolver = createResolver(
-      "searchGroupOfUserResolver",
-      "src/groups/searchGroupOfUser.ts"
-    );
-    searchGroupOfUserResolver.node.addDependency(props.rdsInstance);
-
-    const getTransactionsFromGroupResolver = createResolver(
-      "getTransactionsFromGroupResolver",
-      "src/groups/getTransactionsFromGroup.ts"
-    );
-    getTransactionsFromGroupResolver.node.addDependency(props.rdsInstance);
-
-    //user resolvers
-
-    const getUserInfoResolver = createResolver('getUserInfoResolver', 'src/users/getUserInfo.ts');
-    getUserInfoResolver.node.addDependency(props.rdsInstance);
-
-    const getGroupsFromUserResolver = createResolver('getGroupsFromUserResolver', 'src/users/getGroupsFromUser.ts');
-    getGroupsFromUserResolver.node.addDependency(props.rdsInstance);
-
-    const addUserResolver = createResolver('addUserResolver', 'src/users/addUser.ts');
-    addUserResolver.node.addDependency(props.rdsInstance);
-
-    //accounting resolvers
-
-    const getAccountingFromGroupResolver = createResolver('getAccountingFromGroupResolver', 'src/accounting/getAccountingFromGroup.ts');
-    getAccountingFromGroupResolver.node.addDependency(props.rdsInstance);
-
-    const getSettlingDebtsTransactionsResolver = createResolver('getSettlingDebtsTransactionsResolver', 'src/accounting/getSettlingDebtsTransactions.ts');
-    getSettlingDebtsTransactionsResolver.node.addDependency(props.rdsInstance);
-
-    //transaction resolvers
-
-    const getTransactionByIdResolver = createResolver( 'getTransactionByIdResolver', 'src/transactions/getTransactionById.ts');
-    getTransactionByIdResolver.node.addDependency(props.rdsInstance);
-
-    const createTransactionResolver = createResolver( 'createTransactionResolver', 'src/transactions/createTransactions.ts');
-    createTransactionResolver.node.addDependency(props.rdsInstance);
-
-    const deleteTransactionResolver = createResolver( 'deleteTransactionResolver', 'src/transactions/deleteTransaction.ts');
-    deleteTransactionResolver.node.addDependency(props.rdsInstance);
-
-    const updateTransactionResolver = createResolver( 'updateTransactionResolver', 'src/transactions/updateTransaction.ts');
-    updateTransactionResolver.node.addDependency(props.rdsInstance);
-
-    //group Integrations
-
-    const getGroupIntegration = new apigateway.LambdaIntegration(
-      getGroupsResolver
-    );
-    const getGroupDetailsIntegration = new apigateway.LambdaIntegration(
-      getGroupDetailsResolver
-    );
-    const addGroupIntegration = new apigateway.LambdaIntegration(
-      addGroupResolver
-    );
-    const deleteGroupIntegration = new apigateway.LambdaIntegration(
-      deleteGroupResolver
-    );
-    const getExpansesFromGroupUserIntegration =
-      new apigateway.LambdaIntegration(getExpensesFromGroupUserResolver);
-    const getIncomesFromGroupUserIntegration = new apigateway.LambdaIntegration(
-      getIncomesFromGroupUserResolver
-    );
-    const searchGroupOfUserIntegration = new apigateway.LambdaIntegration(
-      searchGroupOfUserResolver
-    );
-    const updateGroupIntegration = new apigateway.LambdaIntegration(
-      updateGroupResolver
-    );
-    const getTransactionsFromGroupIntegration = new apigateway.LambdaIntegration(
-      getTransactionsFromGroupResolver
-    );
-
-    //user Integrations
-
-    const getUserInfoIntegration = new apigateway.LambdaIntegration(getUserInfoResolver);
-    const getGroupsFromUserIntegration = new apigateway.LambdaIntegration(getGroupsFromUserResolver);
-    const addUserIntegration = new apigateway.LambdaIntegration(addUserResolver);
-
-    //accounting Integrations
-
-    const getAccountingFromGroupIntegration = new apigateway.LambdaIntegration(getAccountingFromGroupResolver);
-    const getSettlingDebtsTransactionsIntegration = new apigateway.LambdaIntegration(getSettlingDebtsTransactionsResolver);
-
-    //transaction Integrations
-
-    const getTransactionByIdIntegration = new apigateway.LambdaIntegration(getTransactionByIdResolver);
-    const createTransactionIntegration = new apigateway.LambdaIntegration(createTransactionResolver);
-    const deleteTransactionIntegration = new apigateway.LambdaIntegration(deleteTransactionResolver);
-    const updateTransactionIntegration = new apigateway.LambdaIntegration(updateTransactionResolver);
-
+      integrations[config.name + 'Integration'] = new apigateway.LambdaIntegration(
+        resolvers[config.name + 'Resolver']
+      );
+    });
 
     // API Gateway RestApi
     const api = new apigateway.RestApi(this, "RestAPI", {
@@ -268,28 +165,28 @@ export class ApiConstruct extends Construct {
     const transactionIdResource = transactionResource.addResource('{transactionId}');
 
     //group methods
-    groupResource.addMethod('GET', getGroupIntegration, {
+    groupResource.addMethod('GET', integrations['getGroupIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
-    groupResource.addMethod("POST", addGroupIntegration, {
+    groupResource.addMethod("POST", integrations['addGroupIntegration'], {
       requestModels: { "application/json": model },
       apiKeyRequired: true,
     });
 
-    groupIdResource.addMethod("DELETE", deleteGroupIntegration, {
+    groupIdResource.addMethod("DELETE", integrations['deleteGroupIntegration'], {
       requestModels: { "application/json": model },
       apiKeyRequired: true,
     });
 
-    groupIddetailsResource.addMethod("GET", getGroupDetailsIntegration, {
+    groupIddetailsResource.addMethod("GET", integrations['getGroupDetailsIntegration'], {
       requestModels: { "application/json": model },
       apiKeyRequired: true,
     });
 
     groupIdUsersUsernameExpenseResource.addMethod(
       "GET",
-      getExpansesFromGroupUserIntegration,
+      integrations['getExpansesFromGroupUserIntegration'],
       {
         requestModels: { "application/json": model },
         apiKeyRequired: true,
@@ -298,75 +195,75 @@ export class ApiConstruct extends Construct {
 
     groupIdUsersUsernameIncomeResource.addMethod(
       "GET",
-      getIncomesFromGroupUserIntegration,
+      integrations['getIncomesFromGroupUserIntegration'],
       {
         requestModels: { "application/json": model },
         apiKeyRequired: true,
       }
     );
 
-    groupSearchResource.addMethod("GET", searchGroupOfUserIntegration, {
+    groupSearchResource.addMethod("GET", integrations['searchGroupOfUserIntegration'], {
       requestModels: { "application/json": model },
       apiKeyRequired: true,
     });
 
-    groupResource.addMethod("PUT", updateGroupIntegration, {
+    groupResource.addMethod("PUT", integrations['updateGroupIntegration'], {
       requestModels: { "application/json": model },
       apiKeyRequired: true,
     });
 
-    groupIdTransactionsResource.addMethod('GET', getTransactionsFromGroupIntegration, {
+    groupIdTransactionsResource.addMethod('GET', integrations['getTransactionsFromGroupIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
     
     //user methods
 
-    userUsernameResource.addMethod('GET', getUserInfoIntegration, {
+    userUsernameResource.addMethod('GET', integrations['getUserInfoIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    userUsernameGroupsResource.addMethod('GET', getGroupsFromUserIntegration, {
+    userUsernameGroupsResource.addMethod('GET',integrations['getGroupsFromUserIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    userResource.addMethod('POST', addUserIntegration, {
+    userResource.addMethod('POST', integrations['addUserIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
     //accounting methods
 
-    accountingGroupIdResource.addMethod('GET', getAccountingFromGroupIntegration, {
+    accountingGroupIdResource.addMethod('GET', integrations['getAccountingFromGroupIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    accountingGroupIdSettledebtsResource.addMethod('GET', getSettlingDebtsTransactionsIntegration, {
+    accountingGroupIdSettledebtsResource.addMethod('GET', integrations['getSettlingDebtsTransactionsIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
     
     //transaction methods
 
-    transactionIdResource.addMethod('GET', getTransactionByIdIntegration, {
+    transactionIdResource.addMethod('GET', integrations['getTransactionByIdIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    transactionResource.addMethod('POST', createTransactionIntegration, {
+    transactionResource.addMethod('POST', integrations['createTransactionIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    transactionIdResource.addMethod('DELETE', deleteTransactionIntegration, {
+    transactionIdResource.addMethod('DELETE', integrations['deleteTransactionIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
 
-    transactionIdResource.addMethod('PUT', updateTransactionIntegration, {
+    transactionIdResource.addMethod('PUT', integrations['updateTransactionIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });
