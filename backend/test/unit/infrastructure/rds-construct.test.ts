@@ -1,36 +1,10 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { RdsConstruct } from '../../lib/rds/rds-construct';
+import { RdsConstruct } from '../../../lib/rds/rds-construct';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
-
-jest.mock('aws-cdk-lib/aws-ec2', () => {
-    return {
-        ...jest.requireActual('aws-cdk-lib/aws-ec2'),
-        Vpc: jest.fn().mockImplementation(() => {
-            return {
-                isolatedSubnets: [{
-                    availabilityZone: 'us-west-2a',
-                    vpcId: 'vpc-12345678',
-                    cidrBlock: '10.0.0.0/24',
-                    subnetId: 'subnet-12345678',
-                }],
-                publicSubnets: [{
-                    availabilityZone: 'us-west-2a',
-                    vpcId: 'vpc-12345678',
-                    cidrBlock: '10.0.1.0/24',
-                    subnetId: 'subnet-87654321',
-                }],
-                selectSubnets: jest.fn().mockReturnValue({
-                    availabilityZones: ['us-west-2a'],
-                    vpcId: 'vpc-12345678',
-                    subnetIds: ['subnet-87654321'], // This is the key property
-                })
-            };
-        }),
-    };
-});
-
+import { VpcConstruct } from '../../../lib/vpc/vpc-construct';
+import { IamConstruct } from '../../../lib/iam/iam-construct';
 
 describe('RdsConstruct', () => {
     let stack: Stack;
@@ -39,17 +13,15 @@ describe('RdsConstruct', () => {
         const app = new App();
         stack = new Stack(app, 'TestStack');
 
-        const vpc = new ec2.Vpc(stack, 'TestVpc');
-        const securityGroup = new ec2.SecurityGroup(stack, 'TestSG', { vpc });
-        const role = new iam.Role(stack, 'TestRole', {
-            assumedBy: new iam.ServicePrincipal('rds.amazonaws.com')
-        });
+        const vpcConstruct = new VpcConstruct(stack, 'TestVpcConstruct');
+        const iamConstruct = new IamConstruct(stack, 'TestIamConstruct');
 
         new RdsConstruct(stack, 'TestRdsConstruct', {
-            vpc,
-            securityGroup,
-            role
+            vpc: vpcConstruct.vpc,
+            securityGroup: vpcConstruct.securityGroupRds,
+            role: iamConstruct.role
         });
+        
     });
 
     afterEach(() => {

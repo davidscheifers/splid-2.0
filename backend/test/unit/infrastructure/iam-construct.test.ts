@@ -1,6 +1,6 @@
 import { Template } from "aws-cdk-lib/assertions";
 import * as cdk from "aws-cdk-lib";
-import { IamConstruct } from "../../lib/iam/iam-construct";
+import { IamConstruct } from "../../../lib/iam/iam-construct";
 
 describe("IamConstruct", () => {
   let stack: cdk.Stack;

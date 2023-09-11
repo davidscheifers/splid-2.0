@@ -1,5 +1,5 @@
 import { App, Stack } from "aws-cdk-lib";
-import { VpcConstruct } from "../../lib/vpc/vpc-construct"; 
+import { VpcConstruct } from "../../../lib/vpc/vpc-construct"; 
 import { Template } from "aws-cdk-lib/assertions";
 
 describe('VpcConstruct', () => {
