@@ -44,6 +44,48 @@ describe("ApiConstruct", () => {
         template.resourceCountIs('AWS::ApiGateway::RestApi', 1);
     });
 
-    // some more tests here...
+    test("should set the correct properties for Lambda functions", () => {
+        const template = Template.fromStack(stack);
+    
+        template.hasResourceProperties("AWS::Lambda::Function", {
+            FunctionName: "getGroupsResolver",
+            Runtime: "nodejs18.x",
+            Timeout: 120
+        });
+    });
 
+    test("should create an API Gateway API key", () => {
+        const template = Template.fromStack(stack);
+    
+        template.resourceCountIs('AWS::ApiGateway::ApiKey', 1);
+
+    });
+    
+    test("should create an API Gateway usage plan", () => {
+        const template = Template.fromStack(stack);
+
+        template.resourceCountIs('AWS::ApiGateway::UsagePlan', 1);
+
+    });
+
+    test("should create a GET method on /groups", () => {
+        const template = Template.fromStack(stack);
+    
+        // Get all API Gateway resources (endpoints)
+        const resources: any[] = Object.values(template.findResources('AWS::ApiGateway::Resource'));
+    
+        // Find the resource with the path part "groups"
+        const groupsResource = resources.find((res: any) => res.Properties && res.Properties.PathPart === "groups");
+    
+        if (!groupsResource) {
+            throw new Error("No /groups endpoint found.");
+        }
+    
+        // Now, assert that there's a GET method associated with this resource
+        template.hasResourceProperties('AWS::ApiGateway::Method', {
+            HttpMethod: "GET",
+            ResourceId: { "Ref": groupsResource.LogicalId }
+        });
+    });
+    
 });
