@@ -65,12 +65,6 @@ export class VpcConstruct extends Construct {
     );
 
     this.securityGroupRds.addIngressRule(
-      ec2.Peer.ipv4("82.207.248.40/32"),
-      ec2.Port.tcp(5432),
-      "Allow inbound traffic to RDS from local"
-    );
-
-    this.securityGroupRds.addIngressRule(
       this.securityGroupResolvers,
       ec2.Port.tcp(5432),
       "Allow inbound traffic to RDS"
