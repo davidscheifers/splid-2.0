@@ -1,9 +1,9 @@
+import { NotificationsEvents } from "@mantine/notifications/lib/events";
 import axios, { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 
-import { NotificationsEvents } from "@mantine/notifications/lib/events";
-import setAuthToken from "../../utils/functions/set-authtoken";
-import { API_URL, apiEndPoints } from "../../utils/constants/constants";
+import { API_URL, apiEndPoints } from "@/utils/constants/constants";
+import setAuthToken from "@/utils/functions/set-authtoken";
 
 export const loadUser = () => async (dispatch: Dispatch<AuthAction>) => {
     const token = localStorage.getItem("token");

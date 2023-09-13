@@ -1,12 +1,12 @@
 import {
+    Box,
+    Container,
     Group,
     Modal,
-    createStyles,
     Text,
-    Box,
     Title,
+    createStyles,
     useMantineTheme,
-    Container,
 } from "@mantine/core";
 import {
     IconDevicesDollar,

@@ -1,16 +1,15 @@
 import {
-    Group,
     ActionIcon,
-    useMantineColorScheme,
-    Title,
-    Container,
-    Drawer,
-    Burger,
-    useMantineTheme,
     Box,
+    Burger,
+    Container,
     Divider,
+    Drawer,
+    Group,
+    Title,
+    useMantineColorScheme,
+    useMantineTheme,
 } from "@mantine/core";
-
 import {
     IconMoon,
     IconSettings,
@@ -40,6 +39,25 @@ const TopNavigation = () => {
     const dark = colorScheme === "dark";
     const navigate = useNavigate();
 
+    const items = navItems.map((item) => {
+        return (
+            <Box key={item.link} mb="xl">
+                <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                        setOpened(false);
+                        navigate(item.link);
+                    }}
+                >
+                    <Group>
+                        <item.icon size={24} color={colors.blue[6]} />
+                        <Title order={4}>{item.name}</Title>
+                    </Group>
+                </div>
+            </Box>
+        );
+    });
+
     return (
         <Container size="md">
             <Group position="apart" style={{ width: "100%" }} py="xl">
@@ -53,35 +71,10 @@ const TopNavigation = () => {
                         title="Splid 2.0"
                         zIndex={1001}
                     >
-                        <Box mt="xl">
-                            {navItems.map((item) => {
-                                return (
-                                    <Box key={item.link} mb="xl">
-                                        <div
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() => {
-                                                setOpened(false);
-                                                navigate(item.link);
-                                            }}
-                                        >
-                                            <Group>
-                                                <item.icon
-                                                    size={24}
-                                                    color={colors.blue[6]}
-                                                />
-                                                <Title order={4}>
-                                                    {item.name}
-                                                </Title>
-                                            </Group>
-                                        </div>
-                                    </Box>
-                                );
-                            })}
-                        </Box>
+                        <Box mt="xl">{items}</Box>
                         <Divider my="xl" />
                         <Group position="apart">
                             <Title order={4}>Farbschema</Title>
-
                             <ActionIcon
                                 variant="outline"
                                 color="yellow"
@@ -96,7 +89,6 @@ const TopNavigation = () => {
                             </ActionIcon>
                         </Group>
                     </Drawer>
-
                     <Burger
                         opened={opened}
                         onClick={() => setOpened(!opened)}
@@ -106,4 +98,5 @@ const TopNavigation = () => {
         </Container>
     );
 };
+
 export default TopNavigation;

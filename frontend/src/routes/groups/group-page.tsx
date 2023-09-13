@@ -1,16 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import GroupNavigation from "../../features/Group/GroupNavigation";
-import Expenses from "../expenses/expenses";
-import ExpensePage from "../expenses/expense-page";
-import GroupUserPage from "./group-user-page";
+
+import EditGroupPage from "./edit-group-page";
 import GroupOverview from "./group-overview";
-import EditExpensePage from "../expenses/edit-expense-page";
+import GroupSettlingDebts from "./group-settling-debts";
+import GroupUserPage from "./group-user-page";
+
 import CreateExpensePage from "../expenses/create-expense-page";
+import EditExpensePage from "../expenses/edit-expense-page";
+import ExpensePage from "../expenses/expense-page";
+import Expenses from "../expenses/expenses";
+import TotalExpenses from "../expenses/total-expenses";
 import CreateUserPage from "../users/create-user";
 import EditUserPage from "../users/edit-user";
-import TotalExpenses from "../expenses/total-expenses";
-import EditGroupPage from "./edit-group-page";
-import GroupSettlingDebts from "./group-settling-debts";
+
+import GroupNavigation from "@/features/Group/GroupNavigation";
 
 const GroupPage = () => {
     return (

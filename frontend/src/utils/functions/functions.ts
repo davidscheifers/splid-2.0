@@ -1,4 +1,4 @@
-import { CurrencyType } from "../../types/group";
+import { CurrencyType } from "@/types/group";
 
 /**
  * Returns an object of grouped elements by a given key

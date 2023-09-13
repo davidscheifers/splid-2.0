@@ -2,12 +2,11 @@ import { Button, Group, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
-import GroupTeaser from "../../features/Group/GroupTeaser";
-
-import { useFilterData } from "../../utils/hooks/useFilterData";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useGetAllQuery } from "../../api/GenericCalls/useGetAllQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
+import { useGetAllQuery } from "@/api/GenericCalls/useGetAllQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import GroupTeaser from "@/features/Group/GroupTeaser";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { useFilterData } from "@/utils/hooks/useFilterData";
 
 const Groups = () => {
     const { data, status } = useGetAllQuery({

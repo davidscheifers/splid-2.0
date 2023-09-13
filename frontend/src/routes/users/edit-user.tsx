@@ -1,8 +1,9 @@
 import { Box, Title } from "@mantine/core";
 import { useState } from "react";
-import UserForm from "../../features/User/UserForm";
-import { TUserForm } from "../../types/user";
 import { useParams } from "react-router-dom";
+
+import UserForm from "@/features/User/UserForm";
+import { TUserForm } from "@/types/user";
 
 const EditUserPage = () => {
     const { userId } = useParams<{ userId: string }>();

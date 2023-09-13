@@ -1,13 +1,12 @@
 import { Accordion, Title } from "@mantine/core";
 import { useParams } from "react-router-dom";
 
-import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
-
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
-import { Transaction } from "../../types/transactions";
-import { displayCurrency, groupBy } from "../../utils/functions/functions";
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import ExpenseTeaser from "@/features/Group/Expense/ExpenseTeaser";
+import { Transaction } from "@/types/transactions";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency, groupBy } from "@/utils/functions/functions";
 
 const Expenses = () => {
     const { id } = useParams<{ id: string }>();

@@ -1,5 +1,6 @@
 import { Button, TextInput, Title } from "@mantine/core";
-import { useJoinGroup } from "../../utils/hooks/Group/useJoinGroup";
+
+import { useJoinGroup } from "@/utils/hooks/Group/useJoinGroup";
 
 const JoinGroup = () => {
     const { code, setCode, handleSubmit } = useJoinGroup();

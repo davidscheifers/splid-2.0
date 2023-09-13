@@ -1,12 +1,13 @@
 import { Box, Title } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import { TExpenseForm } from "../../types/expenses";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { Transaction } from "../../types/transactions";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useUpdateMutation } from "../../api/GenericCalls/useUpdate";
-import TransactionForm from "../../features/Expense/TransactionForm";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import { useUpdateMutation } from "@/api/GenericCalls/useUpdate";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import TransactionForm from "@/features/Expense/TransactionForm";
+import { TExpenseForm } from "@/types/expenses";
+import { Transaction } from "@/types/transactions";
+import { apiEndPoints } from "@/utils/constants/constants";
 
 const EditExpensePage = () => {
     const { expenseId, id } = useParams<{ expenseId: string; id: string }>();

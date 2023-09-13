@@ -1,7 +1,8 @@
 import { Box, Title } from "@mantine/core";
 import { useState } from "react";
-import UserForm from "../../features/User/UserForm";
-import { TUserForm } from "../../types/user";
+
+import UserForm from "@/features/User/UserForm";
+import { TUserForm } from "@/types/user";
 
 const CreateUserPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);

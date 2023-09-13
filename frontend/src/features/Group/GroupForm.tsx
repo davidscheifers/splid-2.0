@@ -1,8 +1,8 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Paper, Select, TextInput } from "@mantine/core";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-import { GroupFormSchema, TGroupForm } from "../../types/group";
+import { GroupFormSchema, TGroupForm } from "@/types/group";
 
 type GroupFormProps = {
     /* form submit handler */
