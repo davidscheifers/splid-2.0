@@ -1,10 +1,10 @@
-name: AWS CDK Test & Deploy
+name: AWS CDK Development
 
 on:
   #push:
-    #branches: [ "main" ]
+    #branches: [ "develop" ]
   #pull_request:
-    #branches: [ "main" ]
+    #branches: [ "develop" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -36,13 +36,10 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Install Dependencies
-        run: npm install
+        run: cd backend && npm install
 
       - name: CDK Synthesize
         run: cdk synth
 
       - name: Run Tests
         run: npm test 
-
-      - name: CDK Deploy
-        run: cdk deploy --require-approval never 
