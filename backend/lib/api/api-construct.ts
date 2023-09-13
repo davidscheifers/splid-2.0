@@ -86,7 +86,9 @@ export class ApiConstruct extends Construct {
 
       { name: "createTransaction", path: "src/transactions/createTransactions.ts" },
       { name: "deleteTransaction", path: "src/transactions/deleteTransaction.ts" },
-      { name: "updateTransaction", path: "src/transactions/updateTransaction.ts" }
+      { name: "updateTransaction", path: "src/transactions/updateTransaction.ts" },
+
+      { name: "initTestData", path: "src/utils/init-test-data.ts"}
     ];
 
      // Create Lambda functions and API Gateway integrations.
@@ -149,6 +151,9 @@ export class ApiConstruct extends Construct {
     const secureResource = rootResource.addResource("secure");
     const paramResource = secureResource.addResource("{param}");
 
+    //adding test data
+    const initTestDataResource = paramResource.addResource("init");
+
     //group ressources 
     const groupResource =  secureResource.addResource('Groups');
     const groupIdResource = groupResource.addResource('{groupId}');
@@ -181,6 +186,12 @@ export class ApiConstruct extends Construct {
 
     const transactionResource = secureResource.addResource('Transactions');
     const transactionIdResource = transactionResource.addResource('{transactionId}');
+
+    //init
+    groupResource.addMethod('GET', integrations['initTestDataIntegration'], {
+      requestModels: { 'application/json': model },
+      apiKeyRequired: true
+    });
 
     //group methods
     groupResource.addMethod('GET', integrations['getGroupIntegration'], {
