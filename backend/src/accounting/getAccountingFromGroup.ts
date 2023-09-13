@@ -1,11 +1,10 @@
 import { Handler } from "aws-lambda";
 import { instantiateRdsClient } from "../utils/db-connection";
-import { Accounting } from "../models/accounting"; // Make sure to specify the correct path to the Accounting model
+import { Accounting } from "../models/accounting"; 
 import { createResponse } from "../utils/response-utils";
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  // Path: /Accounting/{groupId}
 
   try {
     console.log("getAccountingFromGroup lambda starts here");

@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  // Path: /Accounting/{groupId}/settle-debts
 
   try {
     console.log('getSettlingDebtsTransactions lambda starts here');
