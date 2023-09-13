@@ -70,13 +70,11 @@ describe("ApiConstruct", () => {
 
     test("should create a GET method on /groups", () => {
         const template = Template.fromStack(stack);
-    
-        // Check for existence of a resource with PathPart 'Groups'
+
         expect(template.findResources('AWS::ApiGateway::Resource', {
             PathPart: 'Groups'
         })).toBeTruthy();
     
-        // Check for existence of a GET method
         expect(template.findResources('AWS::ApiGateway::Method', {
             HttpMethod: 'GET'
         })).toBeTruthy();
