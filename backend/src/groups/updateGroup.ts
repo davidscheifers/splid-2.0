@@ -8,16 +8,6 @@ import { createResponse } from "../utils/response-utils";
 // Define the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  // Request body: application/json-patch+json
-  // {
-  //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  //   "name": "string",
-  //   "picturePath": "string",
-  //   "description": "string",
-  //   "createdAt": "2023-08-08T08:44:41.203Z",
-  //   "updatedAt": "2023-08-08T08:44:41.203Z",
-  //   "picture": "string"
-  // }
 
   try {
     // Lambda function starts

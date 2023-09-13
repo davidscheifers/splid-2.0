@@ -8,16 +8,6 @@ import { createResponse } from "../utils/response-utils";
 // Defines the Lambda handler function
 export const handler: Handler = async (event: any) => {
   let dataSource;
-  // request body: multipart/form-data
-  // string($uuid)
-  // Name
-  // string
-  // Description
-  // string
-  // Users
-  // array
-  // Picture
-  // string($binary)
 
   try {
     // Lambda function starts
