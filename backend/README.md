@@ -25,3 +25,7 @@ npm run build
 ```bash
 $ cdk deploy
 ```
+4. For test data:
+
+GET: <URL>/api/secure/Init
+(Check Postman-collection)
