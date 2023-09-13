@@ -1,37 +1,24 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+const api = `${Cypress.env("apiUrl")}`;
+
+Cypress.Commands.add("loadGroups", () => {
+    cy.intercept("GET", `${api}/prod/api/secure/User/admin/groups`, [
+        {
+            id: "1",
+            name: "Group 1",
+            picturePath: "https://picsum.photos/200",
+            description: "Group 1 description",
+            createdAt: "2021-01-01T00:00:00.000Z",
+            createdBy: "admin",
+            updatedAt: "2021-01-01T00:00:00.000Z",
+        },
+        {
+            id: "2",
+            name: "Group 2",
+            picturePath: "https://picsum.photos/200",
+            description: "Group 2 description",
+            createdAt: "2021-01-01T00:00:00.000Z",
+            createdBy: "admin",
+            updatedAt: "2021-01-01T00:00:00.000Z",
+        },
+    ]).as("loadGroups");
+});
