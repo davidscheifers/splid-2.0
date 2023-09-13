@@ -7,15 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 export const handler: Handler = async (event: any) => {
   let dataSource;
   // Expected JSON input structure for a single transaction or an array of transactions
-  /*
-  {
-    "description": "string",
-    "senderUsername": "string",
-    "receiverUsername": "string",
-    "amount": 0,
-    "groupId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-  }
-  */
 
   try {
     console.log('createTransactions lambda starts here')
