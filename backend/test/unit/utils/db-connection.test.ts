@@ -16,31 +16,31 @@ const mockSecretData = {
 };
 
 jest.mock('typeorm', () => {
-    const actualTypeOrm = jest.requireActual('typeorm');
-  
-    return {
-      ...actualTypeOrm,
-      DataSource: jest.fn().mockImplementation(() => {
-        return {
-          initialize: jest.fn().mockResolvedValue(true) 
-        };
-      }),
-    };
-  });
-  
- 
+  const actualTypeOrm = jest.requireActual('typeorm');
+
+  return {
+    ...actualTypeOrm,
+    DataSource: jest.fn().mockImplementation(() => {
+      return {
+        initialize: jest.fn().mockResolvedValue(true)
+      };
+    }),
+  };
+});
+
+
 // Mock SecretsManager
 jest.mock('aws-sdk', () => {
   return {
-    SecretsManager: function() {
+    SecretsManager: function () {
       return {
-        getSecretValue: function({ SecretId }: { SecretId?: string }) {
+        getSecretValue: function ({ SecretId }: { SecretId?: string }) {
           if (!SecretId) {
             throw new Error('No secret name provided');
           }
           if (SecretId === 'test_creds') {
             return {
-              promise: function() {
+              promise: function () {
                 return mockSecretData;
               }
             };
@@ -54,37 +54,45 @@ jest.mock('aws-sdk', () => {
 });
 
 describe('instantiateRdsClient', () => {
-    beforeEach(() => {
-      (DataSource as jest.MockedClass<typeof DataSource>).mockClear();
-    });
+  let originalRDSArn: string | undefined;
 
-test('Then the correct data is returned.', async () => {
+  beforeAll(() => {
+    originalRDSArn = process.env.RDS_ARN;
+  });
+
+  beforeEach(() => {
+    (DataSource as jest.MockedClass<typeof DataSource>).mockClear();
+  });
+
+  afterAll(() => {
+    process.env.RDS_ARN = originalRDSArn;
+  });
+
+  test('Then the correct data is returned.', async () => {
     const mockReturnValue = {
-        username: 'test',
-        password: 'password',
-        host: 'test'
+      username: 'test',
+      password: 'password',
+      host: 'test'
     };
     const secretManager = new SecretsManager();
     const resultData = await secretManager.getSecretValue({ SecretId: 'test_creds' }).promise();
     const result = JSON.parse(resultData.SecretString as string);
     expect(result).toEqual(mockReturnValue);
-});
+  });
 
-test('should instantiate DataSource with correct parameters', async () => {
-    process.env.RDS_ARN = 'test_creds'; 
-    console.log(process.env.RDS_ARN);   
+  test('should instantiate DataSource with correct parameters', async () => {
+    process.env.RDS_ARN = 'test_creds';
     await instantiateRdsClient();
-    console.log(DataSource);
-    
+
     expect(DataSource).toHaveBeenCalledWith({
       type: 'postgres',
-      host: 'test', 
+      host: 'test',
       port: 5432,
       username: 'test',
       password: 'password',
       database: 'postgres',
       schema: 'splid',
-      entities: [Group, Accounting, Transaction, User], 
+      entities: [Group, Accounting, Transaction, User],
       synchronize: false,
     });
   });
