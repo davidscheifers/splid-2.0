@@ -152,7 +152,7 @@ export class ApiConstruct extends Construct {
     const paramResource = secureResource.addResource("{param}");
 
     //adding test data
-    const initTestDataResource = paramResource.addResource("init");
+    const initTestDataResource = secureResource.addResource("Init");
 
     //group ressources 
     const groupResource =  secureResource.addResource('Groups');
@@ -188,7 +188,7 @@ export class ApiConstruct extends Construct {
     const transactionIdResource = transactionResource.addResource('{transactionId}');
 
     //init
-    groupResource.addMethod('GET', integrations['initTestDataIntegration'], {
+    initTestDataResource.addMethod('GET', integrations['initTestDataIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });

@@ -10,12 +10,8 @@ export const handler: Handler = async (event: any) => {
         console.log('init-test-data lambda starts here');
 
         dataSource = await instantiateRdsClient();
-
-        const queries = initSQL.split(';').filter(query => query.trim() !== '');
-
-        for (const query of queries) {
-            await dataSource.query(query);
-        }
+        
+        await dataSource.query(initSQL);
 
         return createResponse(200, 'Successfully added test data');
 
