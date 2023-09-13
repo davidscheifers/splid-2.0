@@ -1,7 +1,15 @@
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import { Construct } from 'constructs';
-
+/**
+ * VpcConstruct is a construct that sets up a VPC configuration tailored for RDS and Lambda resolvers.
+ * 
+ * Features:
+ * - Creates a VPC with both public and private isolated subnets.
+ * - Sets up security groups for RDS and Lambda resolvers.
+ * - Defines ingress rules to allow specific IP addresses and the resolvers to communicate with RDS.
+ * - Adds VPC interface endpoints for AWS Lambda and Secrets Manager, enabling resources within the VPC to communicate with these services without traversing the public internet.
+ */
 export class VpcConstruct extends Construct {
   public readonly vpc: ec2.Vpc;
   public readonly securityGroupResolvers: ec2.SecurityGroup;
@@ -17,7 +25,7 @@ export class VpcConstruct extends Construct {
       natGateways: 0,
       subnetConfiguration: [
         {
-          subnetType: ec2.SubnetType.PUBLIC, //Care with this, it's only for testing purposes
+          subnetType: ec2.SubnetType.PUBLIC, 
           cidrMask: 24,
           name: "rds",
         },
@@ -52,12 +60,6 @@ export class VpcConstruct extends Construct {
     // Ingress and Egress Rules
     this.securityGroupRds.addIngressRule(
       ec2.Peer.ipv4(myIpAddress),
-      ec2.Port.tcp(5432),
-      "Allow inbound traffic to RDS from local"
-    );
-
-    this.securityGroupRds.addIngressRule(
-      ec2.Peer.ipv4("82.207.248.40/32"),
       ec2.Port.tcp(5432),
       "Allow inbound traffic to RDS from local"
     );
