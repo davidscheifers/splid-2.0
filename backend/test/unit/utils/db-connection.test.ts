@@ -15,6 +15,7 @@ const mockSecretData = {
   CreatedDate: 'x'
 };
 
+// Mock TypeORM DataSource
 jest.mock('typeorm', () => {
   const actualTypeOrm = jest.requireActual('typeorm');
 
