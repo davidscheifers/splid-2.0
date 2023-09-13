@@ -41,8 +41,5 @@ jobs:
       - name: CDK Synthesize
         run: cdk synth
 
-      #- name: Run Tests
-      #  run: npm test 
-
       - name: CDK Deploy
         run: cdk deploy --require-approval never 
