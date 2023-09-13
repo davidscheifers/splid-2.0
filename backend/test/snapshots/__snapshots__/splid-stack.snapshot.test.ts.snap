@@ -1,0 +1,5422 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SplidStack Snapshot should match the snapshot 1`] = `
+"{
+  "Resources": {
+    "VpcConstructVPCB2C5493D": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "rds-vpc"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCrdsSubnet1Subnet9392AFA1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/rdsSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCrdsSubnet1RouteTable0FA6040F": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/rdsSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCrdsSubnet1RouteTableAssociationD5A68453": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCrdsSubnet1RouteTable0FA6040F"
+        },
+        "SubnetId": {
+          "Ref": "VpcConstructVPCrdsSubnet1Subnet9392AFA1"
+        }
+      }
+    },
+    "VpcConstructVPCrdsSubnet1DefaultRoute64C00726": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCrdsSubnet1RouteTable0FA6040F"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcConstructVPCIGW153FA63A"
+        }
+      },
+      "DependsOn": [
+        "VpcConstructVPCVPCGW7747E7B0"
+      ]
+    },
+    "VpcConstructVPCrdsSubnet2Subnet8ED5C8CB": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "rds"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/rdsSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCrdsSubnet2RouteTableB3DFCB91": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/rdsSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCrdsSubnet2RouteTableAssociationF9137DCC": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCrdsSubnet2RouteTableB3DFCB91"
+        },
+        "SubnetId": {
+          "Ref": "VpcConstructVPCrdsSubnet2Subnet8ED5C8CB"
+        }
+      }
+    },
+    "VpcConstructVPCrdsSubnet2DefaultRoute1B5D160A": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCrdsSubnet2RouteTableB3DFCB91"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcConstructVPCIGW153FA63A"
+        }
+      },
+      "DependsOn": [
+        "VpcConstructVPCVPCGW7747E7B0"
+      ]
+    },
+    "VpcConstructVPCresolversSubnet1Subnet25D93755": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.2.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "resolvers"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated"
+          },
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/resolversSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCresolversSubnet1RouteTable6644119E": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/resolversSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCresolversSubnet1RouteTable6644119E"
+        },
+        "SubnetId": {
+          "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+        }
+      }
+    },
+    "VpcConstructVPCresolversSubnet2Subnet5486C266": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.3.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "resolvers"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated"
+          },
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/resolversSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCresolversSubnet2RouteTableDF42A553": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestSplidStack/VpcConstruct/VPC/resolversSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcConstructVPCresolversSubnet2RouteTableDF42A553"
+        },
+        "SubnetId": {
+          "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+        }
+      }
+    },
+    "VpcConstructVPCIGW153FA63A": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "rds-vpc"
+          }
+        ]
+      }
+    },
+    "VpcConstructVPCVPCGW7747E7B0": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "InternetGatewayId": {
+          "Ref": "VpcConstructVPCIGW153FA63A"
+        }
+      }
+    },
+    "VpcConstructVPCLAMBDAA583B1A9": {
+      "Type": "AWS::EC2::VPCEndpoint",
+      "Properties": {
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".lambda"
+            ]
+          ]
+        },
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcConstructSecurityGroupResolvers4638CEA8",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetIds": [
+          {
+            "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+          },
+          {
+            "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+          }
+        ],
+        "VpcEndpointType": "Interface"
+      }
+    },
+    "VpcConstructVPCSECRETSMANAGER20E67E54": {
+      "Type": "AWS::EC2::VPCEndpoint",
+      "Properties": {
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".secretsmanager"
+            ]
+          ]
+        },
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        },
+        "PrivateDnsEnabled": true,
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "VpcConstructSecurityGroupResolvers4638CEA8",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetIds": [
+          {
+            "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+          },
+          {
+            "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+          }
+        ],
+        "VpcEndpointType": "Interface"
+      }
+    },
+    "VpcConstructSecurityGroupResolvers4638CEA8": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security Group with Resolvers",
+        "GroupName": "resolvers-sg",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": {
+              "Fn::GetAtt": [
+                "VpcConstructVPCB2C5493D",
+                "CidrBlock"
+              ]
+            },
+            "Description": {
+              "Fn::Join": [
+                "",
+                [
+                  "from ",
+                  {
+                    "Fn::GetAtt": [
+                      "VpcConstructVPCB2C5493D",
+                      "CidrBlock"
+                    ]
+                  },
+                  ":443"
+                ]
+              ]
+            },
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443
+          }
+        ],
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        }
+      }
+    },
+    "VpcConstructSecurityGroupRds6A3B6DBB": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security Group with RDS",
+        "GroupName": "rds-sg",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "46.223.163.10/32",
+            "Description": "Allow inbound traffic to RDS from local",
+            "FromPort": 5432,
+            "IpProtocol": "tcp",
+            "ToPort": 5432
+          }
+        ],
+        "VpcId": {
+          "Ref": "VpcConstructVPCB2C5493D"
+        }
+      }
+    },
+    "VpcConstructSecurityGroupRdsfromTestSplidStackVpcConstructSecurityGroupResolversB30FA71B5432F71F5C90": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "Allow inbound traffic to RDS",
+        "FromPort": 5432,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "VpcConstructSecurityGroupRds6A3B6DBB",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "VpcConstructSecurityGroupResolvers4638CEA8",
+            "GroupId"
+          ]
+        },
+        "ToPort": 5432
+      }
+    },
+    "IamConstructRole23600F9E": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Role used in the RDS construct",
+        "RoleName": "rds-role"
+      }
+    },
+    "IamConstructRoleDefaultPolicy41EBB786": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "cloudwatch:PutMetricData",
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeInstances",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeRouteTables",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "lambda:InvokeFunction",
+                "secretsmanager:GetSecretValue",
+                "kms:decrypt",
+                "rds-db:connect"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+              }
+            },
+            {
+              "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "RdsConstructDbCredentials279AF89A"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "IamConstructRoleDefaultPolicy41EBB786",
+        "Roles": [
+          {
+            "Ref": "IamConstructRole23600F9E"
+          }
+        ]
+      }
+    },
+    "RdsConstructDbCredentials279AF89A": {
+      "Type": "AWS::SecretsManager::Secret",
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludePunctuation": true,
+          "GenerateStringKey": "password",
+          "PasswordLength": 16,
+          "SecretStringTemplate": "{\\"username\\":\\"splidUser\\"}"
+        }
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
+    "RdsConstructDbCredentialsAttachment45CC68A5": {
+      "Type": "AWS::SecretsManager::SecretTargetAttachment",
+      "Properties": {
+        "SecretId": {
+          "Ref": "RdsConstructDbCredentials279AF89A"
+        },
+        "TargetId": {
+          "Ref": "RdsConstructPostgresRdsED96D6C8"
+        },
+        "TargetType": "AWS::RDS::DBInstance"
+      }
+    },
+    "RdsConstructPostgresRdsSubnetGroupBDE1F403": {
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "Subnet group for PostgresRds database",
+        "SubnetIds": [
+          {
+            "Ref": "VpcConstructVPCrdsSubnet1Subnet9392AFA1"
+          },
+          {
+            "Ref": "VpcConstructVPCrdsSubnet2Subnet8ED5C8CB"
+          }
+        ]
+      }
+    },
+    "RdsConstructPostgresRdsED96D6C8": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "AllocatedStorage": "10",
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "BackupRetentionPeriod": 0,
+        "CopyTagsToSnapshot": true,
+        "DBInstanceClass": "db.t3.micro",
+        "DBInstanceIdentifier": "spliddb-instance",
+        "DBSubnetGroupName": {
+          "Ref": "RdsConstructPostgresRdsSubnetGroupBDE1F403"
+        },
+        "DeleteAutomatedBackups": true,
+        "Engine": "postgres",
+        "EngineVersion": "14.6",
+        "MasterUsername": {
+          "Fn::Join": [
+            "",
+            [
+              "{{resolve:secretsmanager:",
+              {
+                "Ref": "RdsConstructDbCredentials279AF89A"
+              },
+              ":SecretString:username::}}"
+            ]
+          ]
+        },
+        "MasterUserPassword": {
+          "Fn::Join": [
+            "",
+            [
+              "{{resolve:secretsmanager:",
+              {
+                "Ref": "RdsConstructDbCredentials279AF89A"
+              },
+              ":SecretString:password::}}"
+            ]
+          ]
+        },
+        "MaxAllocatedStorage": 10,
+        "Port": "5432",
+        "PubliclyAccessible": true,
+        "StorageType": "gp2",
+        "VPCSecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "VpcConstructSecurityGroupRds6A3B6DBB",
+              "GroupId"
+            ]
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Snapshot",
+      "DeletionPolicy": "Snapshot"
+    },
+    "ApiConstructgetGroupsResolverE8198707": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "a46c2e19770d534d71a7d560113667aac12af9d71237fd0fa0f8a00f7c59152b.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getGroupsResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetGroupDetailsResolverAD2F8DEA": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "057a659a48d688f4c2c7dae76da35ff5e7bf4e14493a35b42653641756b93a16.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getGroupDetailsResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetExpensesFromGroupUser0F0623F6": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "cb8975885844a9b5fe199dc37087ef2a1fdd4ed8a8f90c8e4f972f77fc7156f4.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getExpensesFromGroupUser",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetIncomesFromGroupUser8EACEE02": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "ddd307c7442c384813f7fe16421b0fe5d7483e2c50ce85aef97a2ca66cd8de51.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getIncomesFromGroupUser",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructaddGroupResolver1C234ED9": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "b73e5da73f46424acadeab6df6c9a1a57c99137af45cec612f6007ee8afe3a86.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "addGroupResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructdeleteGroupResolver6DF963CC": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "6b63e0ae66a517d5843a0ffb38c0ed4c6d9c6ef513278f209eabec0a2ce0b881.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "deleteGroupResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructupdateGroupResolver36751872": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "6d00ea5bd8a2e6de3dc3437d0cda1e179ac1df4024594200c6b9a9d67b4cef6a.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "updateGroupResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructsearchGroupOfUserResolver0498F8F6": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "7e38c59dd2fd186bdd101016e2bf3dd5e6f215978cea24bd3f45f6e36173c6b3.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "searchGroupOfUserResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetTransactionsFromGroupResolverB34C68A9": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "3f688decc87d46b94447dc8984ae66ec947ba8e6c97edf91758442e4fb5c8bbb.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getTransactionsFromGroupResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetUserInfoResolverA330F7CA": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "a00c5221437db64f76b1690ccb4be5482c1149b5d248d6390772aeee56c7b411.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getUserInfoResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetGroupsFromUserResolver3C10CF65": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "596f56b1efdd6112520fc162012522835ae27e5bb93cec40492470a5df4958bf.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getGroupsFromUserResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructaddUserResolver1C4E4C7F": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "baa26abbf6994dc4a8a67978a4ded42af58b1b007e7be75290c4df1bcf2185a1.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "addUserResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetAccountingFromGroupResolverD0FA59B8": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "9685ebceec9d502ec57ad46b92b231cf04a3ead319f5442d5fc7ae95491c7a2d.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getAccountingFromGroupResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetSettlingDebtsTransactionsResolver70758674": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "8b4c1dd6451be98763c352819fd2c88171b45ca78b9203956cb35c9d6a630325.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getSettlingDebtsTransactionsResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructgetTransactionByIdResolverC87CECBA": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "86926e3dad1f1d7ddd4cf53f421d2c25492aaa301ee00498f649e3f5c8c8d2e4.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "getTransactionByIdResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructcreateTransactionResolverE9514141": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "4600abe776cfd15ab184e9e833a5ce07a7a412f527095c55875254acd8e5fe29.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "createTransactionResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructdeleteTransactionResolver290A7911": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "893792ec31970cd0727672d1c184a9f45c52dc7e98068ac9607faef6ef2d584a.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "deleteTransactionResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructupdateTransactionResolverDB318860": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "7189208410e0854768c5556fd5367b75ec96702199c115eefc95b12d2b5569b9.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "updateTransactionResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
+    "ApiConstructRestAPI5351261E": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Description": "Rest Api Gateway used for Api Gateway",
+        "Name": "splid-rest-api"
+      }
+    },
+    "ApiConstructRestAPICloudWatchRole02A6985D": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "ApiConstructRestAPIAccount092661B5": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "ApiConstructRestAPICloudWatchRole02A6985D",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "ApiConstructRestAPI5351261E"
+      ],
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "ApiConstructRestAPIDeployment712B13E595c9d23da737c584f5ad1fe01410b141": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "Description": "Rest Api Gateway used for Api Gateway"
+      },
+      "DependsOn": [
+        "ApiConstructModel1E078612",
+        "ApiConstructRestAPIapiOPTIONSC4D9A4F6",
+        "ApiConstructRestAPIapi019048AE",
+        "ApiConstructRestAPIapisecureparamOPTIONS6FC1A4D6",
+        "ApiConstructRestAPIapisecureparamF6B8C06D",
+        "ApiConstructRestAPIapisecureAccountinggroupIdGETFAA72E26",
+        "ApiConstructRestAPIapisecureAccountinggroupIdOPTIONS64FDE223",
+        "ApiConstructRestAPIapisecureAccountinggroupIdB857CD1E",
+        "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsGETCC297DB1",
+        "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsOPTIONS395B925D",
+        "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsE947CB41",
+        "ApiConstructRestAPIapisecureAccountingOPTIONSD08414D0",
+        "ApiConstructRestAPIapisecureAccounting2661D4CB",
+        "ApiConstructRestAPIapisecureGroupsgroupIdDELETE439A0012",
+        "ApiConstructRestAPIapisecureGroupsgroupIddetailsGET9BFB25A9",
+        "ApiConstructRestAPIapisecureGroupsgroupIddetailsOPTIONS77880657",
+        "ApiConstructRestAPIapisecureGroupsgroupIddetailsE75A6844",
+        "ApiConstructRestAPIapisecureGroupsgroupIdOPTIONSE59C2966",
+        "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36",
+        "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsGET0A379E18",
+        "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsOPTIONSB997EAF4",
+        "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsC1E79050",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGET18E0F30C",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseOPTIONSBF466E1B",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseBCA4A623",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeGET7EC4EE77",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeOPTIONSC4BBF6DA",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeDFFD8ED1",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameOPTIONS892368C3",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersusername2DBAE763",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusersOPTIONSC4204E31",
+        "ApiConstructRestAPIapisecureGroupsgroupIdusers09E41EB3",
+        "ApiConstructRestAPIapisecureGroupsGETA6F17F76",
+        "ApiConstructRestAPIapisecureGroupsOPTIONS6B0BD48D",
+        "ApiConstructRestAPIapisecureGroupsPOSTA6D3C67A",
+        "ApiConstructRestAPIapisecureGroupsPUTD7473671",
+        "ApiConstructRestAPIapisecureGroupsA49199CA",
+        "ApiConstructRestAPIapisecureGroupssearchGETFBE6E1DC",
+        "ApiConstructRestAPIapisecureGroupssearchOPTIONSAA8FD572",
+        "ApiConstructRestAPIapisecureGroupssearchAF0FD1D0",
+        "ApiConstructRestAPIapisecureOPTIONS3B7A8213",
+        "ApiConstructRestAPIapisecure78E8B595",
+        "ApiConstructRestAPIapisecureTransactionstransactionIdDELETE7A40AAD1",
+        "ApiConstructRestAPIapisecureTransactionstransactionIdGETDE4E75F9",
+        "ApiConstructRestAPIapisecureTransactionstransactionIdOPTIONSC7021196",
+        "ApiConstructRestAPIapisecureTransactionstransactionIdPUTE57D95D2",
+        "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8",
+        "ApiConstructRestAPIapisecureTransactionsOPTIONSDD0E9185",
+        "ApiConstructRestAPIapisecureTransactionsPOSTD6BA5942",
+        "ApiConstructRestAPIapisecureTransactionsA9C4196A",
+        "ApiConstructRestAPIapisecureUserusernameGETB193179B",
+        "ApiConstructRestAPIapisecureUserusernamegroupsGET2891DDD3",
+        "ApiConstructRestAPIapisecureUserusernamegroupsOPTIONS2C24A2E7",
+        "ApiConstructRestAPIapisecureUserusernamegroupsF8FFF08C",
+        "ApiConstructRestAPIapisecureUserusernameOPTIONS8AD392F2",
+        "ApiConstructRestAPIapisecureUserusername270CF17C",
+        "ApiConstructRestAPIapisecureUserOPTIONS22EC03EB",
+        "ApiConstructRestAPIapisecureUserPOST55A98D67",
+        "ApiConstructRestAPIapisecureUserDF460C45",
+        "ApiConstructRestAPIOPTIONS2E947649",
+        "ApiConstructsplidbodyandparamvalidator06EFE4E6",
+        "ApiConstructsplidbodyvalidatorE518440C",
+        "ApiConstructsplidparamvalidatorC218274D"
+      ]
+    },
+    "ApiConstructRestAPIDeploymentStageprod12BEF39A": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "DeploymentId": {
+          "Ref": "ApiConstructRestAPIDeployment712B13E595c9d23da737c584f5ad1fe01410b141"
+        },
+        "StageName": "prod"
+      },
+      "DependsOn": [
+        "ApiConstructRestAPIAccount092661B5"
+      ]
+    },
+    "ApiConstructRestAPIOPTIONS2E947649": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "ApiConstructRestAPI5351261E",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapi019048AE": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiConstructRestAPI5351261E",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "api",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapiOPTIONSC4D9A4F6": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapi019048AE"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecure78E8B595": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapi019048AE"
+        },
+        "PathPart": "secure",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureOPTIONS3B7A8213": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureparamF6B8C06D": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "{param}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureparamOPTIONS6FC1A4D6": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureparamF6B8C06D"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsA49199CA": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "Groups",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsOPTIONS6B0BD48D": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "PathPart": "{groupId}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdOPTIONSE59C2966": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsC1E79050": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36"
+        },
+        "PathPart": "transactions",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsOPTIONSB997EAF4": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsC1E79050"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdtransactions23B4415D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetTransactionsFromGroupResolverB34C68A9",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups/*/transactions"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdtransactions9B01178F": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetTransactionsFromGroupResolverB34C68A9",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups/*/transactions"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsGET0A379E18": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdtransactionsC1E79050"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetTransactionsFromGroupResolverB34C68A9",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusers09E41EB3": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36"
+        },
+        "PathPart": "users",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersOPTIONSC4204E31": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusers09E41EB3"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusername2DBAE763": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusers09E41EB3"
+        },
+        "PathPart": "{username}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameOPTIONS892368C3": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusername2DBAE763"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseBCA4A623": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusername2DBAE763"
+        },
+        "PathPart": "expense",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseOPTIONSBF466E1B": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseBCA4A623"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameexpense9F6E2D7D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetExpensesFromGroupUser0F0623F6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups/*/users/*/expense"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameexpense7123CF50": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetExpensesFromGroupUser0F0623F6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups/*/users/*/expense"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGET18E0F30C": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseBCA4A623"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetExpensesFromGroupUser0F0623F6",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeDFFD8ED1": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusername2DBAE763"
+        },
+        "PathPart": "income",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeOPTIONSC4BBF6DA": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeDFFD8ED1"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameincomeA858B6D0": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetIncomesFromGroupUser8EACEE02",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups/*/users/*/income"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameincomeF8A232C1": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetIncomesFromGroupUser8EACEE02",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups/*/users/*/income"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeGET7EC4EE77": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameincomeDFFD8ED1"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetIncomesFromGroupUser8EACEE02",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIddetailsE75A6844": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36"
+        },
+        "PathPart": "details",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIddetailsOPTIONS77880657": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIddetailsE75A6844"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIddetailsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIddetails7A083773": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupDetailsResolverAD2F8DEA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups/*/details"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIddetailsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIddetailsE03E32CB": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupDetailsResolverAD2F8DEA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups/*/details"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIddetailsGET9BFB25A9": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupIddetailsE75A6844"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetGroupDetailsResolverAD2F8DEA",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdDELETEApiPermissionTestSplidStackApiConstructRestAPIEB1D3817DELETEapisecureGroupsgroupId447AA929": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructdeleteGroupResolver6DF963CC",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/DELETE/api/secure/Groups/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdDELETEApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817DELETEapisecureGroupsgroupIdE220A377": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructdeleteGroupResolver6DF963CC",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/DELETE/api/secure/Groups/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsgroupIdDELETE439A0012": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "DELETE",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsgroupId9C5B8B36"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructdeleteGroupResolver6DF963CC",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupssearchAF0FD1D0": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "PathPart": "search",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupssearchOPTIONSAA8FD572": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupssearchAF0FD1D0"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupssearchGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupssearchD916AB04": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructsearchGroupOfUserResolver0498F8F6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups/search"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupssearchGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupssearch3BE5AB78": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructsearchGroupOfUserResolver0498F8F6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups/search"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupssearchGETFBE6E1DC": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupssearchAF0FD1D0"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructsearchGroupOfUserResolver0498F8F6",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsC7092C0C": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupsResolverE8198707",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroups90DBD91F": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupsResolverE8198707",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsGETA6F17F76": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetGroupsResolverE8198707",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPOSTApiPermissionTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureGroups9B62EC37": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructaddGroupResolver1C234ED9",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/POST/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPOSTApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureGroupsABF08368": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructaddGroupResolver1C234ED9",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/POST/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPOSTA6D3C67A": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructaddGroupResolver1C234ED9",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPUTApiPermissionTestSplidStackApiConstructRestAPIEB1D3817PUTapisecureGroups7C1AA880": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructupdateGroupResolver36751872",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/PUT/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPUTApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817PUTapisecureGroups9E0CBF26": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructupdateGroupResolver36751872",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/PUT/api/secure/Groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureGroupsPUTD7473671": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "PUT",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureGroupsA49199CA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructupdateGroupResolver36751872",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserDF460C45": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "User",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserOPTIONS22EC03EB": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserDF460C45"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusername270CF17C": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureUserDF460C45"
+        },
+        "PathPart": "{username}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernameOPTIONS8AD392F2": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserusername270CF17C"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernamegroupsF8FFF08C": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureUserusername270CF17C"
+        },
+        "PathPart": "groups",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernamegroupsOPTIONS2C24A2E7": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserusernamegroupsF8FFF08C"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernamegroupsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureUserusernamegroupsDAA92D4F": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupsFromUserResolver3C10CF65",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/User/*/groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernamegroupsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureUserusernamegroups8E038DBE": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetGroupsFromUserResolver3C10CF65",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/User/*/groups"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernamegroupsGET2891DDD3": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserusernamegroupsF8FFF08C"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetGroupsFromUserResolver3C10CF65",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernameGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureUserusername8C157CB3": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetUserInfoResolverA330F7CA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/User/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernameGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureUserusername66512273": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetUserInfoResolverA330F7CA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/User/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserusernameGETB193179B": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserusername270CF17C"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetUserInfoResolverA330F7CA",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserPOSTApiPermissionTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureUserA60C1F98": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructaddUserResolver1C4E4C7F",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/POST/api/secure/User"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserPOSTApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureUserF0CD0353": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructaddUserResolver1C4E4C7F",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/POST/api/secure/User"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureUserPOST55A98D67": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureUserDF460C45"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructaddUserResolver1C4E4C7F",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccounting2661D4CB": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "Accounting",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountingOPTIONSD08414D0": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureAccounting2661D4CB"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdB857CD1E": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureAccounting2661D4CB"
+        },
+        "PathPart": "{groupId}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdOPTIONS64FDE223": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureAccountinggroupIdB857CD1E"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsE947CB41": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureAccountinggroupIdB857CD1E"
+        },
+        "PathPart": "settle-debts",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsOPTIONS395B925D": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsE947CB41"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureAccountinggroupIdsettledebts206B5726": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetSettlingDebtsTransactionsResolver70758674",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Accounting/*/settle-debts"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureAccountinggroupIdsettledebts39A18682": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetSettlingDebtsTransactionsResolver70758674",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Accounting/*/settle-debts"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsGETCC297DB1": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureAccountinggroupIdsettledebtsE947CB41"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetSettlingDebtsTransactionsResolver70758674",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureAccountinggroupId7543290A": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetAccountingFromGroupResolverD0FA59B8",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Accounting/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureAccountinggroupIdE712F80C": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetAccountingFromGroupResolverD0FA59B8",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Accounting/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureAccountinggroupIdGETFAA72E26": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureAccountinggroupIdB857CD1E"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetAccountingFromGroupResolverD0FA59B8",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionsA9C4196A": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "Transactions",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionsOPTIONSDD0E9185": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionsA9C4196A"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionsA9C4196A"
+        },
+        "PathPart": "{transactionId}",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdOPTIONSC7021196": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureTransactionstransactionId22372C63": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetTransactionByIdResolverC87CECBA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureTransactionstransactionIdC6E980EB": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructgetTransactionByIdResolverC87CECBA",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdGETDE4E75F9": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructgetTransactionByIdResolverC87CECBA",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdDELETEApiPermissionTestSplidStackApiConstructRestAPIEB1D3817DELETEapisecureTransactionstransactionIdA68C5171": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructdeleteTransactionResolver290A7911",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/DELETE/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdDELETEApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817DELETEapisecureTransactionstransactionId9F2757F0": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructdeleteTransactionResolver290A7911",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/DELETE/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdDELETE7A40AAD1": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "DELETE",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructdeleteTransactionResolver290A7911",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdPUTApiPermissionTestSplidStackApiConstructRestAPIEB1D3817PUTapisecureTransactionstransactionId99C3C1C0": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructupdateTransactionResolverDB318860",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/PUT/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdPUTApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817PUTapisecureTransactionstransactionId49883B6F": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructupdateTransactionResolverDB318860",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/PUT/api/secure/Transactions/*"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionstransactionIdPUTE57D95D2": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "PUT",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionstransactionId42AD9AC8"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructupdateTransactionResolverDB318860",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionsPOSTApiPermissionTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureTransactionsCD905896": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructcreateTransactionResolverE9514141",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/POST/api/secure/Transactions"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionsPOSTApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817POSTapisecureTransactions91246BEA": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructcreateTransactionResolverE9514141",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/POST/api/secure/Transactions"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureTransactionsPOSTD6BA5942": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureTransactionsA9C4196A"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructcreateTransactionResolverE9514141",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
+      }
+    },
+    "ApiConstructRestAPIUsagePlanC14B588A": {
+      "Type": "AWS::ApiGateway::UsagePlan",
+      "Properties": {
+        "ApiStages": [
+          {
+            "ApiId": {
+              "Ref": "ApiConstructRestAPI5351261E"
+            },
+            "Stage": {
+              "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+            },
+            "Throttle": {}
+          }
+        ],
+        "Description": "Usage plan used for Api Gateway",
+        "Quota": {
+          "Limit": 500,
+          "Period": "DAY"
+        },
+        "Throttle": {
+          "BurstLimit": 20,
+          "RateLimit": 40
+        },
+        "UsagePlanName": "splid-usage-plan"
+      }
+    },
+    "ApiConstructRestAPIUsagePlanUsagePlanKeyResourceTestSplidStackApiConstructRestAPIApiKey90371B766A4849D6": {
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+      "Properties": {
+        "KeyId": {
+          "Ref": "ApiConstructRestAPIApiKey48D68736"
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": {
+          "Ref": "ApiConstructRestAPIUsagePlanC14B588A"
+        }
+      }
+    },
+    "ApiConstructRestAPIApiKey48D68736": {
+      "Type": "AWS::ApiGateway::ApiKey",
+      "Properties": {
+        "Description": "Api Key used for Api Gateway",
+        "Enabled": true,
+        "Name": "splid-api-key",
+        "StageKeys": [
+          {
+            "RestApiId": {
+              "Ref": "ApiConstructRestAPI5351261E"
+            },
+            "StageName": {
+              "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+            }
+          }
+        ]
+      }
+    },
+    "ApiConstructsplidbodyvalidatorE518440C": {
+      "Type": "AWS::ApiGateway::RequestValidator",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "Name": "splid-body-validator",
+        "ValidateRequestBody": true,
+        "ValidateRequestParameters": false
+      }
+    },
+    "ApiConstructsplidparamvalidatorC218274D": {
+      "Type": "AWS::ApiGateway::RequestValidator",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "Name": "splid-param-validator",
+        "ValidateRequestBody": false,
+        "ValidateRequestParameters": true
+      }
+    },
+    "ApiConstructsplidbodyandparamvalidator06EFE4E6": {
+      "Type": "AWS::ApiGateway::RequestValidator",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "Name": "splid-body-and-param-validator",
+        "ValidateRequestBody": true,
+        "ValidateRequestParameters": true
+      }
+    },
+    "ApiConstructModel1E078612": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ContentType": "application/json",
+        "Name": "SplidModel",
+        "Schema": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ApiConstructRestAPIEndpointAEE49FEE": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "ApiConstructRestAPI5351261E"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+            },
+            "/"
+          ]
+        ]
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}"
+`;
