@@ -1,4 +1,5 @@
 import { Container } from "@mantine/core";
+
 import TopNavigation from "../Navigation/TopNavigation";
 
 type AppShellProps = {

@@ -1,8 +1,6 @@
 import { Handler } from "aws-lambda";
 import { instantiateRdsClient } from "../utils/db-connection";
 import { Group } from "../models/group";
-import { User } from "../models/user";
-import { Accounting } from "../models/accounting";
 import { createResponse } from "../utils/response-utils";
 
 // Define the Lambda handler function

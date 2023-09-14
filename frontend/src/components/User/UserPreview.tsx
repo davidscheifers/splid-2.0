@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { TDummyUser } from "../../types/group";
 import { Avatar, Group, Title } from "@mantine/core";
-import { getFirstCharacterFromString } from "../../utils/functions/functions";
+import { Link } from "react-router-dom";
+
+import { TDummyUser } from "@/types/group";
+import { getFirstCharacterFromString } from "@/utils/functions/functions";
 
 type UserPreviewProps = {
     /* user information */

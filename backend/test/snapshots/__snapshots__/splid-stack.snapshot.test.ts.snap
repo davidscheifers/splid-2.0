@@ -657,7 +657,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "a46c2e19770d534d71a7d560113667aac12af9d71237fd0fa0f8a00f7c59152b.zip"
+          "S3Key": "faa38f8ced641d759b686cde2ce6f5842ecc211870f40223a44a395b3828220d.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -721,7 +721,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "057a659a48d688f4c2c7dae76da35ff5e7bf4e14493a35b42653641756b93a16.zip"
+          "S3Key": "89ee4a3f56ccf363c78db81ff39a2bdcd2be313011dd719840a89b40d8516933.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -778,14 +778,14 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
       ]
     },
-    "ApiConstructgetExpensesFromGroupUser0F0623F6": {
+    "ApiConstructgetExpensesFromGroupUserResolverD3E4CC0A": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "cb8975885844a9b5fe199dc37087ef2a1fdd4ed8a8f90c8e4f972f77fc7156f4.zip"
+          "S3Key": "9a2c5842042f5741de83baaaadd81fdd82015977d046a9d7a39526a5bbd80862.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -810,7 +810,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
           }
         },
-        "FunctionName": "getExpensesFromGroupUser",
+        "FunctionName": "getExpensesFromGroupUserResolver",
         "Handler": "index.handler",
         "Runtime": "nodejs18.x",
         "Timeout": 120,
@@ -842,14 +842,14 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
       ]
     },
-    "ApiConstructgetIncomesFromGroupUser8EACEE02": {
+    "ApiConstructgetIncomesFromGroupUserResolverB5BDED3C": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "ddd307c7442c384813f7fe16421b0fe5d7483e2c50ce85aef97a2ca66cd8de51.zip"
+          "S3Key": "06166b3439cb515e282e7b9fcf18cfa8709880a6034570a568a80a02ec88f3e4.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -874,7 +874,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
           }
         },
-        "FunctionName": "getIncomesFromGroupUser",
+        "FunctionName": "getIncomesFromGroupUserResolver",
         "Handler": "index.handler",
         "Runtime": "nodejs18.x",
         "Timeout": 120,
@@ -913,7 +913,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "b73e5da73f46424acadeab6df6c9a1a57c99137af45cec612f6007ee8afe3a86.zip"
+          "S3Key": "469fbfd795d8dac37141e4b45efc727830e180b99ac871ab06421b14e30b4782.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -977,7 +977,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "6b63e0ae66a517d5843a0ffb38c0ed4c6d9c6ef513278f209eabec0a2ce0b881.zip"
+          "S3Key": "ce839b9b5f0979cb4a7c93ed26dfb8f231c4da656887d0946fba560e6ddfeff9.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1041,7 +1041,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "6d00ea5bd8a2e6de3dc3437d0cda1e179ac1df4024594200c6b9a9d67b4cef6a.zip"
+          "S3Key": "87032fc0300b14088993e11ec78064e3049109b467a7f8b61630c821efa648d0.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1105,7 +1105,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "7e38c59dd2fd186bdd101016e2bf3dd5e6f215978cea24bd3f45f6e36173c6b3.zip"
+          "S3Key": "5ac29f485396ebfe26a5973511fd0add62f10aff540988719241dee0eeb7b828.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1169,7 +1169,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "3f688decc87d46b94447dc8984ae66ec947ba8e6c97edf91758442e4fb5c8bbb.zip"
+          "S3Key": "fae704a9dbe38d9b08990749633edc147420c9ac4d44a6860f3447db96d07598.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1233,7 +1233,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "a00c5221437db64f76b1690ccb4be5482c1149b5d248d6390772aeee56c7b411.zip"
+          "S3Key": "afecef3df37b786135afad36c53c5bce20b77de8f1dd4c4efe2d16da6a0b63f3.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1297,7 +1297,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "596f56b1efdd6112520fc162012522835ae27e5bb93cec40492470a5df4958bf.zip"
+          "S3Key": "f3c0771f59bbf29468fd918a85dde184eae9698dbec340de42a3180249157239.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1361,7 +1361,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "baa26abbf6994dc4a8a67978a4ded42af58b1b007e7be75290c4df1bcf2185a1.zip"
+          "S3Key": "b6f06c3b6261223c3f9841244aefe09126d178b18a03afdeae329418caf2a77e.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1425,7 +1425,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "9685ebceec9d502ec57ad46b92b231cf04a3ead319f5442d5fc7ae95491c7a2d.zip"
+          "S3Key": "985070ad69d79e8b2edc3419e4b7327e7dfdb28f2ee7a7e894d8b7a90d19f91f.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1617,7 +1617,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
-          "S3Key": "4600abe776cfd15ab184e9e833a5ce07a7a412f527095c55875254acd8e5fe29.zip"
+          "S3Key": "f6864222e94d634d0ab57376f7c0eb667a2db1e32f311487013a55b25262ecd9.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1802,6 +1802,70 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
       ]
     },
+    "ApiConstructinitTestDataResolverF5C5B011": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
+          },
+          "S3Key": "342668ad0949acd63e4ace6ac22719dfc7834e2f0b492c842b9312691342642c.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamConstructRole23600F9E",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "RDS_ARN": {
+              "Ref": "RdsConstructDbCredentialsAttachment45CC68A5"
+            },
+            "CREDENTIALS_ARN": {
+              "Ref": "RdsConstructDbCredentials279AF89A"
+            },
+            "HOST": {
+              "Fn::GetAtt": [
+                "RdsConstructPostgresRdsED96D6C8",
+                "Endpoint.Address"
+              ]
+            },
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "initTestDataResolver",
+        "Handler": "index.handler",
+        "Runtime": "nodejs18.x",
+        "Timeout": 120,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "VpcConstructSecurityGroupResolvers4638CEA8",
+                "GroupId"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "VpcConstructVPCresolversSubnet1Subnet25D93755"
+            },
+            {
+              "Ref": "VpcConstructVPCresolversSubnet2Subnet5486C266"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "IamConstructRoleDefaultPolicy41EBB786",
+        "IamConstructRole23600F9E",
+        "RdsConstructPostgresRdsED96D6C8",
+        "RdsConstructPostgresRdsSubnetGroupBDE1F403",
+        "VpcConstructVPCresolversSubnet1RouteTableAssociation984F4527",
+        "VpcConstructVPCresolversSubnet2RouteTableAssociation5FEDD335"
+      ]
+    },
     "ApiConstructRestAPI5351261E": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
@@ -1858,7 +1922,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain"
     },
-    "ApiConstructRestAPIDeployment712B13E595c9d23da737c584f5ad1fe01410b141": {
+    "ApiConstructRestAPIDeployment712B13E5e73422749b676a35a496b6f8eda8f4d4": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1907,6 +1971,9 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "ApiConstructRestAPIapisecureGroupssearchGETFBE6E1DC",
         "ApiConstructRestAPIapisecureGroupssearchOPTIONSAA8FD572",
         "ApiConstructRestAPIapisecureGroupssearchAF0FD1D0",
+        "ApiConstructRestAPIapisecureInitGET567F047F",
+        "ApiConstructRestAPIapisecureInitOPTIONS2AFAD21E",
+        "ApiConstructRestAPIapisecureInit02233BFA",
         "ApiConstructRestAPIapisecureOPTIONS3B7A8213",
         "ApiConstructRestAPIapisecure78E8B595",
         "ApiConstructRestAPIapisecureTransactionstransactionIdDELETE7A40AAD1",
@@ -1939,7 +2006,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "Ref": "ApiConstructRestAPI5351261E"
         },
         "DeploymentId": {
-          "Ref": "ApiConstructRestAPIDeployment712B13E595c9d23da737c584f5ad1fe01410b141"
+          "Ref": "ApiConstructRestAPIDeployment712B13E5e73422749b676a35a496b6f8eda8f4d4"
         },
         "StageName": "prod"
       },
@@ -2143,6 +2210,181 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
             "StatusCode": "204"
           }
         ]
+      }
+    },
+    "ApiConstructRestAPIapisecureInit02233BFA": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiConstructRestAPIapisecure78E8B595"
+        },
+        "PathPart": "Init",
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureInitOPTIONS2AFAD21E": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureInit02233BFA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PATCH,DELETE,PUT'"
+              },
+              "StatusCode": "204"
+            }
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "StatusCode": "204"
+          }
+        ]
+      }
+    },
+    "ApiConstructRestAPIapisecureInitGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureInit35574064": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructinitTestDataResolverF5C5B011",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/",
+              {
+                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
+              },
+              "/GET/api/secure/Init"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureInitGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureInit77F27899": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ApiConstructinitTestDataResolverF5C5B011",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiConstructRestAPI5351261E"
+              },
+              "/test-invoke-stage/GET/api/secure/Init"
+            ]
+          ]
+        }
+      }
+    },
+    "ApiConstructRestAPIapisecureInitGET567F047F": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "ResourceId": {
+          "Ref": "ApiConstructRestAPIapisecureInit02233BFA"
+        },
+        "RestApiId": {
+          "Ref": "ApiConstructRestAPI5351261E"
+        },
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ApiConstructinitTestDataResolverF5C5B011",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiConstructModel1E078612"
+          }
+        }
       }
     },
     "ApiConstructRestAPIapisecureGroupsA49199CA": {
@@ -2575,84 +2817,6 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         ]
       }
     },
-    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameexpense9F6E2D7D": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "ApiConstructgetExpensesFromGroupUser0F0623F6",
-            "Arn"
-          ]
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiConstructRestAPI5351261E"
-              },
-              "/",
-              {
-                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
-              },
-              "/GET/api/secure/Groups/*/users/*/expense"
-            ]
-          ]
-        }
-      }
-    },
-    "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsgroupIdusersusernameexpense7123CF50": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "ApiConstructgetExpensesFromGroupUser0F0623F6",
-            "Arn"
-          ]
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiConstructRestAPI5351261E"
-              },
-              "/test-invoke-stage/GET/api/secure/Groups/*/users/*/expense"
-            ]
-          ]
-        }
-      }
-    },
     "ApiConstructRestAPIapisecureGroupsgroupIdusersusernameexpenseGET18E0F30C": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -2666,31 +2830,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "ApiKeyRequired": true,
         "AuthorizationType": "NONE",
         "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "ApiConstructgetExpensesFromGroupUser0F0623F6",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
+          "Type": "MOCK"
         },
         "RequestModels": {
           "application/json": {
@@ -2756,7 +2896,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "ApiConstructgetIncomesFromGroupUser8EACEE02",
+            "ApiConstructgetIncomesFromGroupUserResolverB5BDED3C",
             "Arn"
           ]
         },
@@ -2797,7 +2937,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "ApiConstructgetIncomesFromGroupUser8EACEE02",
+            "ApiConstructgetIncomesFromGroupUserResolverB5BDED3C",
             "Arn"
           ]
         },
@@ -2858,7 +2998,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "ApiConstructgetIncomesFromGroupUser8EACEE02",
+                    "ApiConstructgetIncomesFromGroupUserResolverB5BDED3C",
                     "Arn"
                   ]
                 },
@@ -3348,84 +3488,6 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         }
       }
     },
-    "ApiConstructRestAPIapisecureGroupsGETApiPermissionTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroupsC7092C0C": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "ApiConstructgetGroupsResolverE8198707",
-            "Arn"
-          ]
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiConstructRestAPI5351261E"
-              },
-              "/",
-              {
-                "Ref": "ApiConstructRestAPIDeploymentStageprod12BEF39A"
-              },
-              "/GET/api/secure/Groups"
-            ]
-          ]
-        }
-      }
-    },
-    "ApiConstructRestAPIapisecureGroupsGETApiPermissionTestTestSplidStackApiConstructRestAPIEB1D3817GETapisecureGroups90DBD91F": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "ApiConstructgetGroupsResolverE8198707",
-            "Arn"
-          ]
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiConstructRestAPI5351261E"
-              },
-              "/test-invoke-stage/GET/api/secure/Groups"
-            ]
-          ]
-        }
-      }
-    },
     "ApiConstructRestAPIapisecureGroupsGETA6F17F76": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -3439,31 +3501,7 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
         "ApiKeyRequired": true,
         "AuthorizationType": "NONE",
         "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "ApiConstructgetGroupsResolverE8198707",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
+          "Type": "MOCK"
         },
         "RequestModels": {
           "application/json": {

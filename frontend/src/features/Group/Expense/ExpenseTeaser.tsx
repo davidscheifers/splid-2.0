@@ -1,14 +1,14 @@
+import { Avatar, Box, Group, Paper, Text, Title } from "@mantine/core";
+import { IconArrowBadgeRight } from "@tabler/icons-react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link, useParams } from "react-router-dom";
-import { Avatar, Group, Title, Text, Box, Paper } from "@mantine/core";
+
+import { Transaction } from "@/types/transactions";
 import {
     displayCurrency,
     getFirstCharacterFromString,
-} from "../../../utils/functions/functions";
-
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { Transaction } from "../../../types/transactions";
-import { IconArrowBadgeRight } from "@tabler/icons-react";
+} from "@/utils/functions/functions";
 
 dayjs.extend(relativeTime);
 
@@ -21,39 +21,45 @@ const ExpenseTeaser = ({ expense }: ExpenseTeaserProps) => {
 
     return (
         <Link to={`/groups/${id}/expenses/${expense.id}`}>
-            <Paper withBorder p="sm" radius="md" mb="md">
-                <Group position="apart" py="sm" noWrap>
-                    <Group noWrap>
-                        <Avatar radius="xl">
-                            {getFirstCharacterFromString(expense.description)}
-                        </Avatar>
-                        <Box>
-                            <Title order={5}>{expense.description} </Title>
-                            <Text size="sm">
-                                {dayjs().to(dayjs(expense.createdAt))}
-                            </Text>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Text size="xs">{expense.senderUsername}</Text>
-                                <IconArrowBadgeRight
-                                    size={15}
-                                    style={{ margin: "0 10px" }}
-                                />
-                                <Text size="xs">
-                                    {expense.receiverUsername}
+            <div data-cy="expense-teaser">
+                <Paper withBorder p="sm" radius="md" mb="md">
+                    <Group position="apart" py="sm" noWrap>
+                        <Group noWrap>
+                            <Avatar radius="xl">
+                                {getFirstCharacterFromString(
+                                    expense.description
+                                )}
+                            </Avatar>
+                            <Box>
+                                <Title order={5}>{expense.description} </Title>
+                                <Text size="sm">
+                                    {dayjs().to(dayjs(expense.createdAt))}
                                 </Text>
-                            </div>
-                        </Box>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Text size="xs">
+                                        {expense.senderUsername}
+                                    </Text>
+                                    <IconArrowBadgeRight
+                                        size={15}
+                                        style={{ margin: "0 10px" }}
+                                    />
+                                    <Text size="xs">
+                                        {expense.receiverUsername}
+                                    </Text>
+                                </div>
+                            </Box>
+                        </Group>
+                        <Title order={5}>
+                            {displayCurrency(expense.amount, "EUR")}
+                        </Title>
                     </Group>
-                    <Title order={5}>
-                        {displayCurrency(expense.amount, "EUR")}
-                    </Title>
-                </Group>
-            </Paper>
+                </Paper>
+            </div>
         </Link>
     );
 };

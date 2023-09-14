@@ -1,7 +1,8 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Paper, TextInput } from "@mantine/core";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TUserForm, UserFormSchema } from "../../types/user";
+
+import { TUserForm, UserFormSchema } from "@/types/user";
 
 type ExpenseFormProps = {
     /* form submit handler */

@@ -1,14 +1,16 @@
-import { Link, useParams } from "react-router-dom";
 import { Avatar, Group, Paper, TextInput, Title } from "@mantine/core";
-import { useFilterData } from "../../utils/hooks/useFilterData";
 import { IconSearch } from "@tabler/icons-react";
-import ExpenseTeaser from "../../features/Group/Expense/ExpenseTeaser";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { Transaction } from "../../types/transactions";
+import { Link, useParams } from "react-router-dom";
+
 import Balance from "../balance/balance";
-import { displayCurrency } from "../../utils/functions/functions";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import ExpenseTeaser from "@/features/Group/Expense/ExpenseTeaser";
+import { Transaction } from "@/types/transactions";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency } from "@/utils/functions/functions";
+import { useFilterData } from "@/utils/hooks/useFilterData";
 
 const GroupUserPage = () => {
     const { userId, id } = useParams<{ userId: string; id: string }>();

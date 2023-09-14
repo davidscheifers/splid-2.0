@@ -1,6 +1,8 @@
 import { Box, Group, Title } from "@mantine/core";
-import PieChartComponent from "../../components/Charts/PieChart";
+
 import { BalancePreview } from "../balance/balance";
+
+import PieChartComponent from "@/components/Charts/PieChart";
 
 const data = [
     {

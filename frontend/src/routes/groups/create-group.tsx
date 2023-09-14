@@ -1,6 +1,7 @@
 import { Button, TextInput, Title } from "@mantine/core";
-import { useCreateGroup } from "../../utils/hooks/Group/useCreateGroup";
-import UserAddButton from "../../components/UserAddButton/UserAddButton";
+
+import UserAddButton from "@/components/UserAddButton/UserAddButton";
+import { useCreateGroup } from "@/utils/hooks/Group/useCreateGroup";
 
 const CreateGroup = () => {
     const { name, setName, members, setMembers, handleSubmit } =

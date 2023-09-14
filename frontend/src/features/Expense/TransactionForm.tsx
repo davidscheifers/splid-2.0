@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Button,
     NumberInput,
@@ -6,13 +7,13 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
-import { ExpenseFormSchema, TExpenseForm } from "../../types/expenses";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import Balance from "../../routes/balance/balance";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import Balance from "@/routes/balance/balance";
+import { ExpenseFormSchema, TExpenseForm } from "@/types/expenses";
+import { apiEndPoints } from "@/utils/constants/constants";
 
 type TransactionFormProps = {
     /* form submit handler */

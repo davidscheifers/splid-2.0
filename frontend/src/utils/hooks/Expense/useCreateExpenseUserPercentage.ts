@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { TDummyUser } from "../../../types/group";
-import { UserItem } from "../../../components/User/UserPercentageSelect";
+
+import { UserItem } from "@/components/User/UserPercentageSelect";
+import { TDummyUser } from "@/types/group";
 
 export function useCreateExpenseUserPercentage() {
     const [modalOpen, setModalOpen] = useState(false);

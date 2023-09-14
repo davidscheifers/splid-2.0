@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Box,
     Button,
@@ -6,20 +7,20 @@ import {
     NumberInput,
     Paper,
     Select,
-    TextInput,
     Text,
+    TextInput,
     Title,
 } from "@mantine/core";
-import { ExpenseFormSchema, TExpenseForm } from "../../types/expenses";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import Balance from "../../routes/balance/balance";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 import { useState } from "react";
-import UserPreview from "../../components/User/UserPreview";
-import { displayCurrency } from "../../utils/functions/functions";
+import { Controller, useForm } from "react-hook-form";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import UserPreview from "@/components/User/UserPreview";
+import Balance from "@/routes/balance/balance";
+import { ExpenseFormSchema, TExpenseForm } from "@/types/expenses";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency } from "@/utils/functions/functions";
 
 type ExpenseFormProps = {
     /* form submit handler */
@@ -94,6 +95,7 @@ const ExpenseForm = ({
                             return (
                                 <TextInput
                                     label="Beschreibung"
+                                    data-cy="expense-description"
                                     mb="md"
                                     placeholder="Beschreiben sie die Transaktion..."
                                     error={
@@ -116,6 +118,7 @@ const ExpenseForm = ({
                                 <Select
                                     label="Sender"
                                     placeholder="Wählen sie den Sender"
+                                    data-cy="expense-sender"
                                     mb="md"
                                     error={
                                         errors.senderUsername
@@ -138,6 +141,7 @@ const ExpenseForm = ({
                                 <Select
                                     label="Empfänger"
                                     placeholder="Geben sie den Empfänger"
+                                    data-cy="expense-receiver"
                                     mb="md"
                                     error={
                                         errors.senderUsername
@@ -159,6 +163,7 @@ const ExpenseForm = ({
                             return (
                                 <NumberInput
                                     label="Betrag"
+                                    data-cy="expense-amount"
                                     defaultValue={0}
                                     precision={2}
                                     value={value}

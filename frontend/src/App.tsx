@@ -1,4 +1,3 @@
-import React from "react";
 import {
     ColorScheme,
     ColorSchemeProvider,
@@ -6,11 +5,13 @@ import {
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { Notifications } from "@mantine/notifications";
-import { Provider } from "react-redux";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import AppRoutes from "./router";
+import { Provider } from "react-redux";
+
 import store from "./app/store";
 import { loadUser } from "./features/actions/auth";
+import AppRoutes from "./router";
 
 const queryClient = new QueryClient();
 
