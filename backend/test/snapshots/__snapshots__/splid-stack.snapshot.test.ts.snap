@@ -657,7 +657,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "002ef5859221a8ac9aa2711673bfae9e100608aa8ebbbd7121b1643327dd483d.zip"
+=======
+          "S3Key": "faa38f8ced641d759b686cde2ce6f5842ecc211870f40223a44a395b3828220d.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -721,7 +725,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "853bea680ef9e608e93b4784da5940d87d1e6b8961124a9e4e8c4149bf92e351.zip"
+=======
+          "S3Key": "89ee4a3f56ccf363c78db81ff39a2bdcd2be313011dd719840a89b40d8516933.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -785,7 +793,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "f7d363efb1b1782fb6f0c8ee1dd919759adae9412e535ab3b5cd4dde6fb465f9.zip"
+=======
+          "S3Key": "9a2c5842042f5741de83baaaadd81fdd82015977d046a9d7a39526a5bbd80862.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -849,7 +861,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "6582432f310a681d3322ff8d50a699af5fe3fdf38c6937c32ec15377849ecc6a.zip"
+=======
+          "S3Key": "06166b3439cb515e282e7b9fcf18cfa8709880a6034570a568a80a02ec88f3e4.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -913,7 +929,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "aa6e295793d19c6f9aea003ccfaeb1edb01c47d32f01fe71ef4e68d3cd91cf8d.zip"
+=======
+          "S3Key": "469fbfd795d8dac37141e4b45efc727830e180b99ac871ab06421b14e30b4782.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -977,7 +997,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "885c462c04bf7ea1f7b6193c310d4c1aa35ff81696d2b67c7c3efe28be6617f6.zip"
+=======
+          "S3Key": "ce839b9b5f0979cb4a7c93ed26dfb8f231c4da656887d0946fba560e6ddfeff9.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1041,7 +1065,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "e0ddb733846b61caa4832e34d249da00f1cdeb7b654ac763fa3251fd424c089f.zip"
+=======
+          "S3Key": "87032fc0300b14088993e11ec78064e3049109b467a7f8b61630c821efa648d0.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1105,7 +1133,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "05e289e929a1544f36ba6f64b1766ff012b315e9768445f0de1a5c3bf61c4a54.zip"
+=======
+          "S3Key": "5ac29f485396ebfe26a5973511fd0add62f10aff540988719241dee0eeb7b828.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1169,7 +1201,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "078919fb6a2807cecbd732f215727f1ab0f972b8cf976c5339eb32dc893e6cdf.zip"
+=======
+          "S3Key": "fae704a9dbe38d9b08990749633edc147420c9ac4d44a6860f3447db96d07598.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1233,7 +1269,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "d0acbc5a555129c29e75c0780c83b2cf9b804ee66f9b57e4cf240b989e213f52.zip"
+=======
+          "S3Key": "afecef3df37b786135afad36c53c5bce20b77de8f1dd4c4efe2d16da6a0b63f3.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1297,7 +1337,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "cb6154f74e26252a5052a3ed6fad1a905915a64132e82cd7d24703b44f6d017d.zip"
+=======
+          "S3Key": "f3c0771f59bbf29468fd918a85dde184eae9698dbec340de42a3180249157239.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1361,7 +1405,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "6d878d25fc50c4a5a577d2a6c00bb6068423177cc0ce55650926585aa226ebc0.zip"
+=======
+          "S3Key": "b6f06c3b6261223c3f9841244aefe09126d178b18a03afdeae329418caf2a77e.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1425,7 +1473,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "4cae14b56895955ad57c883bcb07c7e3f66bc41cc1eb9bef7e9ab9afac1669a7.zip"
+=======
+          "S3Key": "985070ad69d79e8b2edc3419e4b7327e7dfdb28f2ee7a7e894d8b7a90d19f91f.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1617,7 +1669,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "2011e00363868f0d551d584aef37a89d0416adbb3fd53a7cde8a5376eea248c9.zip"
+=======
+          "S3Key": "f6864222e94d634d0ab57376f7c0eb667a2db1e32f311487013a55b25262ecd9.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
@@ -1809,7 +1865,11 @@ exports[`SplidStack Snapshot should match the snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}"
           },
+<<<<<<< HEAD
           "S3Key": "1ded2fae7fff1c1fb93e37a11cfeccb17538efbe3b37f028f56f3b697ff22f13.zip"
+=======
+          "S3Key": "342668ad0949acd63e4ace6ac22719dfc7834e2f0b492c842b9312691342642c.zip"
+>>>>>>> origin/develop
         },
         "Role": {
           "Fn::GetAtt": [
