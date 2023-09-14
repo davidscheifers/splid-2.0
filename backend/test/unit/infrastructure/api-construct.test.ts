@@ -1,12 +1,10 @@
 import { Template } from "aws-cdk-lib/assertions";
 import * as cdk from "aws-cdk-lib";
-import { ApiConstruct } from "../../../lib/api/api-construct";
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import { RdsConstruct } from "../../../lib/rds/rds-construct";
-import environmentConfig from '../../../bin/stack-config';
-import { VpcConstruct } from "../../../lib/vpc/vpc-construct";
-import { IamConstruct } from "../../../lib/iam/iam-construct";
+import { ApiConstruct } from "@api/api-construct";
+import { RdsConstruct } from "@rds/rds-construct";
+import environmentConfig from '@bin/stack-config';
+import { VpcConstruct } from "@vpc/vpc-construct";
+import { IamConstruct } from "@iam/iam-construct";
 
 describe("ApiConstruct", () => {
     let stack: cdk.Stack;

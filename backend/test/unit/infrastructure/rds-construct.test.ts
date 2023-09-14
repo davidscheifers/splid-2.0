@@ -1,10 +1,8 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { RdsConstruct } from '../../../lib/rds/rds-construct';
+import { RdsConstruct } from '@rds/rds-construct';
 import { Template } from 'aws-cdk-lib/assertions';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import { VpcConstruct } from '../../../lib/vpc/vpc-construct';
-import { IamConstruct } from '../../../lib/iam/iam-construct';
+import { VpcConstruct } from '@vpc/vpc-construct';
+import { IamConstruct } from '@lib/iam/iam-construct';
 
 describe('RdsConstruct', () => {
     let stack: Stack;
