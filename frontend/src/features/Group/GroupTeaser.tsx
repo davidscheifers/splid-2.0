@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { TGroup } from "../../types/group";
-import { Avatar, Group, Title, Text, Box, Paper } from "@mantine/core";
+import { Avatar, Box, Group, Paper, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
+
+import { TGroup } from "../../types/group";
 
 type GroupTeaserProps = {
     group: TGroup;

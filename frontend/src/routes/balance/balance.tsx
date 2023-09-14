@@ -1,10 +1,11 @@
 import { Button, Group, Paper, Title } from "@mantine/core";
-import UserPreview from "../../components/User/UserPreview";
-import { displayCurrency } from "../../utils/functions/functions";
 import { Link } from "react-router-dom";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import UserPreview from "@/components/User/UserPreview";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency } from "@/utils/functions/functions";
 
 type BalanceProps = {
     /* id of the group for this balance */

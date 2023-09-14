@@ -9,27 +9,34 @@ export const handler: Handler = async (event: any) => {
   try {
     console.log('getTransactionById lambda starts here')
 
+    // Initialize the database connection
     dataSource = await instantiateRdsClient();
 
     console.log('getting transactions from db');
     const transactionRepository = dataSource.getRepository(Transaction);
 
+    // Extract the transaction ID from the path parameters
     const transactionId: string = event.pathParameters.transactionId; 
   
+    // Find the transaction by its ID
     const transaction = await transactionRepository.findOne({
       where: { id: transactionId }
     });
 
     if (!transaction) {
+      // If the transaction is not found, return a not found response
       return createResponse(500, 'Transaction not found')
     }
 ;
+    // Return a successful response with the transaction data
     return createResponse(200, transaction);
 
   } catch (error) {
+    // Error handling: Log the error and return an error response
     console.error('Error getting transaction:', error);
     return createResponse(500, 'Cannot get Transaction.');
   } finally {
+    // Close the database connection if it was opened
     if (dataSource) {
       await dataSource.destroy();
       console.log('Database connection closed.')

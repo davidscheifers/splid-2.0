@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+
 import AwsApiClient from "../utils/aws-api-client";
 
 type GetAllQueryData = {

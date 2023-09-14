@@ -1,12 +1,13 @@
-import { Group, Paper, Title, Text } from "@mantine/core";
-import { useParams } from "react-router-dom";
-import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useGetOneQuery } from "../../api/GenericCalls/useGetOneQuery";
-import { apiEndPoints } from "../../utils/constants/constants";
-import { SettlingDebtsResponse } from "../../types/accounting";
-import { displayCurrency } from "../../utils/functions/functions";
-import UserPreview from "../../components/User/UserPreview";
+import { Group, Paper, Text, Title } from "@mantine/core";
 import { IconArrowRight } from "@tabler/icons-react";
+import { useParams } from "react-router-dom";
+
+import { useGetOneQuery } from "@/api/GenericCalls/useGetOneQuery";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import UserPreview from "@/components/User/UserPreview";
+import { SettlingDebtsResponse } from "@/types/accounting";
+import { apiEndPoints } from "@/utils/constants/constants";
+import { displayCurrency } from "@/utils/functions/functions";
 
 const GroupSettlingDebts = () => {
     const { id } = useParams<{ id: string }>();

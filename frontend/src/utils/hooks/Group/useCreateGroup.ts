@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { TDummyUser } from "../../../types/group";
 import { notifications } from "@mantine/notifications";
+import { useState } from "react";
+
+import { TDummyUser } from "@/types/group";
 
 export function useCreateGroup() {
     const [name, setName] = useState("");

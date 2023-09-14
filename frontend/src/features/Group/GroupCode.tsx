@@ -1,8 +1,9 @@
-import { Group, Paper, Title, Text, Modal, Button } from "@mantine/core";
+import { Button, Group, Modal, Paper, Text, Title } from "@mantine/core";
 import { useState } from "react";
-import { generateMailtoLink } from "../../utils/functions/functions";
-import { TDummyGroup } from "../../types/group";
-import CopyToClipBoard from "../../components/CopyToClipBoard/CopyToClipBoard";
+
+import CopyToClipBoard from "@/components/CopyToClipBoard/CopyToClipBoard";
+import { TDummyGroup } from "@/types/group";
+import { generateMailtoLink } from "@/utils/functions/functions";
 
 type GroupCodeProps = {
     /* infos about the current group */
