@@ -722,7 +722,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://1qj3wq2yli.execute-api.eu-central-1.amazonaws.com/prod/api/secure/init",
+					"raw": "https://1qj3wq2yli.execute-api.eu-central-1.amazonaws.com/prod/api/secure/Init",
 					"protocol": "https",
 					"host": [
 						"1qj3wq2yli",
