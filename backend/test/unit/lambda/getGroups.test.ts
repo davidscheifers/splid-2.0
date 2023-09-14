@@ -1,4 +1,3 @@
-import { ApiGateway } from 'aws-cdk-lib/aws-events-targets';
 import { handler } from '@groups/getGroups';
 import { instantiateRdsClient } from '@utils/db-connection';
 import { createResponse } from '@utils/response-utils';

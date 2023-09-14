@@ -1,4 +1,3 @@
-import { mock } from 'node:test';
 import { handler } from '@groups/getExpensesFromGroupUser';
 import { instantiateRdsClient } from '@utils/db-connection';
 import { createResponse } from '@utils/response-utils';
