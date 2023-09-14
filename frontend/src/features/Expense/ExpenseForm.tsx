@@ -95,6 +95,7 @@ const ExpenseForm = ({
                             return (
                                 <TextInput
                                     label="Beschreibung"
+                                    data-cy="expense-description"
                                     mb="md"
                                     placeholder="Beschreiben sie die Transaktion..."
                                     error={
@@ -117,6 +118,7 @@ const ExpenseForm = ({
                                 <Select
                                     label="Sender"
                                     placeholder="Wählen sie den Sender"
+                                    data-cy="expense-sender"
                                     mb="md"
                                     error={
                                         errors.senderUsername
@@ -139,6 +141,7 @@ const ExpenseForm = ({
                                 <Select
                                     label="Empfänger"
                                     placeholder="Geben sie den Empfänger"
+                                    data-cy="expense-receiver"
                                     mb="md"
                                     error={
                                         errors.senderUsername
@@ -160,6 +163,7 @@ const ExpenseForm = ({
                             return (
                                 <NumberInput
                                     label="Betrag"
+                                    data-cy="expense-amount"
                                     defaultValue={0}
                                     precision={2}
                                     value={value}

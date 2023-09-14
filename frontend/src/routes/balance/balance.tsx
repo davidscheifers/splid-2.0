@@ -55,16 +55,18 @@ type BalancePreviewProps = {
 export function BalancePreview({ balance }: BalancePreviewProps) {
     return (
         <Paper withBorder p="sm" mb="md" radius="md">
-            <Group position="apart">
-                <UserPreview
-                    key={balance.username}
-                    link={`/groups/${balance.groupId}/users/${balance.username}`}
-                    user={{ name: balance.username, id: balance.username }}
-                />
-                <Title order={4}>
-                    {displayCurrency(balance?.balance || 0, "EUR")}
-                </Title>
-            </Group>
+            <div data-cy="balance-preview">
+                <Group position="apart">
+                    <UserPreview
+                        key={balance.username}
+                        link={`/groups/${balance.groupId}/users/${balance.username}`}
+                        user={{ name: balance.username, id: balance.username }}
+                    />
+                    <Title order={4}>
+                        {displayCurrency(balance?.balance || 0, "EUR")}
+                    </Title>
+                </Group>
+            </div>
         </Paper>
     );
 }

@@ -21,39 +21,45 @@ const ExpenseTeaser = ({ expense }: ExpenseTeaserProps) => {
 
     return (
         <Link to={`/groups/${id}/expenses/${expense.id}`}>
-            <Paper withBorder p="sm" radius="md" mb="md">
-                <Group position="apart" py="sm" noWrap>
-                    <Group noWrap>
-                        <Avatar radius="xl">
-                            {getFirstCharacterFromString(expense.description)}
-                        </Avatar>
-                        <Box>
-                            <Title order={5}>{expense.description} </Title>
-                            <Text size="sm">
-                                {dayjs().to(dayjs(expense.createdAt))}
-                            </Text>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Text size="xs">{expense.senderUsername}</Text>
-                                <IconArrowBadgeRight
-                                    size={15}
-                                    style={{ margin: "0 10px" }}
-                                />
-                                <Text size="xs">
-                                    {expense.receiverUsername}
+            <div data-cy="expense-teaser">
+                <Paper withBorder p="sm" radius="md" mb="md">
+                    <Group position="apart" py="sm" noWrap>
+                        <Group noWrap>
+                            <Avatar radius="xl">
+                                {getFirstCharacterFromString(
+                                    expense.description
+                                )}
+                            </Avatar>
+                            <Box>
+                                <Title order={5}>{expense.description} </Title>
+                                <Text size="sm">
+                                    {dayjs().to(dayjs(expense.createdAt))}
                                 </Text>
-                            </div>
-                        </Box>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Text size="xs">
+                                        {expense.senderUsername}
+                                    </Text>
+                                    <IconArrowBadgeRight
+                                        size={15}
+                                        style={{ margin: "0 10px" }}
+                                    />
+                                    <Text size="xs">
+                                        {expense.receiverUsername}
+                                    </Text>
+                                </div>
+                            </Box>
+                        </Group>
+                        <Title order={5}>
+                            {displayCurrency(expense.amount, "EUR")}
+                        </Title>
                     </Group>
-                    <Title order={5}>
-                        {displayCurrency(expense.amount, "EUR")}
-                    </Title>
-                </Group>
-            </Paper>
+                </Paper>
+            </div>
         </Link>
     );
 };
