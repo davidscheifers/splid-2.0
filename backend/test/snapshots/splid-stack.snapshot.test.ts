@@ -1,6 +1,6 @@
 import { App } from 'aws-cdk-lib';
-import { SplidStack } from '../../lib/infrastructure-stack';
-import environmentConfig from '../../bin/stack-config';
+import { SplidStack } from '@lib/infrastructure-stack';
+import environmentConfig from '@bin/stack-config';
 
 describe('SplidStack Snapshot', () => {
     test('should match the snapshot', () => {

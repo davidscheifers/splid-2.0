@@ -1,11 +1,12 @@
 import { mock } from 'node:test';
-import { handler } from '../../../src/groups/getExpensesFromGroupUser';
-import { instantiateRdsClient } from '../../../src/utils/db-connection';
-import { createResponse } from '../../../src/utils/response-utils';
+import { handler } from '@groups/getExpensesFromGroupUser';
+import { instantiateRdsClient } from '@utils/db-connection';
+import { createResponse } from '@utils/response-utils';
 import { APIGatewayProxyResult } from 'aws-lambda';
 
-jest.mock('../utils/db-connection');
-jest.mock('../utils/response-utils');
+
+jest.mock('@utils/db-connection');
+jest.mock('@utils/response-utils');
 
 describe('getExpansesFromGroupUser handler', () => {
 
@@ -49,8 +50,14 @@ describe('getExpansesFromGroupUser handler', () => {
     const result = await handler(mockEvent as any, {} as any, mockCallback) as APIGatewayProxyResult;
 
     expect(result.statusCode).toBe(200);
-    expect(JSON.parse(result.body)).toEqual(mockTransactions);
+    expect(JSON.parse(result.body)).toEqual([{
+      id: 1,
+      amount: -10,
+      receiver: { username: 'testUser' },
+      group: { id: 1 }
+    }]);
   });
+
 
   test('should handle errors when fetching transactions', async () => {
     (instantiateRdsClient as jest.Mock).mockRejectedValue(new Error('DB Connection Error'));
@@ -74,5 +81,4 @@ describe('getExpansesFromGroupUser handler', () => {
     expect(result.statusCode).toBe(500);
     expect(result.body).toBe('Cannot fetch transactions.');
   });
-
 });

@@ -23,7 +23,23 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@utils/*": ["src/utils/*"],
+      "@groups/*": ["src/groups/*"],
+      "@accounting/*": ["src/accounting/*"],
+      "@transactions/*": ["src/transactions/*"],
+      "@models/*": ["src/models/*"],
+      "@users/*": ["src/users/*"],
+      "@vpc/*": ["lib/vpc/*"],
+      "@rds/*": ["lib/rds/*"],
+      "@iam/*": ["lib/iam/*"],
+      "@api/*": ["lib/api/*"],
+      "@lib/*": ["lib/*"],
+      "@bin/*": ["bin/*"],
+    }
   },
   "exclude": [
     "node_modules",

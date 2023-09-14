@@ -1,10 +1,10 @@
 import { SecretsManager } from 'aws-sdk';
 import { DataSource } from 'typeorm';
-import { instantiateRdsClient } from '../../../src/utils/db-connection';
-import { Group } from '../../../src/models/group';
-import { Accounting } from '../../../src/models/accounting';
-import { Transaction } from '../../../src/models/transaction';
-import { User } from '../../../src/models/user';
+import { instantiateRdsClient } from '@utils/db-connection';
+import { Group } from '@models/group';
+import { Accounting } from '@models/accounting';
+import { Transaction } from '@models/transaction';
+import { User } from '@models/user';
 
 const mockSecretData = {
   ARN: 'x',

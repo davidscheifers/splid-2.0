@@ -1,11 +1,11 @@
 import { ApiGateway } from 'aws-cdk-lib/aws-events-targets';
-import { handler } from '../../../src/groups/getGroups';
-import { instantiateRdsClient } from '../../../src/utils/db-connection';
-import { createResponse } from '../../../src/utils/response-utils';
+import { handler } from '@groups/getGroups';
+import { instantiateRdsClient } from '@utils/db-connection';
+import { createResponse } from '@utils/response-utils';
 import { APIGatewayProxyResult } from 'aws-lambda';
 
-jest.mock('../../../src/utils/db-connection');
-jest.mock('../../../src/utils/response-utils');
+jest.mock('@utils/db-connection');
+jest.mock('@utils/response-utils');
 
 describe('getGroups handler', () => {
   afterEach(() => {

@@ -1,4 +1,4 @@
-import { createResponse } from '../../../src/utils/response-utils';
+import { createResponse } from '@utils/response-utils';
 
 describe('createResponse function', () => {
     
