@@ -194,7 +194,7 @@ export class ApiConstruct extends Construct {
     });
 
     //group methods
-    groupResource.addMethod('GET', integrations['getGroupIntegration'], {
+    groupResource.addMethod('GET', integrations['getGroupsIntegration'], {
       requestModels: { 'application/json': model },
       apiKeyRequired: true
     });

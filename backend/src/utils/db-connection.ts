@@ -5,15 +5,13 @@ import { Accounting } from '../models/accounting';
 import { Transaction } from '../models/transaction'; 
 import { User } from '../models/user'; 
 
-const RDS_ARN = process.env.RDS_ARN!;
-
 const secrets = new SecretsManager();
 
 export const instantiateRdsClient = async (): Promise<DataSource> => {
+  const RDS_ARN = process.env.RDS_ARN!;
   
   console.log('retrieving spliddb credentials...');
   console.log('CREDENTIALS_ARN: ', RDS_ARN);
-
   console.log(await secrets.getSecretValue({ SecretId: RDS_ARN }).promise());
   const credentialsSecret = await secrets.getSecretValue({ SecretId: RDS_ARN }).promise();
   const credentials = JSON.parse(credentialsSecret.SecretString as string);
@@ -29,7 +27,7 @@ export const instantiateRdsClient = async (): Promise<DataSource> => {
     password: credentials.password,
     database: 'postgres',
     schema: 'splid',
-    entities: [Group, Accounting, Transaction, User], // List of entities to load needed?
+    entities: [Group, Accounting, Transaction, User],
     synchronize: false,
   });
 

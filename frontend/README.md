@@ -8,10 +8,11 @@
 $ npm install
 ```
 
-2. create .env file in frontend folder root and add aws api key
+2. create .env file in frontend folder root and add aws api key + aws url
 
 ```env
 VITE_API_KEY=<your-api-key>
+VITE_API_URL=<your-api-url>
 ```
 
 3. start development server

@@ -34,7 +34,7 @@ export const handler: Handler = async (event: any) => {
     }
 
     // Filter and clean the group names (trim and lowercase)
-    const searchResult = user.groups.map(g => g.name.trim().toLowerCase());
+    const searchResult = user.groups.filter(g => g.name.trim().toLowerCase().trim());
 
     console.log('Successfully retrieved groups.');
 
