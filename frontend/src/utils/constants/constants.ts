@@ -1,6 +1,8 @@
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 export const API_URL =
     process.env.NODE_ENV === "development"
-        ? "https://elvip7nvnf.execute-api.eu-central-1.amazonaws.com"
+        ? VITE_API_URL
         : "https://elvip7nvnf.execute-api.eu-central-1.amazonaws.com";
 
 export const apiEndPoints = {
